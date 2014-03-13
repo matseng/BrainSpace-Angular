@@ -41,3 +41,27 @@ app.controller("noteSubmit-controller", ['$scope', 'notesFactory',
     }
   }
 ]);
+
+/*
+- Listens for mouse click to add new notes at a specific position
+- This directive is added to #allNotesContainer element
+*/
+app.directive('addNoteListener', ['$document', 
+  function($document){
+    return {
+      restrict: 'A',
+      link: link
+    };
+    function link(scope, element, attrs){
+      element.on('click', function(){
+        var x = mouse.clientX;
+        var y = mouse.clientY;
+      //TODO: add new note_template.html to x,y location
+        // note_template will have it's own directive
+        // How will scope data be handle by controller -> factory?
+      })
+    }
+  }
+]);
+
+

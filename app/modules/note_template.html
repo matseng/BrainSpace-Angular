@@ -1,0 +1,9 @@
+<div class="noteSubmitView" ng-controller="noteSubmit-controller">
+  <form ng-submit="create()">
+    <textarea name='noteText' rows='3' cols="35" placeholder="Your new note" ng-model="note.text"></textarea>
+    <div>
+      <input name='username' placeholder='Your name' ng-model="note.username">
+      <input type='submit' value="Submit">
+    </div>
+  </form>
+</div>
