@@ -1,0 +1,39 @@
+/*styles.css*/
+#menuContainer {
+  position: relative;
+  border: 2;
+  border-style: solid;
+}
+
+#allNotesContainer {
+  position: relative;
+  border: 2;
+  border-style: solid;
+  height: 100%;
+}
+
+.textContent {
+  disabled: true;
+}
+
+textarea {
+    width: 20em;
+    height: 4em;
+}
+
+.noteContainer {
+  border: 2;
+  border-style: solid;
+  display: inline-block;
+}
+
+.deleteButton {
+  float:right;
+}
+
+/*.textContent {
+  border: 1;
+  border-style: solid;
+  display: inline-block;
+}
+*/
