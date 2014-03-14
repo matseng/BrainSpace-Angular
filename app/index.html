@@ -19,7 +19,7 @@
     </div>
   </div>
   <div id='allNotesContainer' ng-controller='app-controller' add-note-listener>
-    <div draggable class='noteContainer' ng-controller='noteContainer-controller' ng-repeat='note in notes'>
+    <div draggable class='noteContainer' ng-controller='noteContainer-controller' ng-repeat='(key, note) in notes' id="{{key}}">
         <div class="btn-group">
           <button class="deleteButton" ng-click='deleteButtonClicked()'>Delete</button>
         </div>

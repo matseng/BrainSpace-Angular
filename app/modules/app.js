@@ -24,7 +24,7 @@ app.factory('notesFactory', ['$firebase',
 
 app.controller("app-controller", ['$scope', 'notesFactory', 
   function($scope, notesFactory){
-    $scope.notes = notesFactory.getNotes();  //2-way data bind good for async firebase requests
+    $scope.notes = notesFactory.getNotes();  // 2-way data bind good for async firebase requests
     console.log($scope.notes);
   }
 ]);
