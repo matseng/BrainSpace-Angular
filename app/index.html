@@ -22,7 +22,39 @@
     <div draggable class='noteView' ng-repeat='note in notes'>
       <li>{{note.title}}</li>
     </div> 
+  
+  <div draggable class='noteContainer' ng-controller='noteContainer-controller'>
+      <div class="btn-group">
+        <button class="deleteButton" ng-click='deleteButtonClicked()'>Delete</button>
+      </div>
+    <form ng-submit="create()">
+      <input class='note' name='noteTitle' placeholder='Note Title' ng-model="note.title">
+      <!-- <textarea class="textContent">Spice goes here: {{spice}}</textarea> -->
+      <textarea class="note" ng-model='note.body' placeholder="Notes..."></textarea>
+
+      <div>
+        <input class='submit' type='submit' value="Submit">
+        <!-- <button ng-click='copyButtonClicked()'>Copy</button> -->
+      </div>
+    </form>
   </div>
+
+  </div>
+
+  <!-- http://stackoverflow.com/questions/2441565/how-do-i-make-a-div-element-editable-like-a-textarea-when-i-click-it -->
+  <template id="noteTemplate">
+    <div draggable class='noteContainer' ng-controller='noteContainer-controller'>
+      <div class="btn-group">
+        <button class="deleteButton" ng-click='deleteButtonClicked()'>Delete</button>
+      </div>
+      <textarea class="textContent">Text goes here</textarea>
+      <div>
+        <button>Done</button>
+        <button onClick="editButtonClicked()">Edit</button>
+        <button>Copy</button>
+      </div>
+    </div>
+  </template>
     <script type="text/javascript" src="../bower_components/angular/angular.js"></script>
     <script type="text/javascript" src="../bower_components/angular-route/angular-route.js"></script>
     <script type="text/javascript" src="../bower_components/firebase/firebase.js"></script>

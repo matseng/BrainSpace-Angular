@@ -1,18 +1,45 @@
 /*styles.css*/
 #menuContainer {
   position: relative;
+  z-index: 1;
   border: 2;
   border-style: solid;
 }
 
 #allNotesContainer {
   position: relative;
+  z-index:0;
   border: 2;
   border-style: solid;
   height: 100%;
 }
 
-.textContent {
+.noteContainer {
+  border: 2;
+  border-style: solid;
+  display: inline-block;
+}
+
+/*form{
+  display: block;
+}*/
+
+.note {
+  display:block;
+  width:100%;
+}
+
+.btn-group {
+  display:block;
+}
+.deleteButton {
+  float:right;
+}
+
+.submit {
+  float:right;
+}
+/*.textContent {
   disabled: true;
 }
 
@@ -29,7 +56,7 @@ textarea {
 
 .deleteButton {
   float:right;
-}
+}*/
 
 /*.textContent {
   border: 1;
