@@ -29,20 +29,6 @@ app.controller("app-controller", ['$scope', 'notesFactory',
   }
 ]);
 
-// app.controller("noteSubmit-controller", ['$scope', 'notesFactory',
-//   function($scope, notesFactory){
-//     $scope.note = {username: "anonymous"};
-//     $scope.create = function(){
-//       var note = {
-//         title: $scope.note.title, 
-//         username: $scope.note.username
-//       };
-//     notesFactory.addNote(note);
-//     }
-
-//   }
-// ]);
-
 app.controller("noteContainer-controller", ['$scope', 'notesFactory',
   function($scope, notesFactory){
     // $scope.spice = "Hola Jalepenos";

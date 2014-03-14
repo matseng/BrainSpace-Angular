@@ -19,26 +19,21 @@
     </div>
   </div>
   <div id='allNotesContainer' ng-controller='app-controller' add-note-listener>
-    <div draggable class='noteView' ng-repeat='note in notes'>
-      <li>{{note.title}}</li>
-    </div> 
-  
-  <div draggable class='noteContainer' ng-controller='noteContainer-controller'>
-      <div class="btn-group">
-        <button class="deleteButton" ng-click='deleteButtonClicked()'>Delete</button>
-      </div>
-    <form ng-submit="create()">
-      <input class='note' name='noteTitle' placeholder='Note Title' ng-model="note.title">
-      <!-- <textarea class="textContent">Spice goes here: {{spice}}</textarea> -->
-      <textarea class="note" ng-model='note.body' placeholder="Notes..."></textarea>
+    <div draggable class='noteContainer' ng-controller='noteContainer-controller' ng-repeat='note in notes'>
+        <div class="btn-group">
+          <button class="deleteButton" ng-click='deleteButtonClicked()'>Delete</button>
+        </div>
+      <form ng-submit="create()">
+        <input class='note' name='noteTitle' placeholder='Note Title' ng-model="note.title">
+        <!-- <textarea class="textContent">Spice goes here: {{spice}}</textarea> -->
+        <textarea class="note" ng-model='note.body' placeholder="Notes..."></textarea>
 
-      <div>
-        <input class='submit' type='submit' value="Submit">
-        <!-- <button ng-click='copyButtonClicked()'>Copy</button> -->
-      </div>
-    </form>
-  </div>
-
+        <div>
+          <input class='submit' type='submit' value="Submit">
+          <!-- <button ng-click='copyButtonClicked()'>Copy</button> -->
+        </div>
+      </form>
+    </div>
   </div>
 
   <!-- http://stackoverflow.com/questions/2441565/how-do-i-make-a-div-element-editable-like-a-textarea-when-i-click-it -->
