@@ -29,7 +29,12 @@ angular.module("BrainSpace")
         var deltaY = $event.clientY - initialMouseY;
         var elementX = initialElementX + deltaX;
         var elementY = initialElementY + deltaY;
-        element.css({'left': elementX, 'top': elementY});
+        var position = {'left': elementX, 'top': elementY};
+        scope.note.position = position;
+        element.css(position);
+        
+        //scope.$emit('updatePosition', scope); 
+
         return false;
       }
 
