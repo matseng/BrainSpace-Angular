@@ -57,35 +57,32 @@ var app = angular.module("BrainSpace", ['firebase']);
 //   debugger
 // };
 
-myapp.controller('MyCtrl', ['$scope', '$firebase',
-  function MyCtrl($scope, $firebase) {
-    var ref = new Firebase('https://<my-firebase>.firebaseio.com/items');
-    $scope.items = $firebase(ref);
-  }
-]);
 
 app.controller("allNotes-controller", ['$scope', '$firebase', 
   function($scope, $firebase){
-    $scope.notes = notesFactory.getNotes();  // 2-way data bind good for async firebase requests
-    // $scope.notes.$bind($scope, "notes");
-    $scope.$on('updateNote', function(event, noteScope) {
-      notesFactory.updateNoteText(noteScope);
+    var ref = new Firebase('https://brainspace-biz.firebaseio.com/');
+    $scope.notes = $firebase(ref);
+    $scope.$on('addNote', function(event, note) {
+      $scope.notes.$add(note);
     });
-    $scope.$on('updateNotePosition', function(event, noteScope) {
-      notesFactory.updateNotePosition(noteScope);
+    $scope.$on('updateNote', function(event, noteScope) {
+      var key = noteScope.key;
+      var value = noteScope.note;
+      var obj = {};
+      obj[key] = value;
+      // $scope.notes.$update(obj);  //NOT WORKING?!
+      $scope.notes.$save(key);
     });    
     $scope.$on('deleteNote', function(event, key) {
-      notesFactory.deleteNote(key);
+      $scope.notes.$remove(key);
     });
   }
 ]);
 
-app.directive()
+app.controller("note-controller", ['$scope',
+  function($scope){
 
-app.controller("note-controller", ['$scope', 'notesFactory',
-  function($scope, notesFactory){
-
-    $scope.create = function(){
+    $scope.submitButtonClicked = function(){
       if(! $scope.note){
         $scope.note = {};
         $scope.note.title = 'no title yet';
@@ -95,7 +92,7 @@ app.controller("note-controller", ['$scope', 'notesFactory',
         title: $scope.note.title,
         body: $scope.note.body
       }
-      notesFactory.addNote(note);
+      $scope.$emit('addNote', note);
     };
     $scope.deleteButtonClicked = function(){
       if(confirm("Confirm delete?")){
@@ -115,8 +112,8 @@ app.controller("note-controller", ['$scope', 'notesFactory',
 - Listens for mouse click to add new notes at a specific position
 - This directive is added to #allNotesContainer element
 */
-app.directive('addNoteListener', ['$document', 
-  function($document){
+app.directive('addNoteListener', ['$document', "$compile",
+  function($document, $compile){
     return {
       restrict: 'A',
       link: link
@@ -130,9 +127,12 @@ app.directive('addNoteListener', ['$document',
         if( elementClickedId === 'allNotesContainer'){
           var x = mouse.offsetX;
           var y = mouse.offsetY;
-          var noteContainer = angular.element(document.getElementById('noteTemplate').content.cloneNode(true).children[0]);
-          //element.append(noteContainer);
-          noteContainer.css({'position': 'absolute', 'left': x, 'top': y}); //NOTE: Can only modify certain CSS after the element is appended to the DOM
+          // var noteContainer = angular.element(document.getElementById('noteTemplate').content.cloneNode(true).children[0]);
+          var noteContainer = document.getElementById('noteTemplate').content.cloneNode(true).children[0];
+          var noteContainer2 = $compile( noteContainer)( scope );
+          element.append(noteContainer2);
+          //scope.$emit('updateNote', $scope); 
+          noteContainer2.css({'position': 'absolute', 'left': x, 'top': y}); //NOTE: Can only modify certain CSS after the element is appended to the DOM
           // angular.element('.textContent').focus();
           // angular.element(('.textContent').on('focusout', function(){
           //   $(this).attr('disabled', true);  //textarea is no longer editable - user will need to click edit

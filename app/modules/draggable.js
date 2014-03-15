@@ -32,8 +32,7 @@ angular.module("BrainSpace")
         var position = {'left': elementX, 'top': elementY};
         $scope.note.position = position;
         element.css(position);
-        
-        $scope.$emit('updateNotePosition', $scope); 
+        $scope.$emit('updateNote', $scope); 
 
         return false;
       }
