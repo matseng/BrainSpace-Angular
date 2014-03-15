@@ -10,7 +10,7 @@ angular.module("BrainSpace")
       restrict: 'A',
       link: link
     };
-    function link(scope, element, attrs){
+    function link($scope, element, attrs){
       var initialElementX, initialElementY, initialMouseX, initialMouseY;
 
       element.bind('mousedown', function($event){
@@ -30,10 +30,10 @@ angular.module("BrainSpace")
         var elementX = initialElementX + deltaX;
         var elementY = initialElementY + deltaY;
         var position = {'left': elementX, 'top': elementY};
-        scope.note.position = position;
+        $scope.note.position = position;
         element.css(position);
         
-        //scope.$emit('updatePosition', scope); 
+        $scope.$emit('updateNotePosition', $scope); 
 
         return false;
       }

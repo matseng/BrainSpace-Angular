@@ -26,9 +26,13 @@ app.factory('notesFactory', ['$firebase',
             console.log("Note object successfully saved to Firebase");
         });
       },
-      updateNote: function(noteScope) {
+      updateNoteText: function(noteScope) {
         var key = noteScope.key;
         notesCollection.$child(key).$save();
+      },
+      updateNotePosition: function(noteScope) {
+        var key = noteScope.key;
+        notesCollection.$update({key: noteScope.note});
       },
       deleteNote: function(key){
         notesCollection.$remove(key);
@@ -56,10 +60,13 @@ app.factory('notesFactory', ['$firebase',
 app.controller("allNotes-controller", ['$scope', 'notesFactory', 
   function($scope, notesFactory){
     $scope.notes = notesFactory.getNotes();  // 2-way data bind good for async firebase requests
-    //$scope.notes.$bind($scope, "notes");
+    // $scope.notes.$bind($scope, "notes");
     $scope.$on('updateNote', function(event, noteScope) {
-      notesFactory.updateNote(noteScope);
-    });  
+      notesFactory.updateNoteText(noteScope);
+    });
+    $scope.$on('updateNotePosition', function(event, noteScope) {
+      notesFactory.updateNotePosition(noteScope);
+    });    
     $scope.$on('deleteNote', function(event, key) {
       notesFactory.deleteNote(key);
     });
@@ -70,6 +77,7 @@ app.directive()
 
 app.controller("note-controller", ['$scope', 'notesFactory',
   function($scope, notesFactory){
+
     $scope.create = function(){
       if(! $scope.note){
         $scope.note = {};
