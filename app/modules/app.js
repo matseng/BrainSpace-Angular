@@ -10,36 +10,36 @@ var app = angular.module("BrainSpace", ['firebase']);
 //   }
 // ]);
 
-app.factory('notesFactory', ['$firebase', 
-  function($firebase){
-    var ref = new Firebase('https://brainspace-biz.firebaseio.com/');
-    var notesCollection = $firebase(ref);
-    return {
-      getNotes: function(){
-        return notesCollection;
-      },
-      addNote: function(noteObj){
-        notesCollection.$add(noteObj, function(err){
-          if(err)
-            console.log("Error saving note object to Firebase: " + err);
-          else
-            console.log("Note object successfully saved to Firebase");
-        });
-      },
-      updateNoteText: function(noteScope) {
-        var key = noteScope.key;
-        notesCollection.$child(key).$save();
-      },
-      updateNotePosition: function(noteScope) {
-        var key = noteScope.key;
-        notesCollection.$update({key: noteScope.note});
-      },
-      deleteNote: function(key){
-        notesCollection.$remove(key);
-      },
-    }
-  }
-]);
+// app.factory('notesFactory', ['$firebase', 
+//   function($firebase){
+//     var ref = new Firebase('https://brainspace-biz.firebaseio.com/');
+//     var notesCollection = $firebase(ref);
+//     return {
+//       getNotes: function(){
+//         return notesCollection;
+//       },
+//       addNote: function(noteObj){
+//         notesCollection.$add(noteObj, function(err){
+//           if(err)
+//             console.log("Error saving note object to Firebase: " + err);
+//           else
+//             console.log("Note object successfully saved to Firebase");
+//         });
+//       },
+//       updateNoteText: function(noteScope) {
+//         var key = noteScope.key;
+//         notesCollection.$child(key).$save();
+//       },
+//       updateNotePosition: function(noteScope) {
+//         var key = noteScope.key;
+//         notesCollection.$update({key: noteScope.note});
+//       },
+//       deleteNote: function(key){
+//         notesCollection.$remove(key);
+//       },
+//     }
+//   }
+// ]);
 
 // app.controller("allNotes-controller", ['$scope', 'notesFactory', 
 //   $scope.init = function(neighborhood) {
@@ -57,8 +57,15 @@ app.factory('notesFactory', ['$firebase',
 //   debugger
 // };
 
-app.controller("allNotes-controller", ['$scope', 'notesFactory', 
-  function($scope, notesFactory){
+myapp.controller('MyCtrl', ['$scope', '$firebase',
+  function MyCtrl($scope, $firebase) {
+    var ref = new Firebase('https://<my-firebase>.firebaseio.com/items');
+    $scope.items = $firebase(ref);
+  }
+]);
+
+app.controller("allNotes-controller", ['$scope', '$firebase', 
+  function($scope, $firebase){
     $scope.notes = notesFactory.getNotes();  // 2-way data bind good for async firebase requests
     // $scope.notes.$bind($scope, "notes");
     $scope.$on('updateNote', function(event, noteScope) {
