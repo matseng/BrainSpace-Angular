@@ -25,36 +25,28 @@
         <div class="btn-group">
           <button class="deleteButton" ng-click='deleteButtonClicked()'>Delete</button>
         </div>
-      <form>
         <input class='note' name='noteTitle' placeholder='Note Title' ng-model="note.title">
-        <!-- <textarea class="textContent">Spice goes here: {{spice}}</textarea> -->
         <textarea class="note" ng-model='note.body' placeholder="Notes..."></textarea>
-
         <div>
-          <button ng-click='updateButtonClicked()'>Update</button>
           <button ng-click='submitButtonClicked()'>Submit</button>
+          <button ng-click='updateButtonClicked()'>Update</button>
         </div>
-      </form>
     </div>
   </div>
 
   <!-- http://stackoverflow.com/questions/2441565/how-do-i-make-a-div-element-editable-like-a-textarea-when-i-click-it -->
   <template id="noteTemplate">
 
-    <div draggable class='noteContainer' ng-controller='note-controller' ng-repeat='(key, note) in notes' id="{{key}}" ng-style="{left: note.position.left, top: note.position.top}">
+    <div draggable class='noteContainer' ng-controller='note-controller'>
         <div class="btn-group">
           <button class="deleteButton" ng-click='deleteButtonClicked()'>Delete</button>
         </div>
-      <!-- <form> -->
         <input class='note' name='noteTitle' placeholder='Note Title' ng-model="note.title">
-        <!-- <textarea class="textContent">Spice goes here: {{spice}}</textarea> -->
         <textarea class="note" ng-model='note.body' placeholder="Notes..."></textarea>
-
         <div>
           <button ng-click='updateButtonClicked()'>Update</button>
           <button ng-click='submitButtonClicked()'>Submit</button>
         </div>
-      <!-- </form> -->
     </div>
 
   </template>

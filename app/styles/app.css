@@ -33,7 +33,7 @@
 .btn-group {
   display:block;
 }
-.deleteButton {
+button {
   float:right;
 }
 

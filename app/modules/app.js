@@ -118,7 +118,7 @@ app.directive('addNoteListener', ['$document', "$compile",
       restrict: 'A',
       link: link
     };
-    function link(scope, element, attrs){
+    function link($scope, element, attrs){
       element.on('click', function(mouse){
         var elementClickedId = mouse.srcElement.id;
         //SAVE:
@@ -127,12 +127,20 @@ app.directive('addNoteListener', ['$document', "$compile",
         if( elementClickedId === 'allNotesContainer'){
           var x = mouse.offsetX;
           var y = mouse.offsetY;
-          // var noteContainer = angular.element(document.getElementById('noteTemplate').content.cloneNode(true).children[0]);
-          var noteContainer = document.getElementById('noteTemplate').content.cloneNode(true).children[0];
-          var noteContainer2 = $compile( noteContainer)( scope );
-          element.append(noteContainer2);
-          //scope.$emit('updateNote', $scope); 
-          noteContainer2.css({'position': 'absolute', 'left': x, 'top': y}); //NOTE: Can only modify certain CSS after the element is appended to the DOM
+          // var noteContainer = document.getElementById('noteTemplate').content.cloneNode(true).children[0];
+          // var noteContainer = $compile(noteContainer);
+          var coordinates = {'position': 'absolute', 'left': x, 'top': y};
+          // element.append(noteContainer);
+          // noteContainer.css(coordinates); //NOTE: Can only modify certain CSS after the element is appended to the DOM
+          
+          var note = {
+            title: 'testing testing',
+            body: 'detailz',
+            position: coordinates
+          }
+
+          $scope.$emit('addNote', note); 
+          
           // angular.element('.textContent').focus();
           // angular.element(('.textContent').on('focusout', function(){
           //   $(this).attr('disabled', true);  //textarea is no longer editable - user will need to click edit
