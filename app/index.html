@@ -21,7 +21,7 @@
     </div>
   </div>
   <div add_note_directive id='allNotesContainer' ng-controller='allNotes-controller'>
-    <div draggable_directive class='noteContainer' ng-controller='note-controller' ng-repeat='(key, note) in notes' id="{{key}}" ng-style="{left: note.position.left, top: note.position.top}">
+    <div draggable_directive note_model_directive class='noteContainer' ng-controller='note-controller' ng-repeat='(key, note) in notes' id="{{key}}" ng-style="{left: note.position.left, top: note.position.top}">
         <div class="btn-group">
           <button class="deleteButton" ng-click='deleteButtonClicked()'>Delete</button>
         </div>
@@ -57,6 +57,7 @@
     <script type="text/javascript" src="../bower_components/angularfire/angularfire.js"></script>
     <script type="text/javascript" src="./modules/app.js"></script>
     <script type="text/javascript" src="./modules/draggable.js"></script>
+    <script type="text/javascript" src="./modules/note_model_directive.js"></script>
     <link rel="stylesheet" type="text/css" href="./styles/app.css">
 </body>
 </html>

@@ -127,18 +127,12 @@ app.directive('addNoteDirective', ['$document', "$compile",
         if( elementClickedId === 'allNotesContainer'){
           var x = mouse.offsetX;
           var y = mouse.offsetY;
-          // var noteContainer = document.getElementById('noteTemplate').content.cloneNode(true).children[0];
-          // var noteContainer = $compile(noteContainer);
           var coordinates = {'position': 'absolute', 'left': x, 'top': y};
-          // element.append(noteContainer);
-          // noteContainer.css(coordinates); //NOTE: Can only modify certain CSS after the element is appended to the DOM
-          
           var note = {
-            title: 'testing testing',
-            body: 'detailz',
+            title: 'Title',
+            body: 'Details...',
             position: coordinates
           }
-
           $scope.$emit('addNote', note); 
           
           // angular.element('.textContent').focus();
