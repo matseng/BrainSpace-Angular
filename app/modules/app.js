@@ -112,7 +112,7 @@ app.controller("note-controller", ['$scope',
 - Listens for mouse click to add new notes at a specific position
 - This directive is added to #allNotesContainer element
 */
-app.directive('addNoteListener', ['$document', "$compile",
+app.directive('addNoteDirective', ['$document', "$compile",
   function($document, $compile){
     return {
       restrict: 'A',

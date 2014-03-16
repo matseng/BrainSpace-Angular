@@ -5,7 +5,7 @@
 */
 
 angular.module("BrainSpace")
-  .directive('draggable', ['$document', function($document){
+  .directive('draggableDirective', ['$document', function($document){
     return {
       restrict: 'A',
       link: link
