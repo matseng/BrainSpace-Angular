@@ -56,7 +56,26 @@ var app = angular.module("BrainSpace", ['firebase']);
 // function checkWeather() {
 //   debugger
 // };
+app.controller('menu-controller', ['$scope', 
+  function($scope){
+    $scope.buttonSelected = 'null'; 
+  }
+]);
 
+app.directive('menuDirective', [
+  function(){
+    return {
+      retrict: 'A',
+      link: link
+    };
+    function link($scope, element, attrs){
+      element.on('click', function(mouse){
+        console.log($scope, element, attrs);
+        $scope.buttonSelected = mouse.srcElement.id;
+      });
+    }
+  }
+]);
 
 app.controller("allNotes-controller", ['$scope', '$firebase', 
   function($scope, $firebase){
@@ -94,6 +113,7 @@ app.controller("note-controller", ['$scope',
       }
       $scope.$emit('addNote', note);
     };
+
     $scope.deleteButtonClicked = function(){
       if(confirm("Confirm delete?")){
         var elClicked = event.srcElement;
@@ -102,6 +122,7 @@ app.controller("note-controller", ['$scope',
         $scope.$emit('deleteNote', $scope.key); 
       }
     };
+
     $scope.updateButtonClicked = function(){
       $scope.$emit('updateNote', $scope); 
     };
@@ -121,10 +142,8 @@ app.directive('addNoteDirective', ['$document', "$compile",
     function link($scope, element, attrs){
       element.on('click', function(mouse){
         var elementClickedId = mouse.srcElement.id;
-        //SAVE:
-        // var menuButtonCheckedId = angular.element("#menuContainer .btn-group :checked").attr('id');
-        // if( elementClickedId === 'allNotesContainer' && menuButtonCheckedId === 'newNote') {
-        if( elementClickedId === 'allNotesContainer'){
+        var menuButtonSelected = $scope.$$prevSibling.buttonSelected;
+        if( elementClickedId === 'allNotesContainer' && menuButtonSelected === 'newNote'){
           var x = mouse.offsetX;
           var y = mouse.offsetY;
           var coordinates = {'position': 'absolute', 'left': x, 'top': y};

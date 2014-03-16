@@ -4,10 +4,10 @@
   <title>BrainSpace - Angular</title>
 </head>
 <body>
-  <div id='menuContainer'>
+  <div menu_directive id='menuContainer' ng-controller='menu-controller'>
     <h1>BrainSpace</h1>
     <div class="btn-group" data-toggle="buttons">
-      <label class="btn btn-primary">
+      <label class="btn btn-primary" ng-click='buttonClicked(event)'>
         <input type="radio" name="options" id="explore"> Explore
       </label>
       <label class="btn btn-primary">
@@ -27,10 +27,10 @@
         </div>
         <input class='note' name='noteTitle' placeholder='Note Title' ng-model="note.title">
         <textarea class="note" ng-model='note.body' placeholder="Notes..."></textarea>
-        <div>
+<!--         <div>
           <button ng-click='submitButtonClicked()'>Submit</button>
           <button ng-click='updateButtonClicked()'>Update</button>
-        </div>
+        </div> -->
     </div>
   </div>
 
