@@ -12,16 +12,18 @@ angular.module("BrainSpace")
     };
     function link($scope, element, attrs){
       var initialElementX, initialElementY, initialMouseX, initialMouseY;
-
       element.bind('mousedown', function($event){
-        element.css({position: 'absolute'});
-        initialElementX = element.prop('offsetLeft');
-        initialElementY = element.prop('offsetTop');
-        initialMouseX = $event.clientX;
-        initialMouseY = $event.clientY;
-        $document.bind('mousemove', myMouseMove);
-        $document.bind('mouseup', myMouseUp);
-        return false;
+        var elementClickedClassName = $event.srcElement.className;
+        if(elementClickedClassName !== 'selectFontSize'){
+          element.css({position: 'absolute'});
+          initialElementX = element.prop('offsetLeft');
+          initialElementY = element.prop('offsetTop');
+          initialMouseX = $event.clientX;
+          initialMouseY = $event.clientY;
+          $document.bind('mousemove', myMouseMove);
+          $document.bind('mouseup', myMouseUp);
+          return false;
+        }
       });
 
       function myMouseMove($event){

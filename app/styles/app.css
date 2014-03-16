@@ -4,6 +4,7 @@
   z-index: 1;
   border: 2;
   border-style: solid;
+  text-align:center;
 }
 
 #allNotesContainer {
@@ -34,6 +35,12 @@ h1 {
 .btn-group {
   display:block;
 }
+
+.btn-group.menu {
+  border: 2;
+  border-style: solid;
+}
+
 button {
   float:right;
 }
