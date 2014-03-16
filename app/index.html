@@ -26,7 +26,7 @@
           <button class="deleteButton" ng-click='deleteButtonClicked()'>Delete</button>
         </div>
         <input class='note' name='noteTitle' placeholder='Note Title' ng-model="note.title">
-        <textarea class="note" ng-model='note.body' placeholder="Notes..."></textarea>
+        <textarea class="note" ng-model='note.body' placeholder="Notes..." ng-style="{width: note.body_style.width, height: note.body_style.height}"></textarea>
 <!--         <div>
           <button ng-click='submitButtonClicked()'>Submit</button>
           <button ng-click='updateButtonClicked()'>Update</button>
