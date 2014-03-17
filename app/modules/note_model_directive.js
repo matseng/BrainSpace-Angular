@@ -8,17 +8,14 @@ app.directive('noteModelDirective', [function(){
       link: link
     };
     function link($scope, element, attrs){
+
+      element.on('mousedown', function(){
+        $scope.$emit('noteSelected', $scope);
+      });
+
       element.on('focusout', function(){
         $scope.$emit('updateNote', $scope);
       });
-
-      // element.on('mouseover', function(){
-      //   var textarea = element.find('textarea');
-      //   //textarea.removeAttr('style');
-      //   // textarea.css({'min-width': '10px', 'min-height':'10px'});
-      //   // textarea.css($scope.note.body_style);
-
-      // });
 
       element.on('mouseup', function(){
         var width = element.find('textarea').css('width');

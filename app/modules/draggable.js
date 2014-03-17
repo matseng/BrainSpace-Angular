@@ -12,6 +12,7 @@ angular.module("BrainSpace")
     };
     function link($scope, element, attrs){
       var initialElementX, initialElementY, initialMouseX, initialMouseY;
+      
       element.bind('mousedown', function($event){
         var elementClickedClassName = $event.srcElement.className;
         if(elementClickedClassName !== 'selectFontSize'){

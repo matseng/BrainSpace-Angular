@@ -78,11 +78,20 @@ app.directive('menuDirective', [
 
 app.controller("allNotes-controller", ['$scope', '$firebase', 
   function($scope, $firebase){
+    
     var ref = new Firebase('https://brainspace-biz.firebaseio.com/');
     $scope.notes = $firebase(ref);
+
+    $scope.noteScopeSelected = null;
+
+    $scope.$on('noteSelected', function(event, noteScope){
+      $scope.noteScopeSelected = noteScope;
+    });
+
     $scope.$on('addNote', function(event, note) {
       $scope.notes.$add(note);
     });
+    
     $scope.$on('updateNote', function(event, noteScope) {
       var key = noteScope.key;
       var value = noteScope.note;
@@ -91,6 +100,7 @@ app.controller("allNotes-controller", ['$scope', '$firebase',
       // $scope.notes.$update(obj);  //NOT WORKING?!
       $scope.notes.$save(key);
     });    
+    
     $scope.$on('deleteNote', function(event, key) {
       $scope.notes.$remove(key);
     });
