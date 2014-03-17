@@ -32,6 +32,15 @@ h1 {
   width:100%;
 }
 
+.noteBody {
+/*  min-width: 20px;
+  min-height: 20px;*/
+}
+
+.noteTitle {
+  text-align:center;
+}
+
 .btn-group {
   display:block;
 }

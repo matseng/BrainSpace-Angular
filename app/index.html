@@ -25,19 +25,19 @@
         <div class="btn-group">
           <!-- <span>Font size:</span> -->
           <select class='selectFontSize' ng-model="fontSize">
-            <option value="8">8</option>
-            <option value="10">10</option>
-            <option value="12" selected>12</option>
-            <option value="14">14</option>
-            <option value="18">18</option>
-            <option value="24">24</option>
-            <option value="36">36</option>
-            <option value="48">48</option>
+            <option value="8pt">8</option>
+            <option value="10pt">10</option>
+            <option value="12pt">12</option>
+            <option value="14pt">14</option>
+            <option value="18pt">18</option>
+            <option value="24pt">24</option>
+            <option value="36pt">36</option>
+            <option value="48pt">48</option>
           </select>
           <button class="deleteButton" ng-click='deleteButtonClicked()'>Delete</button>
         </div>
-        <input class='note' name='noteTitle' placeholder='Note Title' ng-model="note.title">
-        <textarea class="note" ng-model='note.body' placeholder="Notes..." ng-style="{width: note.body_style.width, height: note.body_style.height}"></textarea>
+        <input class='note noteTitle' name='noteTitle' placeholder='Note Title' ng-model="note.title" ng-style="{'font-size': note.title_style.fontSize}">
+        <textarea class="note noteBody" ng-model='note.body' placeholder="Notes..." ng-style="{width: note.body_style.width, height: note.body_style.height}" ></textarea>
 <!--         <div>
           <button ng-click='submitButtonClicked()'>Submit</button>
           <button ng-click='updateButtonClicked()'>Update</button>

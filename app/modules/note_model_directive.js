@@ -1,7 +1,8 @@
 // note_model_directive.js
 
-angular.module('BrainSpace')
-  .directive('noteModelDirective', [function(){
+var app = angular.module('BrainSpace');
+
+app.directive('noteModelDirective', [function(){
     return {
       restrict: "A",
       link: link
@@ -11,12 +12,29 @@ angular.module('BrainSpace')
         $scope.$emit('updateNote', $scope);
       });
 
+      // element.on('mouseover', function(){
+      //   var textarea = element.find('textarea');
+      //   //textarea.removeAttr('style');
+      //   // textarea.css({'min-width': '10px', 'min-height':'10px'});
+      //   // textarea.css($scope.note.body_style);
+
+      // });
+
       element.on('mouseup', function(){
         var width = element.find('textarea').css('width');
         var height = element.find('textarea').css('height');
         var body_style = {width: width, height: height};
         $scope.note.body_style = body_style;
         $scope.$emit('updateNote', $scope);
+      });
+
+      element.bind('change', function(event){
+        var fontSize = $scope.fontSize;
+        var noteTitle = event.srcElement.parentNode.parentNode.getElementsByClassName('noteTitle')[0];
+        $scope.note.title_style = {'fontSize': fontSize};
+        noteTitle.setAttribute('style', 'font-size: ' + fontSize);
+        $scope.$emit('updateNote', $scope);
+        // with(noteTitle){'font-size' = fontSize};
       });
 
       // var el = angular.element(element)[0];
@@ -28,3 +46,5 @@ angular.module('BrainSpace')
     }
   }
 ]);
+
+//TODO: Add directive to font selector

@@ -101,6 +101,7 @@ app.controller("allNotes-controller", ['$scope', '$firebase',
 app.controller("note-controller", ['$scope',
   function($scope){
 
+    $scope.fontSize = "12pt";
     $scope.submitButtonClicked = function(){
       if(! $scope.note){
         $scope.note = {};
