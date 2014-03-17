@@ -26,9 +26,11 @@ angular.module("BrainSpace")
         }
       });
 
-      $document.bind('mouseup', function(){
-        $document.unbind('mousemove', myMouseMove);
-        $document.unbind('mouseup', myMouseUp);
+      $document.bind('mousemove', function(mouse){
+        if(mouse.which === 0){
+          $document.unbind('mousemove', myMouseMove);
+          $document.unbind('mouseup', myMouseUp);
+        }
       })
 
       function myMouseMove($event){

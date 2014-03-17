@@ -70,7 +70,6 @@ app.directive('menuDirective', [
     };
     function link($scope, element, attrs){
       element.on('click', function(mouse){
-        console.log($scope, element, attrs);
         $scope.buttonSelected = mouse.srcElement.id;
       });
     }
