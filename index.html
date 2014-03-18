@@ -1,0 +1,73 @@
+<!-- index.html -->
+<html ng-app="BrainSpace">
+<head>
+  <title>BrainSpace - Angular</title>
+</head>
+<body>
+  <div menu_directive id='menuContainer' ng-controller='menu-controller'>
+    <h2>BrainSpace</h2>
+    <div class="btn-group menu" data-toggle="buttons">
+      <label class="btn btn-primary" ng-click='buttonClicked(event)'>
+        <input type="radio" name="options" id="explore"> Explore
+      </label>
+      <label class="btn btn-primary">
+        <input type="radio" name="options" id="newNote" checked> New Note
+      </label>
+      <label class="btn btn-primary">
+        <input type="radio" name="options" id="newGroup"> Insert Image
+      </label>
+      <label class="btn btn-primary">
+        <input type="radio" name="options" id="newGroup"> Draw Group
+      </label>
+      <label class="btn btn-primary">
+      </label>
+    </div>
+    <div class="btn-group">
+      <span>Font size:</span>
+      <select class='selectFontSize'>
+        <option value="8pt">8</option>
+        <option value="10pt">10</option>
+        <option value="12pt" selected>12</option>
+        <option value="14pt">14</option>
+        <option value="18pt">18</option>
+        <option value="24pt">24</option>
+        <option value="36pt">36</option>
+        <option value="48pt">48</option>
+      </select>
+      <span>[Insert redactor toolbar]</span>
+      <button class="deleteButton" ng-click='deleteButtonClicked()'>Delete</button>
+    </div>
+  </div>
+
+  </div>
+  <div add_note_directive id='allNotesContainer' ng-controller='allNotes-controller'>
+    <note_model_directive ng-repeat="(key, note) in notes"></note_model_directive>
+  </div>
+
+  <!-- http://stackoverflow.com/questions/2441565/how-do-i-make-a-div-element-editable-like-a-textarea-when-i-click-it -->
+  <template id="noteTemplate">
+
+    <div draggable class='noteContainer' ng-controller='note-controller'>
+        <div class="btn-group">
+          <button class="deleteButton" ng-click='deleteButtonClicked()'>Delete</button>
+        </div>
+        <input class='note' name='noteTitle' placeholder='Note Title' ng-model="note.title">
+        <textarea class="note" ng-model='note.body' placeholder="Notes..."></textarea>
+        <div>
+          <button ng-click='updateButtonClicked()'>Update</button>
+          <button ng-click='submitButtonClicked()'>Submit</button>
+        </div>
+    </div>
+
+  </template>
+
+    <script type="text/javascript" src="./bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="./bower_components/angular-route/angular-route.js"></script>
+    <script type="text/javascript" src="./bower_components/firebase/firebase.js"></script>
+    <script type="text/javascript" src="./bower_components/angularfire/angularfire.js"></script>
+    <script type="text/javascript" src="./app/modules/app.js"></script>
+    <script type="text/javascript" src="./app/modules/draggable.js"></script>
+    <script type="text/javascript" src="./app/modules/note_model_directive.js"></script>
+    <link rel="stylesheet" type="text/css" href="./app/styles/app.css">
+</body>
+</html>

@@ -1,9 +1,10 @@
-<div class="noteSubmitView" ng-controller="noteSubmit-controller">
-  <form ng-submit="create()">
-    <textarea name='noteText' rows='3' cols="35" placeholder="Your new note" ng-model="note.text"></textarea>
-    <div>
-      <input name='username' placeholder='Your name' ng-model="note.username">
-      <input type='submit' value="Submit">
-    </div>
-  </form>
-</div>
+<div draggable_directive>{{note.title}}</div>
+
+<!-- <note_model_directive draggable_directive class='noteContainer' id="{{key}}" ng-style="{left: note.position.left, top: note.position.top}">
+  <div class="btn-group">
+    <button class="deleteButton" ng-click='deleteButtonClicked()'>Delete</button>
+  </div>
+  <input class='note noteTitle' name='noteTitle' placeholder='Note Title' ng-model="note.title" ng-style="{'font-size': note.title_style.fontSize}">
+  <textarea class="note noteBody" ng-model='note.body' placeholder="Notes..." ng-style="{width: note.body_style.width, height: note.body_style.height}" ></textarea>
+</note_model_directive>
+ -->

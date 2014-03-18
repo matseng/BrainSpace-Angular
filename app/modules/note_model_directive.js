@@ -4,7 +4,13 @@ var app = angular.module('BrainSpace');
 
 app.directive('noteModelDirective', [function(){
     return {
-      restrict: "A",
+      restrict: "E",
+      // scope: {
+      //   note: '=',
+      // },
+      controller: 'note-controller',
+      // template: "<div> {{note.title}} </div>",
+      templateUrl: './app/modules/note_template.html',
       link: link
     };
     function link($scope, element, attrs){
