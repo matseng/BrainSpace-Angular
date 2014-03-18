@@ -5,7 +5,7 @@ var app = angular.module('BrainSpace');
 app.directive('noteModelDirective', [function(){
     return {
       restrict: "E",
-      // scope: {
+      // scope: {  // THIS IS BAD!!!
       //   note: '=',
       // },
       controller: 'note-controller',
