@@ -17,7 +17,7 @@ app.directive('noteModelDirective', ['$rootScope', function($rootScope){
 
       element.on('mousedown', function(){
         // $scope.$emit('noteSelected', $scope);
-        $rootScope.noteSelected = $scope;
+        $rootScope.noteSelected = {scope: $scope, element: element};
       });
 
       element.on('focusout', function(){
@@ -39,7 +39,6 @@ app.directive('noteModelDirective', ['$rootScope', function($rootScope){
         $scope.note.title_style = {'fontSize': fontSize};
         noteTitle.setAttribute('style', 'font-size: ' + fontSize);
         $scope.$emit('updateNote', $scope);
-        // with(noteTitle){'font-size' = fontSize};
       });
 
       // var el = angular.element(element)[0];

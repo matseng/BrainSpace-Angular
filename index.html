@@ -22,21 +22,23 @@
       <label class="btn btn-primary">
       </label>
     </div>
-    <div class="btn-group">
-      <span>Font size:</span>
-      <select class='selectFontSize'>
-        <option value="8pt">8</option>
-        <option value="10pt">10</option>
-        <option value="12pt" selected>12</option>
-        <option value="14pt">14</option>
-        <option value="18pt">18</option>
-        <option value="24pt">24</option>
-        <option value="36pt">36</option>
-        <option value="48pt">48</option>
-      </select>
-      <span>[Insert redactor toolbar]</span>
-      <button class="deleteButton" ng-click='deleteButtonClicked()'>Delete</button>
-    </div>
+    <note_menu_directive>
+      <div class="btn-group">
+        <span>Font size:</span>
+        <select class='selectFontSize'>
+          <option value="8pt">8</option>
+          <option value="10pt">10</option>
+          <option value="12pt" selected>12</option>
+          <option value="14pt">14</option>
+          <option value="18pt">18</option>
+          <option value="24pt">24</option>
+          <option value="36pt">36</option>
+          <option value="48pt">48</option>
+        </select>
+        <span>[Insert redactor toolbar]</span>
+        <button class="deleteButton" ng-click='deleteButtonClicked()'>Delete</button>
+      </div>
+    </note_menu_directive>
   </div>
 
   </div>
@@ -69,6 +71,7 @@
     <script type="text/javascript" src="./app/modules/draggable.js"></script>
     <script type="text/javascript" src="./app/modules/note_model_directive.js"></script>
     <script type="text/javascript" src="./app/modules/resizableDiv_directive.js"></script>
+    <script type="text/javascript" src="./app/modules/note_menu_directive.js"></script>
     <link rel="stylesheet" type="text/css" href="./app/styles/app.css">
 </body>
 </html>

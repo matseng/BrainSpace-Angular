@@ -17,6 +17,9 @@ app.factory('notesFactory', ['$firebase',
       getNotes: function(){
         return notesCollection;
       },
+      deleteNote: function(key) {
+        notesCollection.$remove(key);
+      }
     };
   }
 ]);
@@ -67,13 +70,13 @@ app.factory('notesFactory', ['$firebase',
 //   debugger
 // };
 app.controller('menu-controller', ['$rootScope', '$scope', 'notesFactory',
-  function($rootScope, $scope){
+  function($rootScope, $scope, notesFactory){
     $scope.buttonSelected = 'null';
 
     $scope.deleteButtonClicked = function(event){
       if($rootScope.noteSelected){
         if(confirm("Confirm delete?")){
-          $rootScope.$emit('deleteNote', $rootScope.noteSelected.key);
+          notesFactory.deleteNote($rootScope.noteSelected.scope.key);
         }
       } else {
         console.log("Select a note prior to clicking delete.");
