@@ -1,21 +1,23 @@
-/* 
+/*
 - draggable.js
 - How to use: Add 'draggable' to divs to make them draggable
 - adapted from https://gist.github.com/siongui/4969457
 */
 
 angular.module("BrainSpace")
-  .directive('draggableDirective', ['$document', function($document){
+  .directive('draggableDirective', ['$rootScope', '$document', function($rootScope, $document){
     return {
       restrict: 'A',
       link: link
     };
     function link($scope, element, attrs){
       var initialElementX, initialElementY, initialMouseX, initialMouseY;
-      
+      $rootScope.mouse = {};
+
       element.bind('mousedown', function($event){
         var elementClickedClassName = $event.srcElement.className;
-        if(elementClickedClassName !== 'selectFontSize'){
+        $rootScope.mouse.elementClickedClassName = elementClickedClassName;
+        if(elementClickedClassName !== 'selectFontSize' && elementClickedClassName !== 'triangle'){
           element.css({position: 'absolute'});
           initialElementX = element.prop('offsetLeft');
           initialElementY = element.prop('offsetTop');
@@ -32,19 +34,20 @@ angular.module("BrainSpace")
           $document.unbind('mousemove', myMouseMove);
           $document.unbind('mouseup', myMouseUp);
         }
-      })
+      });
 
       function myMouseMove($event){
-        var deltaX = $event.clientX - initialMouseX;
-        var deltaY = $event.clientY - initialMouseY;
-        var elementX = initialElementX + deltaX;
-        var elementY = initialElementY + deltaY;
-        var position = {'left': elementX, 'top': elementY};
-        $scope.note.position = position;
-        element.css(position);
-        $scope.$emit('updateNote', $scope); 
-
-        return false;
+        if($rootScope.mouse.elementClickedClassName === $event.srcElement.className){
+          var deltaX = $event.clientX - initialMouseX;
+          var deltaY = $event.clientY - initialMouseY;
+          var elementX = initialElementX + deltaX;
+          var elementY = initialElementY + deltaY;
+          var position = {'left': elementX, 'top': elementY};
+          $scope.note.position = position;
+          element.css(position);
+          $scope.$emit('updateNote', $scope);
+          // return false;
+        }
       }
 
       function myMouseUp($event){

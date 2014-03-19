@@ -20,6 +20,7 @@
   border-style: solid;
   display: inline-block;
   position: absolute;
+  hieght: auto;
 }
 
 h1 {
@@ -48,6 +49,17 @@ h1 {
 .btn-group.menu {
   border: 2;
   border-style: solid;
+}
+
+.triangle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-width: 0 0 20px 20px;
+  border-color: transparent transparent gray transparent;
 }
 
 /*
