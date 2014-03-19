@@ -12,9 +12,9 @@ angular.module('BrainSpace').directive('noteMenuDirective', ['$rootScope', funct
         var fontSize = event.srcElement.value;
         var noteScope = $rootScope.noteSelected.scope;
         var textareaElement = $rootScope.noteSelected.element.find('textarea');
-        noteScope.textarea_style = {'fontSize': fontSize};
+        noteScope.note.textarea_style = {'fontSize': fontSize};
         textareaElement.attr('style', 'font-size: ' + fontSize);
-        // $scope.$emit('updateNote', $scope);
+        // $scope.$emit('updateNote', $scope);  //message NOT recieved by child scope
       }
     });
   }

@@ -33,13 +33,13 @@ app.directive('noteModelDirective', ['$rootScope', function($rootScope){
         $scope.$emit('updateNote', $scope);
       });
 
-      element.bind('change', function(event){
-        var fontSize = $scope.fontSize;
-        var noteTitle = event.srcElement.parentNode.parentNode.getElementsByClassName('noteTitle')[0];
-        $scope.note.title_style = {'fontSize': fontSize};
-        noteTitle.setAttribute('style', 'font-size: ' + fontSize);
-        $scope.$emit('updateNote', $scope);
-      });
+      // element.bind('change', function(event){
+      //   var fontSize = $scope.fontSize;
+      //   var noteTitle = event.srcElement.parentNode.parentNode.getElementsByClassName('noteTitle')[0];
+      //   $scope.note.title_style = {'fontSize': fontSize};
+      //   noteTitle.setAttribute('style', 'font-size: ' + fontSize);
+      //   $scope.$emit('updateNote', $scope);
+      // });
 
       // var el = angular.element(element)[0];
       // var selectfontSize = el.getElementsByClassName("selectFontSize")[0];

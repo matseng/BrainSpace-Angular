@@ -12,7 +12,6 @@ angular.module("BrainSpace").directive('resizableDivDirective', ['$document', fu
     var el = element;  //required to have proper closure below
     var textarea = angular.element(el).find('textarea');
     triangle.bind('mousedown', function($event, element){
-      console.log($event.srcElement);
       initialElWidth = el[0].clientWidth;
       initialElHeight = el[0].clientHeight;
       initialMouseX = $event.clientX;
