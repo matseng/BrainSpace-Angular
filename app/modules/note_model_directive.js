@@ -2,7 +2,7 @@
 
 var app = angular.module('BrainSpace');
 
-app.directive('noteModelDirective', [function(){
+app.directive('noteModelDirective', ['$rootScope', function($rootScope){
     return {
       restrict: "E",
       // scope: {  // THIS IS BAD!!!
@@ -16,10 +16,12 @@ app.directive('noteModelDirective', [function(){
     function link($scope, element, attrs){
 
       element.on('mousedown', function(){
-        $scope.$emit('noteSelected', $scope);
+        // $scope.$emit('noteSelected', $scope);
+        $rootScope.noteSelected = $scope;
       });
 
       element.on('focusout', function(){
+        // $rootScope.noteSelected = null;
         $scope.$emit('updateNote', $scope);
       });
 

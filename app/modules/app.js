@@ -9,7 +9,14 @@ var app = angular.module("BrainSpace", ['firebase']);
 //     return notesCollection;
 //   }
 // ]);
-
+// app.factory('notesFactory', ['$firebase', 
+//   function($firebase){
+//     var ref = new Firebase('https://brainspace-biz.firebaseio.com/');
+//     var notesCollection = $firebase(ref);
+//     return {
+//       getNotes: function(){
+//         return notesCollection;
+//       },
 // app.factory('notesFactory', ['$firebase', 
 //   function($firebase){
 //     var ref = new Firebase('https://brainspace-biz.firebaseio.com/');
@@ -56,9 +63,19 @@ var app = angular.module("BrainSpace", ['firebase']);
 // function checkWeather() {
 //   debugger
 // };
-app.controller('menu-controller', ['$scope', 
-  function($scope){
-    $scope.buttonSelected = 'null'; 
+app.controller('menu-controller', ['$rootScope', '$scope',
+  function($rootScope, $scope){
+    $scope.buttonSelected = 'null';
+
+    $scope.deleteButtonClicked = function(event){
+      if($rootScope.noteSelected){
+        if(confirm("Confirm delete?")){
+          $rootScope.$emit('deleteNote', $rootScope.noteSelected.key);
+        }
+      } else {
+        console.log("Select a note prior to clicking delete.");
+      }
+    };
   }
 ]);
 
@@ -76,9 +93,9 @@ app.directive('menuDirective', [
   }
 ]);
 
-app.controller("allNotes-controller", ['$scope', '$firebase', 
+app.controller("allNotes-controller", ['$scope', '$firebase',
   function($scope, $firebase){
-    
+
     var ref = new Firebase('https://brainspace-biz.firebaseio.com/');
     $scope.notes = $firebase(ref);
 
@@ -104,6 +121,7 @@ app.controller("allNotes-controller", ['$scope', '$firebase',
     $scope.$on('deleteNote', function(event, key) {
       $scope.notes.$remove(key);
     });
+
   }
 ]);
 
@@ -129,7 +147,7 @@ app.controller("note-controller", ['$scope',
         var elClicked = event.srcElement;
         var noteContainer = elClicked.parentNode.parentNode;
         var detached = noteContainer.remove();
-        $scope.$emit('deleteNote', $scope.key); 
+        $scope.$emit('deleteNote', $scope.key);
       }
     };
 
