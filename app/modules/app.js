@@ -9,15 +9,18 @@ var app = angular.module("BrainSpace", ['firebase']);
 //     return notesCollection;
 //   }
 // ]);
-// app.factory('notesFactory', ['$firebase', 
-//   function($firebase){
-//     var ref = new Firebase('https://brainspace-biz.firebaseio.com/');
-//     var notesCollection = $firebase(ref);
-//     return {
-//       getNotes: function(){
-//         return notesCollection;
-//       },
-// app.factory('notesFactory', ['$firebase', 
+app.factory('notesFactory', ['$firebase',
+  function($firebase){
+    var ref = new Firebase('https://brainspace-biz.firebaseio.com/');
+    var notesCollection = $firebase(ref);
+    return {
+      getNotes: function(){
+        return notesCollection;
+      },
+    };
+  }
+]);
+// app.factory('notesFactory', ['$firebase',
 //   function($firebase){
 //     var ref = new Firebase('https://brainspace-biz.firebaseio.com/');
 //     var notesCollection = $firebase(ref);
@@ -63,7 +66,7 @@ var app = angular.module("BrainSpace", ['firebase']);
 // function checkWeather() {
 //   debugger
 // };
-app.controller('menu-controller', ['$rootScope', '$scope',
+app.controller('menu-controller', ['$rootScope', '$scope', 'notesFactory',
   function($rootScope, $scope){
     $scope.buttonSelected = 'null';
 
@@ -93,11 +96,12 @@ app.directive('menuDirective', [
   }
 ]);
 
-app.controller("allNotes-controller", ['$scope', '$firebase',
-  function($scope, $firebase){
+app.controller("allNotes-controller", ['$scope', '$firebase', 'notesFactory',
+  function($scope, $firebase, notesFactory){
 
-    var ref = new Firebase('https://brainspace-biz.firebaseio.com/');
-    $scope.notes = $firebase(ref);
+    // var ref = new Firebase('https://brainspace-biz.firebaseio.com/');
+    // $scope.notes = $firebase(ref);
+    $scope.notes = notesFactory.getNotes();
 
     $scope.noteScopeSelected = null;
 
