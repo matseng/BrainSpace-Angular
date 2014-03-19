@@ -91,7 +91,7 @@ app.controller("allNotes-controller", ['$scope', '$firebase',
     $scope.$on('addNote', function(event, note) {
       $scope.notes.$add(note);
     });
-    
+
     $scope.$on('updateNote', function(event, noteScope) {
       var key = noteScope.key;
       var value = noteScope.note;
@@ -99,8 +99,8 @@ app.controller("allNotes-controller", ['$scope', '$firebase',
       obj[key] = value;
       // $scope.notes.$update(obj);  //NOT WORKING?!
       $scope.notes.$save(key);
-    });    
-    
+    });
+
     $scope.$on('deleteNote', function(event, key) {
       $scope.notes.$remove(key);
     });
@@ -120,7 +120,7 @@ app.controller("note-controller", ['$scope',
       var note = {
         title: $scope.note.title,
         body: $scope.note.body
-      }
+      };
       $scope.$emit('addNote', note);
     };
 
@@ -161,8 +161,8 @@ app.directive('addNoteDirective', ['$document', "$compile",
             title: 'Title',
             body: 'Details...',
             position: coordinates
-          }
-          $scope.$emit('addNote', note); 
+          };
+          $scope.$emit('addNote', note);
           
           // angular.element('.textContent').focus();
           // angular.element(('.textContent').on('focusout', function(){

@@ -14,32 +14,48 @@
   border-style: solid;
   height: 100%;
 }
-
+/*
+* NOTE VIEW
+*/
 .noteContainer {
   border: 2;
   border-style: solid;
   display: inline-block;
   position: absolute;
-  hieght: auto;
+  /*height: auto;*/
+}
+/*.note {
+  display:block;
+  width:100%;
+  height:100%;
+}*/
+
+.noteTitle {
+  text-align:center;
+}
+
+.noteBody {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.triangle {
+  z-index: 2;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-width: 0 0 20px 20px;
+  border-color: transparent transparent gray transparent;
 }
 
 h1 {
   margin-left: auto;
   margin-right: auto;
-}
-
-.note {
-  display:block;
-  width:100%;
-}
-
-.noteBody {
-/*  min-width: 20px;
-  min-height: 20px;*/
-}
-
-.noteTitle {
-  text-align:center;
 }
 
 .btn-group {
@@ -51,16 +67,6 @@ h1 {
   border-style: solid;
 }
 
-.triangle {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 0px;
-  height: 0px;
-  border-style: solid;
-  border-width: 0 0 20px 20px;
-  border-color: transparent transparent gray transparent;
-}
 
 /*
 button {

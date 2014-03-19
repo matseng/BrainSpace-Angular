@@ -10,6 +10,7 @@ angular.module("BrainSpace").directive('resizableDivDirective', ['$document', fu
     element.append(triangle);
 
     var el = element;  //required to have proper closure below
+    var textarea = angular.element(el).find('textarea');
     triangle.bind('mousedown', function($event, element){
       console.log($event.srcElement);
       initialElWidth = el[0].clientWidth;
@@ -31,9 +32,9 @@ angular.module("BrainSpace").directive('resizableDivDirective', ['$document', fu
       var width = initialElWidth + deltaX;
       var height = initialElHeight + deltaY;
       var dimensions = {'width': width, 'height': height};
-      // $scope.note.dimensions = dimensions;
+      $scope.note.dimensions = dimensions;
       el.css(dimensions);
-      //$scope.$emit('updateNote', $scope);
+      $scope.$emit('updateNote', $scope);
       }
 
     function resizableMouseUp ($event){

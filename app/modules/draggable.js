@@ -37,7 +37,7 @@ angular.module("BrainSpace")
       });
 
       function myMouseMove($event){
-        if($rootScope.mouse.elementClickedClassName === $event.srcElement.className){
+        if($rootScope.mouse.elementClickedClassName !== 'triangle'){
           var deltaX = $event.clientX - initialMouseX;
           var deltaY = $event.clientY - initialMouseY;
           var elementX = initialElementX + deltaX;
