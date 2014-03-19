@@ -9,10 +9,12 @@ angular.module('BrainSpace').directive('noteMenuDirective', ['$rootScope', funct
   function link ($scope, element, attrs) {
     element.bind('change', function(){
       if($rootScope.noteSelected){
-        var note = $rootScope.noteSelected.note;
-        note.title_style = {'fontSize': fontSize};
-        noteTitle.setAttribute('style', 'font-size: ' + fontSize);
-        $scope.$emit('updateNote', $scope);
+        var fontSize = event.srcElement.value;
+        var noteScope = $rootScope.noteSelected.scope;
+        var textareaElement = $rootScope.noteSelected.element.find('textarea');
+        noteScope.textarea_style = {'fontSize': fontSize};
+        textareaElement.attr('style', 'font-size: ' + fontSize);
+        // $scope.$emit('updateNote', $scope);
       }
     });
   }
