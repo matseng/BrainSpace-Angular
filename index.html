@@ -5,8 +5,8 @@
 </head>
 <body>
   <div menu_directive id='menuContainer' ng-controller='menu-controller'>
-    <h2>BrainSpace</h2>
-    <div class="btn-group menu" data-toggle="buttons">
+    <h3>BrainSpace</h3>
+    <div class="btn-group" data-toggle="buttons">
       <label class="btn btn-primary" ng-click='buttonClicked(event)'>
         <input type="radio" name="options" id="explore" checked> Explore
       </label>
@@ -35,14 +35,14 @@
           <option value="36pt">36</option>
           <option value="48pt">48</option>
         </select>
-        <span>[Insert redactor toolbar]</span>
+        <!-- <span>[Insert redactor toolbar]</span> -->
         <button class="deleteButton" ng-click='deleteButtonClicked()'>Delete</button>
       </div>
     </note_menu_directive>
   </div>
 
   </div>
-  <div add_note_directive id='allNotesContainer' ng-controller='allNotes-controller'>
+  <div add_note_directive navigation_directive id='allNotesContainer' ng-controller='allNotes-controller'>
     <note_model_directive ng-repeat="(key, note) in notes"></note_model_directive>
   </div>
 
@@ -72,6 +72,7 @@
     <script type="text/javascript" src="./app/modules/note_model_directive.js"></script>
     <script type="text/javascript" src="./app/modules/resizableDiv_directive.js"></script>
     <script type="text/javascript" src="./app/modules/note_menu_directive.js"></script>
+    <script type="text/javascript" src="./app/modules/navigation_directive.js"></script>
     <link rel="stylesheet" type="text/css" href="./app/styles/app.css">
 </body>
 </html>
