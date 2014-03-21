@@ -11,15 +11,16 @@ angular.module('BrainSpace').directive('navigationDirective', ['$document', func
     var finalX, finalY;
     var offsetX, offsetY;
     var scale = 1;
+    var allNotesContainer = element.children();
 
     element.bind('mousedown', function(event) {
-      if(event.srcElement.id === 'allNotesContainer'){
+      if(event.srcElement.id === 'allNotesContainer' || event.srcElement.id === 'allNotesContainerBackground'){
         //  console.log($scope, element, attrs, event);
         // console.log(element);
         initialMouseX = event.clientX;
         initialMouseY = event.clientY;
-        initialX = element[0].getBoundingClientRect().left;
-        initialY = element[0].getBoundingClientRect().top;
+        initialX = allNotesContainer[0].getBoundingClientRect().left;
+        initialY = allNotesContainer[0].getBoundingClientRect().top;
         if(!offsetX)
           offsetX = initialX;
         if(!offsetY)
@@ -44,7 +45,7 @@ angular.module('BrainSpace').directive('navigationDirective', ['$document', func
       // console.log(deltaX, deltaY);
       var trans = "-webkit-transform: matrix(" + scale + ", 0, 0, " + scale + ", " + finalX + ', ' + finalY +')';
       //var trans = "-webkit-transform: matrix(" + scale + ", 0, 0, " + scale + ", " + deltaDeltaX + ', ' + deltaDeltaY +')';
-      element.attr('style', trans);
+      allNotesContainer.attr('style', trans);
     };
 
     function done() {

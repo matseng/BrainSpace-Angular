@@ -1,4 +1,5 @@
 <!-- index.html -->
+<!-- python -m SimpleHTTPServer 3333 -->
 <html id='app-container' ng-app="BrainSpace">
 <head>
   <title>BrainSpace - Angular</title>
@@ -42,10 +43,11 @@
   </div>
 
   </div>
-  <div add_note_directive navigation_directive id='allNotesContainer' ng-controller='allNotes-controller'>
-    <note_model_directive ng-repeat="(key, note) in notes"></note_model_directive>
+  <div navigation_directive id="allNotesContainerBackground">
+    <div add_note_directive  id='allNotesContainer' ng-controller='allNotes-controller'>
+      <note_model_directive ng-repeat="(key, note) in notes"></note_model_directive>
+    </div>
   </div>
-
   <!-- http://stackoverflow.com/questions/2441565/how-do-i-make-a-div-element-editable-like-a-textarea-when-i-click-it -->
   <template id="noteTemplate">
 

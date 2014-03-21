@@ -24,10 +24,19 @@ h1 {
   border-style: solid;
 }
 
+#allNotesContainerBackground {
+  position: relative;
+  /*z-index:1;*/
+  border: 1;
+  border-style: solid;
+  height: 100%;
+  width: 100%;
+}
+
 #allNotesContainer {
   position: relative;
   z-index:1;
-  border: 0;
+  border: 1;
   border-style: solid;
   height: 100%;
 }
