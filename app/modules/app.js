@@ -1,4 +1,5 @@
 //app.js
+// cd into directory with index file, then python -m SimpleHTTPServer 3333
 
 var app = angular.module("BrainSpace", ['firebase']);
 
@@ -85,19 +86,19 @@ app.controller('menu-controller', ['$rootScope', '$scope', 'notesFactory',
   }
 ]);
 
-app.directive('menuDirective', [
-  function(){
-    return {
-      retrict: 'A',
-      link: link
-    };
-    function link($scope, element, attrs){
-      element.on('click', function(mouse){
-        $scope.buttonSelected = mouse.srcElement.id;
-      });
-    }
+app.directive('menuDirective', ['$rootScope', function($rootScope){
+  return {
+    retrict: 'A',
+    link: link
+  };
+
+  function link($scope, element, attrs){
+    element.on('click', function(mouse){
+      $scope.buttonSelected = mouse.srcElement.id;
+      $rootScope = mouse.srcElement.id;
+    });
   }
-]);
+}]);
 
 app.controller("allNotes-controller", ['$scope', '$firebase', 'notesFactory',
   function($scope, $firebase, notesFactory){
