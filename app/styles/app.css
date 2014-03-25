@@ -4,7 +4,8 @@
   z-index: 1;
   border: 2;
   border-style: solid;
-  text-align:center;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
 h1 {
@@ -25,8 +26,9 @@ h1 {
 }
 
 #allNotesContainerBackground {
-  position: relative;
-  /*z-index:1;*/
+  position: fixed;
+  top: 0;
+  left: 0;
   border: 1;
   border-style: solid;
   height: 100%;
@@ -36,10 +38,11 @@ h1 {
 #allNotesContainer {
   position: relative;
   z-index:1;
-  border: 1;
-  border-style: solid;
+/*  border: 1;
+  border-style: solid;*/
   height: 100%;
 }
+
 /*
 * NOTE VIEW
 */

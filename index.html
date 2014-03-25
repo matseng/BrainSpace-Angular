@@ -22,7 +22,7 @@
       </label>
       <label class="btn btn-primary">
       </label>
-      <tt>menuState = {{menuState | json}}</tt><br/>
+      <!-- <tt>menuState = {{menuState | json}}</tt><br/> -->
     </div>
     <note_menu_directive>
       <div class="btn-group">
@@ -50,32 +50,18 @@
     </div>
   </div>
   <!-- http://stackoverflow.com/questions/2441565/how-do-i-make-a-div-element-editable-like-a-textarea-when-i-click-it -->
-  <template id="noteTemplate">
 
-    <div draggable class='noteContainer' ng-controller='note-controller'>
-        <div class="btn-group">
-          <button class="deleteButton" ng-click='deleteButtonClicked()'>Delete</button>
-        </div>
-        <input class='note' name='noteTitle' placeholder='Note Title' ng-model="note.title">
-        <textarea class="note" ng-model='note.body' placeholder="Notes..."></textarea>
-        <div>
-          <button ng-click='updateButtonClicked()'>Update</button>
-          <button ng-click='submitButtonClicked()'>Submit</button>
-        </div>
-    </div>
-
-  </template>
-
-    <script type="text/javascript" src="./bower_components/angular/angular.js"></script>
-    <script type="text/javascript" src="./bower_components/angular-route/angular-route.js"></script>
-    <script type="text/javascript" src="./bower_components/firebase/firebase.js"></script>
-    <script type="text/javascript" src="./bower_components/angularfire/angularfire.js"></script>
-    <script type="text/javascript" src="./app/modules/app.js"></script>
-    <script type="text/javascript" src="./app/modules/draggable.js"></script>
-    <script type="text/javascript" src="./app/modules/note_model_directive.js"></script>
-    <script type="text/javascript" src="./app/modules/resizableDiv_directive.js"></script>
-    <script type="text/javascript" src="./app/modules/note_menu_directive.js"></script>
-    <script type="text/javascript" src="./app/modules/navigation_directive.js"></script>
-    <link rel="stylesheet" type="text/css" href="./app/styles/app.css">
+  <script type="text/javascript" src="./bower_components/angular/angular.js"></script>
+  <script type="text/javascript" src="./bower_components/angular-route/angular-route.js"></script>
+  <script type="text/javascript" src="./bower_components/firebase/firebase.js"></script>
+  <script type="text/javascript" src="./bower_components/angularfire/angularfire.js"></script>
+  <script type="text/javascript" src="./app/modules/app.js"></script>
+  <script type="text/javascript" src="./app/modules/draggable.js"></script>
+  <script type="text/javascript" src="./app/modules/note_model_directive.js"></script>
+  <script type="text/javascript" src="./app/modules/resizableDiv_directive.js"></script>
+  <script type="text/javascript" src="./app/modules/note_menu_directive.js"></script>
+  <script type="text/javascript" src="./app/modules/navigation_directive.js"></script>
+  <script type="text/javascript" src="./app/modules/navigation_service.js"></script>
+  <link rel="stylesheet" type="text/css" href="./app/styles/app.css">
 </body>
 </html>

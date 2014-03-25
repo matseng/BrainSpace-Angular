@@ -106,33 +106,41 @@ app.controller("note-controller", ['$scope',
 - Listens for mouse click to add new notes at a specific position
 - This directive is added to #allNotesContainer element
 */
-app.directive('addNoteDirective', ['$document', '$compile', '$rootScope', 
-  function($document, $compile, $rootScope){
+app.directive('addNoteDirective', ['$document', '$compile', '$rootScope', 'navigationService',
+  function($document, $compile, $rootScope, navigationService){
     return {
       restrict: 'A',
       link: link
     };
     function link($scope, element, attrs){
-      element.on('click', function(mouse){
+      $document.on('click', function(mouse){
         var elementClickedId = mouse.srcElement.id;
         var menuButtonSelected = $rootScope.menuState;
         // var menuButtonSelected = $scope.$$prevSibling.buttonSelected;
-        if( elementClickedId === 'allNotesContainer' && menuButtonSelected === 'newNote'){
-          var x = mouse.offsetX;
-          var y = mouse.offsetY;
-          var coordinates = {'position': 'absolute', 'left': x, 'top': y};
-          var note = {
-            title: 'Title',
-            body: 'Details...',
-            position: coordinates
-          };
-          $scope.$emit('addNote', note);
+        if(menuButtonSelected === 'newNote') {
+          if (elementClickedId === 'allNotesContainer' || elementClickedId === 'allNotesContainerBackground') {
+            
+            // var offsetX = mouse.target.getBoundingClientRect().left;
+            // var offsetY = mouse.target.getBoundingClientRect().top;
+            var tx = navigationService.getTx();
+            var ty = navigationService.getTy();
+            var x = mouse.pageX;
+            var y = mouse.pageY;
+            // var y = mouse.offsetY + navigationService.getTy();
+            var coordinates = {'position': 'absolute', 'left': x - tx, 'top': y - ty};
+            var note = {
+              title: 'Title',
+              body: 'Details...',
+              position: coordinates
+            };
+            $scope.$emit('addNote', note);
           
           // angular.element('.textContent').focus();
           // angular.element(('.textContent').on('focusout', function(){
           //   $(this).attr('disabled', true);  //textarea is no longer editable - user will need to click edit
           //   console.log('Will "autosave" in the future');
           // }));
+          }
         }
       })
     }
