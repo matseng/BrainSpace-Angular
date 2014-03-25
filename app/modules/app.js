@@ -1,15 +1,8 @@
-//app.js
+// app.js
 // cd into directory with index file, then python -m SimpleHTTPServer 3333
 
 var app = angular.module("BrainSpace", ['firebase']);
 
-// app.factory('notesFactory', ['$firebase', 
-//   function($firebase){
-//     var ref = new Firebase('https://brainspace-biz.firebaseio.com/');
-//     var notesCollection = $firebase(ref);
-//     return notesCollection;
-//   }
-// ]);
 app.factory('notesFactory', ['$firebase',
   function($firebase){
     var ref = new Firebase('https://brainspace-biz.firebaseio.com/');
@@ -24,52 +17,7 @@ app.factory('notesFactory', ['$firebase',
     };
   }
 ]);
-// app.factory('notesFactory', ['$firebase',
-//   function($firebase){
-//     var ref = new Firebase('https://brainspace-biz.firebaseio.com/');
-//     var notesCollection = $firebase(ref);
-//     return {
-//       getNotes: function(){
-//         return notesCollection;
-//       },
-//       addNote: function(noteObj){
-//         notesCollection.$add(noteObj, function(err){
-//           if(err)
-//             console.log("Error saving note object to Firebase: " + err);
-//           else
-//             console.log("Note object successfully saved to Firebase");
-//         });
-//       },
-//       updateNoteText: function(noteScope) {
-//         var key = noteScope.key;
-//         notesCollection.$child(key).$save();
-//       },
-//       updateNotePosition: function(noteScope) {
-//         var key = noteScope.key;
-//         notesCollection.$update({key: noteScope.note});
-//       },
-//       deleteNote: function(key){
-//         notesCollection.$remove(key);
-//       },
-//     }
-//   }
-// ]);
 
-// app.controller("allNotes-controller", ['$scope', 'notesFactory', 
-//   $scope.init = function(neighborhood) {
-//     // bind Firebase data to scope variable 'data'
-//     var FBURL = 'https://brainspace-biz.firebaseio.com/';
-//     $scope.data = $firebase(new Firebase(FBURL + note));
-
-//       // monitor data for updates and check weather setting
-//       $scope.data.$on('loaded', checkWeather);
-//       $scope.data.$on('change', checkWeather);
-//    };
-// ]);
-
-// function checkWeather() {
-//   debugger
-// };
 app.controller('menu-controller', ['$rootScope', '$scope', 'notesFactory',
   function($rootScope, $scope, notesFactory){
     $scope.buttonSelected = 'null';
@@ -91,26 +39,9 @@ app.controller('menu-controller', ['$rootScope', '$scope', 'notesFactory',
   }
 ]);
 
-// app.directive('menuDirective', ['$rootScope', function($rootScope){
-//   return {
-//     retrict: 'A',
-//     link: link
-//   };
-
-//   function link($scope, element, attrs){
-//     element.on('change', function(mouse){
-//       // console.log(element);
-//       $scope.buttonSelected = mouse.srcElement.id;
-//       $rootScope = mouse.srcElement.id;
-//     });
-//   }
-// }]);
-
 app.controller("allNotes-controller", ['$scope', '$firebase', 'notesFactory',
   function($scope, $firebase, notesFactory){
 
-    // var ref = new Firebase('https://brainspace-biz.firebaseio.com/');
-    // $scope.notes = $firebase(ref);
     $scope.notes = notesFactory.getNotes();
 
     $scope.noteScopeSelected = null;
