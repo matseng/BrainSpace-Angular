@@ -73,6 +73,11 @@ app.factory('notesFactory', ['$firebase',
 app.controller('menu-controller', ['$rootScope', '$scope', 'notesFactory',
   function($rootScope, $scope, notesFactory){
     $scope.buttonSelected = 'null';
+    $scope.menuState = 'explore';
+    $rootScope.menuState = $scope.menuState;
+    $scope.$watch('menuState', function(newState){
+      $rootScope.menuState = newState;
+    });
 
     $scope.deleteButtonClicked = function(event){
       if($rootScope.noteSelected){
@@ -86,19 +91,20 @@ app.controller('menu-controller', ['$rootScope', '$scope', 'notesFactory',
   }
 ]);
 
-app.directive('menuDirective', ['$rootScope', function($rootScope){
-  return {
-    retrict: 'A',
-    link: link
-  };
+// app.directive('menuDirective', ['$rootScope', function($rootScope){
+//   return {
+//     retrict: 'A',
+//     link: link
+//   };
 
-  function link($scope, element, attrs){
-    element.on('click', function(mouse){
-      $scope.buttonSelected = mouse.srcElement.id;
-      $rootScope = mouse.srcElement.id;
-    });
-  }
-}]);
+//   function link($scope, element, attrs){
+//     element.on('change', function(mouse){
+//       // console.log(element);
+//       $scope.buttonSelected = mouse.srcElement.id;
+//       $rootScope = mouse.srcElement.id;
+//     });
+//   }
+// }]);
 
 app.controller("allNotes-controller", ['$scope', '$firebase', 'notesFactory',
   function($scope, $firebase, notesFactory){
@@ -169,8 +175,8 @@ app.controller("note-controller", ['$scope',
 - Listens for mouse click to add new notes at a specific position
 - This directive is added to #allNotesContainer element
 */
-app.directive('addNoteDirective', ['$document', "$compile",
-  function($document, $compile){
+app.directive('addNoteDirective', ['$document', '$compile', '$rootScope', 
+  function($document, $compile, $rootScope){
     return {
       restrict: 'A',
       link: link
@@ -178,7 +184,8 @@ app.directive('addNoteDirective', ['$document', "$compile",
     function link($scope, element, attrs){
       element.on('click', function(mouse){
         var elementClickedId = mouse.srcElement.id;
-        var menuButtonSelected = $scope.$$prevSibling.buttonSelected;
+        var menuButtonSelected = $rootScope.menuState;
+        // var menuButtonSelected = $scope.$$prevSibling.buttonSelected;
         if( elementClickedId === 'allNotesContainer' && menuButtonSelected === 'newNote'){
           var x = mouse.offsetX;
           var y = mouse.offsetY;

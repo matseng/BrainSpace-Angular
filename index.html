@@ -5,23 +5,24 @@
   <title>BrainSpace - Angular</title>
 </head>
 <body>
-  <div menu_directive id='menuContainer' ng-controller='menu-controller'>
+  <div id='menuContainer' ng-controller='menu-controller'>
     <h3>BrainSpace</h3>
     <div class="btn-group" data-toggle="buttons">
       <label class="btn btn-primary" ng-click='buttonClicked(event)'>
-        <input type="radio" name="options" id="explore" checked> Explore
+        <input type="radio" ng-model="menuState" value="explore" checked> Explore
       </label>
       <label class="btn btn-primary">
-        <input type="radio" name="options" id="newNote"> New Note
+        <input type="radio" ng-model="menuState" value="newNote"> New Note
       </label>
       <label class="btn btn-primary">
-        <input type="radio" name="options" id="newGroup"> Insert Image
+        <input type="radio" ng-model="menuState" value="insertImage"> Insert Image
       </label>
       <label class="btn btn-primary">
-        <input type="radio" name="options" id="newGroup"> Draw Group
+        <input type="radio" ng-model="menuState" value="newGroup"> Draw Group
       </label>
       <label class="btn btn-primary">
       </label>
+      <tt>menuState = {{menuState | json}}</tt><br/>
     </div>
     <note_menu_directive>
       <div class="btn-group">
