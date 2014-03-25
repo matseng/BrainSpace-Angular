@@ -1,6 +1,6 @@
 // app.js
 // cd into directory with index file, then python -m SimpleHTTPServer 3333
-// testing git shortcuts
+// testing git shortcuts - add commit message
 
 var app = angular.module("BrainSpace", ['firebase']);
 
