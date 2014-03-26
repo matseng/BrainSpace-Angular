@@ -1,6 +1,7 @@
 // navigation_service.js
 angular.module('BrainSpace')
   .service('navigationService', [function(){
+    
     var scale = 1;
     var t = {'tx': 0, 'ty': 0};
     

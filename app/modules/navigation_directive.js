@@ -37,7 +37,6 @@ angular.module('BrainSpace')
         var finalX = initialX - offsetX + deltaX;
         var finalY = initialY - offsetY + deltaY;
         navigationService.setScale(scale);
-        console.log(finalX, finalY);
         navigationService.setTranslate(finalX, finalY);
         var trans = "-webkit-transform: matrix(" + scale + ", 0, 0, " + scale + ", " + finalX + ', ' + finalY +')';
         allNotesContainer.attr('style', trans);

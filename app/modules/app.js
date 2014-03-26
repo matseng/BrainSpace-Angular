@@ -1,8 +1,8 @@
 // app.js
 // cd into directory with index file, then python -m SimpleHTTPServer 3333
-// firebase commands: firebase init, firebase deploy  // https://brainspace-biz.firebaseapp.com
+// firebase commands: firebase init, firebase deploy  // https://brainspace-biz.firebaseapp.commands
 
-var app = angular.module("BrainSpace", ['firebase']);
+var app = angular.module("BrainSpace", ['firebase', 'zoom_module']);
 
 app.factory('notesFactory', ['$firebase',
   function($firebase){
