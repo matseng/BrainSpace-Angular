@@ -32,8 +32,14 @@ OVERVIEW:
           initialMouseY = event.clientY;
           initialX = navigationService.getTx();
           initialY = navigationService.getTy();
-          $document.bind('mousemove', translate)
-          $document.bind('mouseup', done)
+          var containerX = allNotesContainer[0].getBoundingClientRect().left;
+          var containerY = allNotesContainer[0].getBoundingClientRect().top;
+          $document.bind('mousemove', translate);
+          $document.bind('mouseup', done);
+          console.log('navigation_directive');
+          console.log("  Transform: " + navigationService.getTransformString());
+          console.log("  mouse: " + initialMouseX + ", " + initialMouseY);
+          console.log("  allNotesContainer: " + containerX + ", " + containerY);
         }
       });
 
@@ -56,19 +62,30 @@ OVERVIEW:
 
       $document.bind('DOMMouseScroll mousewheel wheel', function(mouse){
         mouse.preventDefault();
+        var scale = navigationService.getScale();
+        var width = document.body.clientWidth * 1/scale;
+        var height = document.body.clientHeight * 1/scale;
+        var initialTx = navigationService.getTx() || 0;
+        var initialTy = navigationService.getTy() || 0;
+        // var deltaX = event.clientX - initialTx;
+        // var deltaY = event.clientY - initialTy;
+        // var slope = deltaY / deltaX;
+        var centerX = initialTx;
+        var centerY = initialTy;
+        navigationService.setTranslate(centerX, centerY);
+
+
         if(mouse.deltaY > 0){
-          var scale = navigationService.getScale();
           navigationService.setScale(scale * 1.1);
           var transformString = navigationService.getTransformString();
           allNotesContainer.attr('style', transformString);
-          console.log("Zoom in, transform: " + transformString);
+          // console.log("Zoom in, transform: " + transformString);
         }
         else {
-          var scale = navigationService.getScale();
           navigationService.setScale(scale * 0.9);
           var transformString = navigationService.getTransformString();
           allNotesContainer.attr('style', transformString);
-          console.log("Zoom out, transform: " + transformString);
+          // console.log("Zoom out, transform: " + transformString);
 
         } 
       });

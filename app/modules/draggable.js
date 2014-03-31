@@ -21,6 +21,8 @@ angular.module("BrainSpace")
           element.css({position: 'absolute'});
           initialElementX = element.prop('offsetLeft');
           initialElementY = element.prop('offsetTop');
+          console.log("draggable.js");
+          console.log("  (left, top): " + initialElementX + ", " + initialElementY);
           initialMouseX = $event.clientX;
           initialMouseY = $event.clientY;
           $document.bind('mousemove', myMouseMove);

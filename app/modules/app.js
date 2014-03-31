@@ -117,18 +117,16 @@ app.directive('addNoteDirective', ['$document', '$compile', '$rootScope', 'navig
       $document.on('click', function(mouse){
         var elementClickedId = mouse.srcElement.id;
         var menuButtonSelected = $rootScope.menuState;
-        // var menuButtonSelected = $scope.$$prevSibling.buttonSelected;
         if(menuButtonSelected === 'newNote') {
           if (elementClickedId === 'allNotesContainer' || elementClickedId === 'allNotesContainerBackground') {
-            
-            // var offsetX = mouse.target.getBoundingClientRect().left;
-            // var offsetY = mouse.target.getBoundingClientRect().top;
-            var tx = navigationService.getTx();
-            var ty = navigationService.getTy();
-            var x = mouse.pageX;
-            var y = mouse.pageY;
-            // var y = mouse.offsetY + navigationService.getTy();
-            var coordinates = {'position': 'absolute', 'left': x - tx, 'top': y - ty};
+            var scale = navigationService.getScale();
+            var containerX = element[0].getBoundingClientRect().left;
+            var containerY = element[0].getBoundingClientRect().top;
+            var x = mouse.clientX;
+            var y = mouse.clientY;
+            var deltaAbsX = (x - containerX) * 1/scale; 
+            var deltaAbsY = (y - containerY) * 1/scale; 
+            var coordinates = {'position': 'absolute', 'left': deltaAbsX, 'top': deltaAbsY};
             var note = {
               title: 'Title',
               body: 'Details...',
