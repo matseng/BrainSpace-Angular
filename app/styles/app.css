@@ -44,8 +44,8 @@ h1 {
 #allNotesContainer {
   position: relative;
   z-index:1;
-/*  border: 1;
-  border-style: solid;*/
+  border: 1;
+  border-style: solid;
   height: 100%;
 }
 

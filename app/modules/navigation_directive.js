@@ -14,31 +14,39 @@ angular.module('BrainSpace')
       var scale = 1;
       var allNotesContainer = element.children();
 
+/*
+OVERVIEW: 
+* 1. Transform mouse movements on page 
+*   --> 2. "Transform coordinate system" 
+*     --> 3. Global coordinate system
+* 
+* intialX,Y
+* intialMouseX,Y
+* deltaX,Y
+* finalX,Y
+* finalX,Y
+*/
       element.bind('mousedown', function(event) {
         if(event.srcElement.id === 'allNotesContainer' || event.srcElement.id === 'allNotesContainerBackground'){
           initialMouseX = event.clientX;
           initialMouseY = event.clientY;
-          initialX = allNotesContainer[0].getBoundingClientRect().left;
-          initialY = allNotesContainer[0].getBoundingClientRect().top;
-          if(!offsetX)
-            offsetX = initialX;
-          if(!offsetY)
-            offsetY = initialY;
-          initialDeltaX = initialX - initialMouseX;
-          initialDeltaY = initialY - initialMouseY;
+          initialX = navigationService.getTx();
+          initialY = navigationService.getTy();
           $document.bind('mousemove', translate)
           $document.bind('mouseup', done)
         }
       });
 
       function translate(event) {
-        var deltaX = event.clientX - initialMouseX;
-        var deltaY = event.clientY - initialMouseY;
-        var finalX = initialX - offsetX + deltaX;
-        var finalY = initialY - offsetY + deltaY;
-        navigationService.setTranslate(finalX, finalY);
-        var transformString = navigationService.getTransformString();
-        allNotesContainer.attr('style', transformString);
+        if(event.which === 1) {  //ensure left button is down during dragging
+          var deltaX = event.clientX - initialMouseX;
+          var deltaY = event.clientY - initialMouseY;
+          var finalX = initialX + deltaX;
+          var finalY = initialY + deltaY;
+          navigationService.setTranslate(finalX, finalY);
+          var transformString = navigationService.getTransformString();
+          allNotesContainer.attr('style', transformString);
+        }
       };
 
       function done() {
