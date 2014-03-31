@@ -1,7 +1,7 @@
 // navigation_service.js
 angular.module('BrainSpace')
   .service('navigationService', [function(){
-    
+
     var scale = 1;
     var t = {'tx': 0, 'ty': 0};
     
@@ -22,8 +22,13 @@ angular.module('BrainSpace')
       return t.tx;
     };
 
-    this.getTy = function(){
+    this.getTy = function() {
       return t.ty;
     };
+
+    this.getTransformString = function() {
+      var str = "-webkit-transform: matrix(" + scale + ", 0, 0, " + scale + ", " + t.tx + ', ' + t.ty +')';
+      return str;
+    }
 
   }]);

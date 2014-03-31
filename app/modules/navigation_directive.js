@@ -36,15 +36,33 @@ angular.module('BrainSpace')
         var deltaY = event.clientY - initialMouseY;
         var finalX = initialX - offsetX + deltaX;
         var finalY = initialY - offsetY + deltaY;
-        navigationService.setScale(scale);
         navigationService.setTranslate(finalX, finalY);
-        var trans = "-webkit-transform: matrix(" + scale + ", 0, 0, " + scale + ", " + finalX + ', ' + finalY +')';
-        allNotesContainer.attr('style', trans);
+        var transformString = navigationService.getTransformString();
+        allNotesContainer.attr('style', transformString);
       };
 
       function done() {
         $document.unbind('mousemove', translate)
         $document.unbind('mouseup', done)
       }
+
+      $document.bind('DOMMouseScroll mousewheel wheel', function(mouse){
+        mouse.preventDefault();
+        if(mouse.deltaY > 0){
+          var scale = navigationService.getScale();
+          navigationService.setScale(scale * 1.1);
+          var transformString = navigationService.getTransformString();
+          allNotesContainer.attr('style', transformString);
+          console.log("Zoom in, transform: " + transformString);
+        }
+        else {
+          var scale = navigationService.getScale();
+          navigationService.setScale(scale * 0.9);
+          var transformString = navigationService.getTransformString();
+          allNotesContainer.attr('style', transformString);
+          console.log("Zoom out, transform: " + transformString);
+
+        } 
+      });
     };
   }]);
