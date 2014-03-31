@@ -61,28 +61,29 @@ OVERVIEW:
       }
 
       $document.bind('DOMMouseScroll mousewheel wheel', function(mouse){
+        var scaleDelta = .075;
         mouse.preventDefault();
         var scale = navigationService.getScale();
         var width = document.body.clientWidth * 1/scale;
         var height = document.body.clientHeight * 1/scale;
-        var initialTx = navigationService.getTx() || 0;
-        var initialTy = navigationService.getTy() || 0;
-        // var deltaX = event.clientX - initialTx;
-        // var deltaY = event.clientY - initialTy;
-        // var slope = deltaY / deltaX;
-        var centerX = initialTx;
-        var centerY = initialTy;
-        navigationService.setTranslate(centerX, centerY);
+        var initialTx = navigationService.getTx();
+        var initialTy = navigationService.getTy();
+        var containerRect = element[0].getBoundingClientRect();
+        var containerX = element[0].getBoundingClientRect().left;
+        var containerY = element[0].getBoundingClientRect().top;
+        var deltaX = initialTx * scale;
+        var deltaY = initialTy * scale;
+        // navigationService.setTranslate(deltaX, deltaY);
 
 
-        if(mouse.deltaY > 0){
-          navigationService.setScale(scale * 1.1);
+        if(mouse.deltaY > 0) {
+          navigationService.setScale(scale * 1.075);
           var transformString = navigationService.getTransformString();
           allNotesContainer.attr('style', transformString);
           // console.log("Zoom in, transform: " + transformString);
         }
         else {
-          navigationService.setScale(scale * 0.9);
+          navigationService.setScale(scale * 0.925);
           var transformString = navigationService.getTransformString();
           allNotesContainer.attr('style', transformString);
           // console.log("Zoom out, transform: " + transformString);
