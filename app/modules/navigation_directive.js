@@ -36,8 +36,9 @@ OVERVIEW:
           var containerY = allNotesContainer[0].getBoundingClientRect().top;
           $document.bind('mousemove', translate);
           $document.bind('mouseup', done);
-          console.log('navigation_directive');
-          console.log("  Transform: " + navigationService.getTransformString());
+          console.log('navigation_directive.js');
+          console.log("  scale: " + navigationService.getScale());
+          console.log("  tx,ty: " + navigationService.getTx() + ", " + navigationService.getTy());
           console.log("  mouse: " + initialMouseX + ", " + initialMouseY);
           console.log("  allNotesContainer: " + containerX + ", " + containerY);
         }
@@ -78,19 +79,21 @@ OVERVIEW:
         var deltaY = screenCenterY - containerCenterY;
 
         if(mouse.deltaY > 0) {
-          navigationService.setScale(scale * 1.075);
+          var newScale = scale * 1.075;
+          navigationService.setScale(newScale);
           var transformString = navigationService.getTransformString();
           allNotesContainer.attr('style', transformString);
-          var finalX = initialTx + initialTx * scaleDelta;
-          var finalY = initialTy + initialTy * scaleDelta;
+          var finalX = initialTx + deltaX * newScale;
+          var finalY = initialTy + deltaY * newScale;
           // navigationService.setTranslate(finalX, finalY);
         }
         else {
-          navigationService.setScale(scale * 0.925);
+          var newScale = scale * 0.925;
+          navigationService.setScale(newScale);
           var transformString = navigationService.getTransformString();
           allNotesContainer.attr('style', transformString);
-          var finalX = initialTx - initialTx * scaleDelta;
-          var finalY = initialTy - initialTy * scaleDelta;
+          var finalX = initialTx + deltaX * newScale;
+          var finalY = initialTy + deltaY * newScale;
           // navigationService.setTranslate(finalX, finalY);
         } 
       });
