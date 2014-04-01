@@ -64,30 +64,34 @@ OVERVIEW:
         var scaleDelta = .075;
         mouse.preventDefault();
         var scale = navigationService.getScale();
-        var width = document.body.clientWidth * 1/scale;
-        var height = document.body.clientHeight * 1/scale;
+
+        var screenCenterX = document.body.clientWidth / 2;
+        var screenCenterY = document.body.clientHeight / 2;
+
+        var containerRect = allNotesContainer[0].getBoundingClientRect();
+        var containerCenterX = containerRect.left + containerRect.width / 2;
+        var containerCenterY = containerRect.top + containerRect.height / 2;
+
         var initialTx = navigationService.getTx();
         var initialTy = navigationService.getTy();
-        var containerRect = element[0].getBoundingClientRect();
-        var containerX = element[0].getBoundingClientRect().left;
-        var containerY = element[0].getBoundingClientRect().top;
-        var deltaX = initialTx * scale;
-        var deltaY = initialTy * scale;
-        // navigationService.setTranslate(deltaX, deltaY);
-
+        var deltaX = screenCenterX - containerCenterX;
+        var deltaY = screenCenterY - containerCenterY;
 
         if(mouse.deltaY > 0) {
           navigationService.setScale(scale * 1.075);
           var transformString = navigationService.getTransformString();
           allNotesContainer.attr('style', transformString);
-          // console.log("Zoom in, transform: " + transformString);
+          var finalX = initialTx + initialTx * scaleDelta;
+          var finalY = initialTy + initialTy * scaleDelta;
+          // navigationService.setTranslate(finalX, finalY);
         }
         else {
           navigationService.setScale(scale * 0.925);
           var transformString = navigationService.getTransformString();
           allNotesContainer.attr('style', transformString);
-          // console.log("Zoom out, transform: " + transformString);
-
+          var finalX = initialTx - initialTx * scaleDelta;
+          var finalY = initialTy - initialTy * scaleDelta;
+          // navigationService.setTranslate(finalX, finalY);
         } 
       });
     };
