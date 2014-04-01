@@ -5,7 +5,7 @@
 */
 
 angular.module("BrainSpace")
-  .directive('draggableDirective', ['$rootScope', '$document', function($rootScope, $document){
+  .directive('draggableDirective', ['$rootScope', '$document', 'navigationService', function($rootScope, $document, navigationService){
     return {
       restrict: 'A',
       link: link
@@ -42,8 +42,9 @@ angular.module("BrainSpace")
         if($rootScope.mouse.elementClickedClassName !== 'triangle'){
           var deltaX = $event.clientX - initialMouseX;
           var deltaY = $event.clientY - initialMouseY;
-          var elementX = initialElementX + deltaX;
-          var elementY = initialElementY + deltaY;
+          var scale = navigationService.getScale();
+          var elementX = initialElementX + deltaX * 1/scale;
+          var elementY = initialElementY + deltaY * 1/scale;
           var position = {'left': elementX, 'top': elementY};
           $scope.note.position = position;
           element.css(position);
