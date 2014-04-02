@@ -2,22 +2,22 @@
 // cd into directory with index file, then python -m SimpleHTTPServer 3333
 // firebase commands: firebase init, firebase deploy  // https://brainspace-biz.firebaseapp.commands
 
-var app = angular.module("BrainSpace", ['firebase', 'zoom_module']);
+var app = angular.module("BrainSpace", ['zoom_module', 'notes_factory_module']);
 
-app.factory('notesFactory', ['$firebase',
-  function($firebase){
-    var ref = new Firebase('https://brainspace-biz.firebaseio.com/');
-    var notesCollection = $firebase(ref);
-    return {
-      getNotes: function(){
-        return notesCollection;
-      },
-      deleteNote: function(key) {
-        notesCollection.$remove(key);
-      }
-    };
-  }
-]);
+// app.factory('notesFactory', ['$firebase',
+//   function($firebase){
+//     var ref = new Firebase('https://brainspace-biz.firebaseio.com/');
+//     var notesCollection = $firebase(ref);
+//     return {
+//       getNotes: function(){
+//         return notesCollection;
+//       },
+//       deleteNote: function(key) {
+//         notesCollection.$remove(key);
+//       }
+//     };
+//   }
+// ]);
 
 app.controller('menu-controller', ['$rootScope', '$scope', 'notesFactory',
   function($rootScope, $scope, notesFactory){
