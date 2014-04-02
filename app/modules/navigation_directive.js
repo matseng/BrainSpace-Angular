@@ -1,7 +1,7 @@
 // navigation_directive.js
 
 angular.module('BrainSpace')
-  .directive('navigationDirective', ['$document', 'navigationService', function($document, navigationService){
+  .directive('navigationDirective', ['$document', 'navigationService', 'notesFactory', function($document, navigationService, notesFactory){
     return {
       restrict: 'A',
       link: link
@@ -63,6 +63,8 @@ OVERVIEW:
 
       $document.bind('DOMMouseScroll mousewheel wheel', function(mouse){
         //TODO: iterate over each note to calcuate dist from mouse location, then zoom
+        var allNotesScope = notesFactory.getScope();
+
         var scaleDelta = .075;
         mouse.preventDefault();
         var scale = navigationService.getScale();
