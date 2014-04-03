@@ -63,7 +63,7 @@ OVERVIEW:
 
       $document.bind('DOMMouseScroll mousewheel wheel', function(mouse){
         //TODO: iterate over each note to calcuate dist from mouse location, then zoom
-        var allNotesScope = notesFactory.getScope();
+        var allNotesScope = notesFactory.getNotes();
 
         var scaleDelta = .075;
         mouse.preventDefault();
