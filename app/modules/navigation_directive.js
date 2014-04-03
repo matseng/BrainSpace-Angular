@@ -71,41 +71,44 @@ OVERVIEW:
         // var scaleDelta = .075;
         var scale = navigationService.getScale();
 
-        var screenCenterX = document.body.clientWidth / 2;
-        var screenCenterY = document.body.clientHeight / 2;
-
+        var mouseX = mouse.clientX;
+        var mouseY = mouse.clientY;
         var containerRect = allNotesContainer[0].getBoundingClientRect();
         var containerCenterX = containerRect.left + containerRect.width / 2;
         var containerCenterY = containerRect.top + containerRect.height / 2;
+        var screenCenterX = document.body.clientWidth / 2;
+        var screenCenterY = document.body.clientHeight / 2;
 
-        var initialTx = navigationService.getTx();
-        var initialTy = navigationService.getTy();
-        // var deltaX = screenCenterX - containerCenterX;
-        // var deltaY = screenCenterY - containerCenterY;
-        var deltaX = initialTx;
-        var deltaY = initialTy;
+        var tx = navigationService.getTx();
+        var ty = navigationService.getTy();
+        
+        var mouseDistFromCenterX = mouseX - screenCenterX;
+        var mouseDistFromCenterY = mouseY - screenCenterY;
+
+        var deltaX = mouseDistFromCenterX - tx;
+        var deltaY = mouseDistFromCenterY - ty;
+        var deltaX = tx;
+        var deltaY = ty;
+
         var deltaAbsX = deltaX / scale;
         var deltaAbsY = deltaY / scale;
+        // var deltaMouseAbsX = mouseDistFromCenterX / scale;
+        // var deltaMouseAbsY = mouseDistFromCenterY / scale;
 
+        var newScale;
         if(mouse.deltaY > 0) {
-          var newScale = scale * 1.075;
-          navigationService.setScale(newScale);
-          navigationService.setTranslate(deltaAbsX * newScale, deltaAbsY * newScale);
-          var transformString = navigationService.getTransformString();
-          allNotesContainer.attr('style', transformString);
-          // var finalX = initialTx + deltaX * newScale;
-          // var finalY = initialTy + deltaY * newScale;
+          newScale = scale * 1.075;
         }
         else {
-          var newScale = scale * 0.925;
-          navigationService.setScale(newScale);
-          navigationService.setTranslate(deltaAbsX * newScale, deltaAbsY * newScale);
-          var transformString = navigationService.getTransformString();
-          allNotesContainer.attr('style', transformString);
-          // var finalX = initialTx + deltaX * newScale;
-          // var finalY = initialTy + deltaY * newScale;
-          // navigationService.setTranslate(finalX, finalY);
+          newScale = scale * 0.925;
         } 
+        navigationService.setScale(newScale);
+        var newDeltaAbsX = deltaAbsX * newScale;
+        var newDeltaAbsY = deltaAbsY * newScale;
+        // navigationService.setTranslate(-newDeltaAbsX + deltaAbsX, -newDeltaAbsY + deltaAbsY);
+        navigationService.setTranslate(deltaAbsX * newScale, deltaAbsY * newScale);
+        var transformString = navigationService.getTransformString();
+        allNotesContainer.attr('style', transformString);
       });
     };
   }]);
