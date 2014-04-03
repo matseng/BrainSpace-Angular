@@ -28,6 +28,7 @@ OVERVIEW:
 */
       element.bind('mousedown', function(event) {
         if(event.srcElement.id === 'allNotesContainer' || event.srcElement.id === 'allNotesContainerBackground'){
+          event.preventDefault();
           initialMouseX = event.clientX;
           initialMouseY = event.clientY;
           initialX = navigationService.getTx();
@@ -46,6 +47,7 @@ OVERVIEW:
 
       function translate(event) {
         if(event.which === 1) {  //ensure left button is down during dragging
+          event.preventDefault();
           var deltaX = event.clientX - initialMouseX;
           var deltaY = event.clientY - initialMouseY;
           var finalX = initialX + deltaX;
@@ -63,10 +65,10 @@ OVERVIEW:
 
       $document.bind('DOMMouseScroll mousewheel wheel', function(mouse){
         //TODO: iterate over each note to calcuate dist from mouse location, then zoom
+        mouse.preventDefault();
         var allNotesScope = notesFactory.getNotes();
 
-        var scaleDelta = .075;
-        mouse.preventDefault();
+        // var scaleDelta = .075;
         var scale = navigationService.getScale();
 
         var screenCenterX = document.body.clientWidth / 2;
@@ -78,25 +80,30 @@ OVERVIEW:
 
         var initialTx = navigationService.getTx();
         var initialTy = navigationService.getTy();
-        var deltaX = screenCenterX - containerCenterX;
-        var deltaY = screenCenterY - containerCenterY;
+        // var deltaX = screenCenterX - containerCenterX;
+        // var deltaY = screenCenterY - containerCenterY;
+        var deltaX = initialTx;
+        var deltaY = initialTy;
+        var deltaAbsX = deltaX / scale;
+        var deltaAbsY = deltaY / scale;
 
         if(mouse.deltaY > 0) {
           var newScale = scale * 1.075;
           navigationService.setScale(newScale);
+          navigationService.setTranslate(deltaAbsX * newScale, deltaAbsY * newScale);
           var transformString = navigationService.getTransformString();
           allNotesContainer.attr('style', transformString);
-          var finalX = initialTx + deltaX * newScale;
-          var finalY = initialTy + deltaY * newScale;
-          // navigationService.setTranslate(finalX, finalY);
+          // var finalX = initialTx + deltaX * newScale;
+          // var finalY = initialTy + deltaY * newScale;
         }
         else {
           var newScale = scale * 0.925;
           navigationService.setScale(newScale);
+          navigationService.setTranslate(deltaAbsX * newScale, deltaAbsY * newScale);
           var transformString = navigationService.getTransformString();
           allNotesContainer.attr('style', transformString);
-          var finalX = initialTx + deltaX * newScale;
-          var finalY = initialTy + deltaY * newScale;
+          // var finalX = initialTx + deltaX * newScale;
+          // var finalY = initialTy + deltaY * newScale;
           // navigationService.setTranslate(finalX, finalY);
         } 
       });
