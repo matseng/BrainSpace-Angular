@@ -18,7 +18,7 @@
         <input type="radio" ng-model="menuState" value="insertImage"> Insert Image
       </label>
       <label class="btn btn-primary">
-        <input type="radio" ng-model="menuState" value="newGroup"> Draw Group
+        <input type="radio" ng-model="menuState" value="drawGroup"> Draw Group
       </label>
       <label class="btn btn-primary">
       </label>
@@ -44,7 +44,7 @@
   </div>
 
   </div>
-  <div navigation_directive id="allNotesContainerBackground">
+  <div navigation_directive draw_group_directive id="allNotesContainerBackground">
     <div add_note_directive  id='allNotesContainer' ng-controller='allNotes-controller'>
       <note_model_directive ng-repeat="(key, note) in notes"></note_model_directive>
     </div>
@@ -64,6 +64,7 @@
   <script type="text/javascript" src="./app/modules/navigation_service.js"></script>
   <script type="text/javascript" src="./app/modules/notes_factory_module.js"></script>
   <script type="text/javascript" src="./app/modules/note_menu_service.js"></script>
+  <script type="text/javascript" src="./app/modules/group_module.js"></script>
   <link rel="stylesheet" type="text/css" href="./app/styles/app.css">
 </body>
 </html>

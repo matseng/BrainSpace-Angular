@@ -37,11 +37,6 @@ OVERVIEW:
           var containerY = allNotesContainer[0].getBoundingClientRect().top;
           $document.bind('mousemove', translate);
           $document.bind('mouseup', done);
-          console.log('navigation_directive.js');
-          console.log("  scale: " + navigationService.getScale());
-          console.log("  tx,ty: " + navigationService.getTx() + ", " + navigationService.getTy());
-          console.log("  mouse: " + initialMouseX + ", " + initialMouseY);
-          console.log("  allNotesContainer: " + containerX + ", " + containerY);
         }
       });
 

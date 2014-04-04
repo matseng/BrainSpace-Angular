@@ -2,21 +2,25 @@
 // cd into directory with index file, then python -m SimpleHTTPServer 3333
 // firebase commands: firebase init, firebase deploy  // https://brainspace-biz.firebaseapp.commands
 
-var app = angular.module("BrainSpace", ['notes_factory_module']);
+var app = angular.module("BrainSpace", ['notes_factory_module', 'group_module']);
 
 app.controller('menu-controller', ['$rootScope', '$scope', 'notesFactory', 'note_menu_service',
   function($rootScope, $scope, notesFactory, note_menu_service){
     $scope.buttonSelected = 'null';
     $scope.menuState = 'explore';
     $rootScope.menuState = $scope.menuState;
+
     $scope.$watch('menuState', function(newState){
       $rootScope.menuState = newState;
+      note_menu_service.setRadioButtonState($scope.menuState);
     });
-
+    
     $scope.fontSizeString = "12pt";
     $scope.$on('noteClicked', function(a) {
+      //TODO: DOM view is not updating font size unless an element dragged
       $scope.fontSizeString = note_menu_service.getFontSizeString();
-      console.log($scope.fontSizeString);
+      // $scope.$apply();
+      console.log('in menu-controller: ', $scope.fontSizeString);
       console.log(typeof $scope.fontSizeString);
     });
 

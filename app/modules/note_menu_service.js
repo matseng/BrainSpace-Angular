@@ -4,6 +4,7 @@ angular.module('BrainSpace').service('note_menu_service', [function(){
   var scope = {};
   var element;
   var fontSizeString;
+  var menuState;
   
   this.setScope = function(myScope) {
     scope = myScope;
@@ -21,4 +22,13 @@ angular.module('BrainSpace').service('note_menu_service', [function(){
     console.log('note_menu_service, ', fontSizeString);
     return fontSizeString;
   };
+
+  this.setRadioButtonState = function(state) { 
+    menuState = state;
+  };
+
+  this.getRadioButtonState = function() {
+    return menuState;
+  };
+
 }]);
