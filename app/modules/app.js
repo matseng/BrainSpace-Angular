@@ -110,12 +110,23 @@ app.directive('addNoteDirective', ['$document', '$compile', '$rootScope', 'navig
       restrict: 'A',
       link: link
     };
+
     function link($scope, element, attrs){
-      $document.on('click', function(mouse){
+      var timeMousedown;
+
+      $document.on('mousedown', function(mouse){
+        timeMousedown = new Date().getTime();
+      });
+
+      $document.on('mouseup', function(mouse){
         var elementClickedId = mouse.srcElement.id;
         var menuButtonSelected = $rootScope.menuState;
         if(menuButtonSelected === 'newNote') {
-          if (elementClickedId === 'allNotesContainer' || elementClickedId === 'allNotesContainerBackground') {
+          var timeMouseup = new Date().getTime();
+          var clickDuration = timeMouseup - timeMousedown;
+          console.log(clickDuration);
+          if (clickDuration < 333 && (elementClickedId === 'allNotesContainer' 
+            || elementClickedId === 'allNotesContainerBackground') ) {
             var scale = navigationService.getScale();
             var containerX = element[0].getBoundingClientRect().left;
             var containerY = element[0].getBoundingClientRect().top;
@@ -138,7 +149,7 @@ app.directive('addNoteDirective', ['$document', '$compile', '$rootScope', 'navig
           // }));
           }
         }
-      })
+      });
     }
   }
 ]);

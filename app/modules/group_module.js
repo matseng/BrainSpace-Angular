@@ -9,9 +9,12 @@ angular.module("group_module", [])
     function link($scope, element, attrs) {
       //check if draw group radio button is selected from note_menu_service
       //get mouse initial coordinates (see draggable)
-        element.on('click', function() {
+      var initialMouseX, initialMouseY;
+        element.on('click', function(mouse) {
           if(note_menu_service.getRadioButtonState() === 'drawGroup'){
-            console.log(note_menu_service.getRadioButtonState());
+            initialMouseX = mouse.clientX;
+            initialMouseY = mouse.clientY;
+            console.log(initialMouseX, initialMouseY);
           }
         });
       
