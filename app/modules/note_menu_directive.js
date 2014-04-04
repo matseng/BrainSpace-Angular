@@ -1,6 +1,6 @@
 // note_menu_directive.js
 
-angular.module('BrainSpace').directive('noteMenuDirective', ['$rootScope', function($rootScope){
+angular.module('BrainSpace').directive('noteMenuDirective', ['$rootScope', 'note_menu_service', '$document', function($rootScope, note_menu_service, $document){
   return {
     restrict: "E",
     link: link
@@ -17,5 +17,11 @@ angular.module('BrainSpace').directive('noteMenuDirective', ['$rootScope', funct
         // $scope.$emit('updateNote', $scope);  //message NOT recieved by child scope
       }
     });
+    // var selectedScope = note_menu_service.getScope();
+    // selectedScope.$watch("$id", function(){
+    //   console.log(selectedScope.$id);
+    // })
+    // $document.getElementsByClassName('selectFontSize')[0].value = selectedScope.note.textarea_style.fontSize;​​​​​​​​​​
+
   }
 }]);

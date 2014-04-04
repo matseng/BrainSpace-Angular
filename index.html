@@ -27,10 +27,10 @@
     <note_menu_directive>
       <div class="btn-group">
         <span>Font size:</span>
-        <select class='selectFontSize'>
+        <select class='selectFontSize' ng-model="fontSizeString">
           <option value="8pt">8</option>
           <option value="10pt">10</option>
-          <option value="12pt" selected>12</option>
+          <option value="12pt">12</option>
           <option value="14pt">14</option>
           <option value="18pt">18</option>
           <option value="24pt">24</option>
@@ -63,6 +63,7 @@
   <script type="text/javascript" src="./app/modules/navigation_directive.js"></script>
   <script type="text/javascript" src="./app/modules/navigation_service.js"></script>
   <script type="text/javascript" src="./app/modules/notes_factory_module.js"></script>
+  <script type="text/javascript" src="./app/modules/note_menu_service.js"></script>
   <link rel="stylesheet" type="text/css" href="./app/styles/app.css">
 </body>
 </html>

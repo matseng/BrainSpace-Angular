@@ -4,13 +4,20 @@
 
 var app = angular.module("BrainSpace", ['notes_factory_module']);
 
-app.controller('menu-controller', ['$rootScope', '$scope', 'notesFactory',
-  function($rootScope, $scope, notesFactory){
+app.controller('menu-controller', ['$rootScope', '$scope', 'notesFactory', 'note_menu_service',
+  function($rootScope, $scope, notesFactory, note_menu_service){
     $scope.buttonSelected = 'null';
     $scope.menuState = 'explore';
     $rootScope.menuState = $scope.menuState;
     $scope.$watch('menuState', function(newState){
       $rootScope.menuState = newState;
+    });
+
+    $scope.fontSizeString = "12pt";
+    $scope.$on('noteClicked', function(a) {
+      $scope.fontSizeString = note_menu_service.getFontSizeString();
+      console.log($scope.fontSizeString);
+      console.log(typeof $scope.fontSizeString);
     });
 
     $scope.deleteButtonClicked = function(event){
