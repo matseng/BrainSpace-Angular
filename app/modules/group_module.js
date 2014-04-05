@@ -7,16 +7,36 @@ angular.module("group_module", [])
     };
 
     function link($scope, element, attrs) {
-      //check if draw group radio button is selected from note_menu_service
-      //get mouse initial coordinates (see draggable)
       var initialMouseX, initialMouseY;
-        element.on('click', function(mouse) {
+      var deltaMouseX, deltaMouseY;
+        element.on('mousedown', function(mouse) {
           if(note_menu_service.getRadioButtonState() === 'drawGroup'){
             initialMouseX = mouse.clientX;
             initialMouseY = mouse.clientY;
-            console.log(initialMouseX, initialMouseY);
+            element.on('mousedrag', myMouseMove);
+            element.on('mouseup', myMouseUp);
           }
         });
+
+        var myMouseMove = function(mouse) {
+          //disable pan from other directives
+          //check is mouse button is still down
+          //calculate mouse delta
+          //draw / re-draw a new div
+          if(mouse.which == 1) {
+            deltaMouseX = initialMouseX - mouse.clientX;
+            deltaMouseY = initialMouseY - mouse.clientY;
+            console.log(deltaMouseX, deltaMouseY);
+          } else {
+            element.unbind('mousedrag', myMouseMove);
+            element.unbind('mouseup', myMouseUp);
+          } 
+        };
+
+        var myMouseUp = function() {
+          element.unbind('mousedrag', myMouseMove);
+          element.unbind('mouseup', myMouseUp);
+        };
       
     };
   }]);

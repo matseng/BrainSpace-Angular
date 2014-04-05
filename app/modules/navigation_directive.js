@@ -1,7 +1,7 @@
 // navigation_directive.js
 
 angular.module('BrainSpace')
-  .directive('navigationDirective', ['$document', 'navigationService', 'notesFactory', function($document, navigationService, notesFactory){
+  .directive('navigationDirective', ['$document', 'navigationService', 'notesFactory', 'note_menu_service', function($document, navigationService, notesFactory, note_menu_service){
     return {
       restrict: 'A',
       link: link
@@ -27,7 +27,9 @@ OVERVIEW:
 * finalX,Y
 */
       element.bind('mousedown', function(event) {
-        if(event.srcElement.id === 'allNotesContainer' || event.srcElement.id === 'allNotesContainerBackground'){
+        if((event.srcElement.id === 'allNotesContainer' 
+          || event.srcElement.id === 'allNotesContainerBackground')
+          && note_menu_service.getRadioButtonState() != 'drawGroup'){
           event.preventDefault();
           initialMouseX = event.clientX;
           initialMouseY = event.clientY;
