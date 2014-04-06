@@ -22,6 +22,7 @@ angular.module("BrainSpace").directive('resizableDivDirective', ['$document', fu
 
     function resizableMouseDrag($event){
       if($event.which === 0){
+        $event.preventDefault;
         $document.unbind('mousemove', resizableMouseDrag);
         $document.unbind('mouseup', resizableMouseUp);
         return;
