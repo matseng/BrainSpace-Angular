@@ -1,6 +1,6 @@
-// note_menu_service.js
+// noteMenu_service.js
 
-angular.module('BrainSpace').service('note_menu_service', [function(){
+angular.module('BrainSpace').service('noteMenu_service', [function(){
   var scope = {};
   var element;
   var fontSizeString;
@@ -19,7 +19,7 @@ angular.module('BrainSpace').service('note_menu_service', [function(){
   };
 
   this.getFontSizeString = function() {
-    console.log('note_menu_service, ', fontSizeString);
+    console.log('noteMenu_service, ', fontSizeString);
     return fontSizeString;
   };
 

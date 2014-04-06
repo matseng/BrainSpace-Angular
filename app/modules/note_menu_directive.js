@@ -1,6 +1,6 @@
 // note_menu_directive.js
 
-angular.module('BrainSpace').directive('noteMenuDirective', ['$rootScope', 'note_menu_service', '$document', function($rootScope, note_menu_service, $document){
+angular.module('BrainSpace').directive('noteMenuDirective', ['$rootScope', 'noteMenu_service', '$document', function($rootScope, noteMenu_service, $document){
   return {
     restrict: "E",
     link: link
@@ -17,7 +17,7 @@ angular.module('BrainSpace').directive('noteMenuDirective', ['$rootScope', 'note
         // $scope.$emit('updateNote', $scope);  //message NOT recieved by child scope
       }
     });
-    // var selectedScope = note_menu_service.getScope();
+    // var selectedScope = noteMenu_service.getScope();
     // selectedScope.$watch("$id", function(){
     //   console.log(selectedScope.$id);
     // })

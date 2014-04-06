@@ -1,6 +1,6 @@
 // group_module.js
 angular.module("group_module", [])
-  .directive('drawGroupDirective', ['note_menu_service', '$document', function(note_menu_service, $document){
+  .directive('drawGroupDirective', ['noteMenu_service', '$document', function(noteMenu_service, $document){
     return {
       restrict: "A",
       link: link
@@ -10,7 +10,7 @@ angular.module("group_module", [])
       var initialMouseX, initialMouseY;
       var deltaMouseX, deltaMouseY;
         element.on('mousedown', function(mouse) {
-          if(note_menu_service.getRadioButtonState() === 'drawGroup'){
+          if(noteMenu_service.getRadioButtonState() === 'drawGroup'){
             // mouse.preventDefault();
             initialMouseX = mouse.clientX;
             initialMouseY = mouse.clientY;

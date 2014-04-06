@@ -4,21 +4,21 @@
 
 var app = angular.module("BrainSpace", ['notes_factory_module', 'group_module', 'add_note_module']);
 
-app.controller('menu-controller', ['$rootScope', '$scope', 'notesFactory', 'note_menu_service',
-  function($rootScope, $scope, notesFactory, note_menu_service){
+app.controller('menu-controller', ['$rootScope', '$scope', 'notesFactory', 'noteMenu_service',
+  function($rootScope, $scope, notesFactory, noteMenu_service){
     $scope.buttonSelected = 'null';
     $scope.menuState = 'drawGroup';
     $rootScope.menuState = $scope.menuState;
 
     $scope.$watch('menuState', function(newState){
       $rootScope.menuState = newState;
-      note_menu_service.setRadioButtonState($scope.menuState);
+      noteMenu_service.setRadioButtonState($scope.menuState);
     });
     
     $scope.fontSizeString = "12pt";
     $scope.$on('noteClicked', function(a) {
       //TODO: DOM view is not updating font size unless an element dragged
-      $scope.fontSizeString = note_menu_service.getFontSizeString();
+      $scope.fontSizeString = noteMenu_service.getFontSizeString();
       // $scope.$apply();
       console.log('in menu-controller: ', $scope.fontSizeString);
       console.log(typeof $scope.fontSizeString);
