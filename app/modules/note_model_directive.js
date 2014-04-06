@@ -2,7 +2,7 @@
 
 var app = angular.module('BrainSpace');
 
-app.directive('noteModelDirective', ['$rootScope', 'noteMenu_service', function($rootScope, noteMenu_service){
+app.directive('noteModelDirective', ['$rootScope', 'headerMenu_service', function($rootScope, headerMenu_service){
     return {
       restrict: "E",
       // scope: {  // THIS IS BAD!!!
@@ -17,7 +17,7 @@ app.directive('noteModelDirective', ['$rootScope', 'noteMenu_service', function(
 
       element.on('mousedown', function(){
         // $scope.$emit('noteSelected', $scope);
-        noteMenu_service.setScope($scope);
+        headerMenu_service.setScope($scope);
         $rootScope.noteSelected = {scope: $scope, element: element};
         $rootScope.$broadcast('noteClicked');
       });
