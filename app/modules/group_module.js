@@ -11,7 +11,7 @@ angular.module("group_module", [])
       var deltaMouseX, deltaMouseY;
         element.on('mousedown', function(mouse) {
           if(note_menu_service.getRadioButtonState() === 'drawGroup'){
-            mouse.preventDefault();
+            // mouse.preventDefault();
             initialMouseX = mouse.clientX;
             initialMouseY = mouse.clientY;
             $document.bind('mousemove', myMouseMove2);
