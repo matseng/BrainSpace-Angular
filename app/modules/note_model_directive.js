@@ -15,23 +15,10 @@ app.directive('noteModelDirective', ['$rootScope', 'headerMenu_service', functio
     };
     function link($scope, element, attrs){
 
-      element.on('change', function(test) {
-        console.log('this: ', this);
-        console.log('element: ', element);
-      });
-
       element.on('mousedown', function(){
-        // $scope.$emit('noteSelected', $scope);
         headerMenu_service.setScope($scope, element);
-        // headerMenu_service.setElement(element);
-        $rootScope.noteSelected = {scope: $scope, element: element};
-        // $rootScope.$broadcast('noteClicked');
+        $rootScope.noteSelected = {scope: $scope, element: element};  //TODO: Refactor references to $rootScope into headerMenu_service
       });
-
-      // element.on('focusout', function(){
-      //   // $rootScope.noteSelected = null;
-      //   $scope.$emit('updateNote', $scope);
-      // });
 
       element.on('mouseup', function(){
         var width = element.find('textarea').css('width');
@@ -40,23 +27,7 @@ app.directive('noteModelDirective', ['$rootScope', 'headerMenu_service', functio
         $scope.note.body_style = body_style;
         $scope.$emit('updateNote', $scope);
       });
-
-      // element.bind('change', function(event){
-      //   var fontSize = $scope.fontSize;
-      //   var noteTitle = event.srcElement.parentNode.parentNode.getElementsByClassName('noteTitle')[0];
-      //   $scope.note.title_style = {'fontSize': fontSize};
-      //   noteTitle.setAttribute('style', 'font-size: ' + fontSize);
-      //   $scope.$emit('updateNote', $scope);
-      // });
-
-      // var el = angular.element(element)[0];
-      // var selectfontSize = el.getElementsByClassName("selectFontSize")[0];
-      // var $selectfontSize = angular.element(selectfontSize);
-      // $selectfontSize.on('mouseup', function(){
-      //   console.log(this);
-      // });
     }
   }
 ]);
 
-//TODO: Add directive to font selector
