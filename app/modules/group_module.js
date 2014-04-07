@@ -24,12 +24,14 @@ angular.module("group_module", [])
           //check if left mouse button is still down
           //calculate mouse delta
           //TODO:
-          //draw / re-draw a new div
+          //draw / re-draw a new div by appending it to #allNotesContainer
             //add group_template.html
           if(mouse.which == 1) {
+            var $allNotesContainer = angular.element($document[0].querySelector("#allNotesContainer"));
             deltaMouseX = mouse.clientX - initialMouseX;
             deltaMouseY = mouse.clientY - initialMouseY;
-            console.log(deltaMouseX, deltaMouseY);
+            // console.log(deltaMouseX, deltaMouseY);
+
           } else {
             element.unbind('mousemove', myMouseMove2);
             element.unbind('mouseup', myMouseUp2);
