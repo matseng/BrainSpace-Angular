@@ -8,12 +8,17 @@ app.directive('noteModelDirective', ['$rootScope', 'headerMenu_service', functio
       // scope: {  // THIS IS BAD!!!
       //   note: '=',
       // },
-      controller: 'note-controller',
+      controller: 'note-controller',  // NOTE: ng-controller = "note-controller" does NOT appear in the HTML!
       // template: "<div> {{note.title}} </div>",
       templateUrl: './app/modules/note_template.html',
       link: link
     };
     function link($scope, element, attrs){
+
+      element.on('change', function(test) {
+        console.log('this: ', this);
+        console.log('element: ', element);
+      });
 
       element.on('mousedown', function(){
         // $scope.$emit('noteSelected', $scope);
@@ -23,10 +28,10 @@ app.directive('noteModelDirective', ['$rootScope', 'headerMenu_service', functio
         // $rootScope.$broadcast('noteClicked');
       });
 
-      element.on('focusout', function(){
-        // $rootScope.noteSelected = null;
-        $scope.$emit('updateNote', $scope);
-      });
+      // element.on('focusout', function(){
+      //   // $rootScope.noteSelected = null;
+      //   $scope.$emit('updateNote', $scope);
+      // });
 
       element.on('mouseup', function(){
         var width = element.find('textarea').css('width');
