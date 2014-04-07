@@ -4,17 +4,16 @@ angular.module("BrainSpace").directive('resizableDivDirective', ['$document', fu
     restrict: 'A',
     link: link
   };
-  function link($scope, element, atts){
-    var initialElWidth, initialElHeight, initialMouseX, initialMouseY;
-    var triangle = angular.element("<div class='triangle'></div");
-    element.append(triangle);
 
-    var el = element;  //required to have proper closure below
-    var textarea = angular.element(el).find('textarea');
-    triangle.bind('mousedown', function($event, element){
+  function link($scope, $element, atts){
+    var initialElWidth, initialElHeight, initialMouseX, initialMouseY;
+    var $triangle = angular.element("<div class='triangle'></div");
+    $element.append($triangle);
+
+    $triangle.bind('mousedown', function($event){
       $event.preventDefault();
-      initialElWidth = el[0].clientWidth;
-      initialElHeight = el[0].clientHeight;
+      initialElWidth = $element[0].clientWidth;
+      initialElHeight = $element[0].clientHeight;
       initialMouseX = $event.clientX;
       initialMouseY = $event.clientY;
       $document.bind('mousemove', resizableMouseDrag);
@@ -34,7 +33,7 @@ angular.module("BrainSpace").directive('resizableDivDirective', ['$document', fu
       var height = initialElHeight + deltaY;
       var dimensions = {'width': width, 'height': height};
       $scope.note.dimensions = dimensions;
-      el.css(dimensions);
+      $element.css(dimensions);
       $scope.$emit('updateNote', $scope);
       }
 
