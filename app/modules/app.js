@@ -16,10 +16,11 @@ app.controller('menu-controller', ['$rootScope', '$scope', 'notesFactory', 'head
     });
     
     $scope.fontSizeString = "12pt";
-    $scope.$on('noteClicked', function(a) {
+    $scope.$on('scope.update', function() {
+    // $scope.$on('noteClicked', function() {
       //TODO: DOM view is not updating font size unless an element dragged
       $scope.fontSizeString = headerMenu_service.getFontSizeString();
-      // $scope.$apply();
+      // $scope.$apply();  //trying to get DOM to update without needing to drag the element
       console.log('in menu-controller: ', $scope.fontSizeString);
       console.log(typeof $scope.fontSizeString);
     });

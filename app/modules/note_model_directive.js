@@ -17,9 +17,10 @@ app.directive('noteModelDirective', ['$rootScope', 'headerMenu_service', functio
 
       element.on('mousedown', function(){
         // $scope.$emit('noteSelected', $scope);
-        headerMenu_service.setScope($scope);
+        headerMenu_service.setScope($scope, element);
+        // headerMenu_service.setElement(element);
         $rootScope.noteSelected = {scope: $scope, element: element};
-        $rootScope.$broadcast('noteClicked');
+        // $rootScope.$broadcast('noteClicked');
       });
 
       element.on('focusout', function(){
