@@ -34,10 +34,13 @@ angular.module('add_note_module', [])
               var deltaAbsX = (x - containerX) * 1/scale; 
               var deltaAbsY = (y - containerY) * 1/scale; 
               var coordinates = {'position': 'absolute', 'left': deltaAbsX, 'top': deltaAbsY};
+              var dimensions = {'width': 192, 'height': 50};
+
               var note = {
                 title: 'Title',
                 body: 'Details...',
-                position: coordinates
+                position: coordinates,
+                dimensions: dimensions
               };
               $scope.$emit('addNote', note);
             
