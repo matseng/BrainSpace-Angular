@@ -16,11 +16,15 @@ app.directive('noteModelDirective', ['$rootScope', 'headerMenu_service', functio
     function link($scope, element, attrs){
 
       element.on('mousedown', function(){
+        //TODO: Refactor to ng-click in note-controller
+        //AND references to $rootScope into headerMenu_service
+
         headerMenu_service.setScope($scope, element);
-        $rootScope.noteSelected = {scope: $scope, element: element};  //TODO: Refactor references to $rootScope into headerMenu_service
+        $rootScope.noteSelected = {scope: $scope, element: element};
       });
 
       element.on('mouseup', function(){
+        //TODO: Refactor to resizeableDiv_directive?
         var width = element.find('textarea').css('width');
         var height = element.find('textarea').css('height');
         var body_style = {width: width, height: height};

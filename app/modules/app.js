@@ -75,40 +75,10 @@ app.controller("note-controller", ['$scope',
 
     $scope.change = function() {
       $scope.$emit('updateNote', $scope);
-    }
-    // $scope.$watch('note.body', function(test) {
-    //   console.log(test);
-    // });
+    };
 
-    // $scope.submitButtonClicked = function(){
-    //   console.log("Here in note-controller");
-    //   if(! $scope.note){
-    //     $scope.note = {};
-    //     $scope.note.title = 'no title yet';
-    //     $scope.note.body = 'no text yet';
-    //   }
-    //   var note = {
-    //     title: $scope.note.title,
-    //     body: $scope.note.body
-    //   };
-    //   $scope.$emit('addNote', note);
-    // };
-
-    // $scope.deleteButtonClicked = function(){
-    //   console.log("Here in note-controller");
-
-    //   if(confirm("Confirm delete?")){
-    //     var elClicked = event.srcElement;
-    //     var noteContainer = elClicked.parentNode.parentNode;
-    //     var detached = noteContainer.remove();
-    //     $scope.$emit('deleteNote', $scope.key);
-    //   }
-    // };
-
-    // $scope.updateButtonClicked = function(){
-    //   console.log("Here in note-controller");
-      
-    //   $scope.$emit('updateNote', $scope); 
+    // $scope.click = function() {
+    //   //TODO: refactor from note_model_directive
     // };
   }
 ]);
