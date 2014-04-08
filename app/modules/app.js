@@ -15,7 +15,7 @@ app.controller('menu-controller', ['$rootScope', '$scope', 'notesFactory', 'head
       headerMenu_service.setRadioButtonState($scope.menuState);
     });
     
-    $scope.fontSizeString = "12pt";
+    $scope.fontSizeString = "10pt";
     $scope.$on('scope.update', function() {
     // $scope.$on('noteClicked', function() {
       //TODO: DOM view is not updating font size unless an element dragged
@@ -49,9 +49,8 @@ app.controller("allNotes-controller", ['$scope', '$firebase', 'notesFactory',
       $scope.noteScopeSelected = noteScope;
     });
 
-    $scope.$on('addNote', function(event, note, cb) {
+    $scope.$on('addNote', function(event, note) {
       $scope.notes.$add(note);
-      cb();
     });
 
     $scope.$on('updateNote', function(event, noteScope) {

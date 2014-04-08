@@ -43,7 +43,7 @@ angular.module('add_note_module', [])
                 dimensions: dimensions
               };
 
-              $scope.$emit('addNote', note, cb);
+              $scope.$emit('addNote', note);
             }
           }
         });
