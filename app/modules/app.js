@@ -49,8 +49,9 @@ app.controller("allNotes-controller", ['$scope', '$firebase', 'notesFactory',
       $scope.noteScopeSelected = noteScope;
     });
 
-    $scope.$on('addNote', function(event, note) {
+    $scope.$on('addNote', function(event, note, cb) {
       $scope.notes.$add(note);
+      cb();
     });
 
     $scope.$on('updateNote', function(event, noteScope) {

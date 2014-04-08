@@ -5,9 +5,6 @@ var app = angular.module('BrainSpace');
 app.directive('noteModelDirective', ['$rootScope', 'headerMenu_service', function($rootScope, headerMenu_service){
     return {
       restrict: "E",
-      // scope: {  // THIS IS BAD!!!
-      //   note: '=',
-      // },
       controller: 'note-controller',  // NOTE: ng-controller = "note-controller" does NOT appear in the HTML!
       // template: "<div> {{note.title}} </div>",
       templateUrl: './app/modules/note_template.html',
@@ -17,7 +14,7 @@ app.directive('noteModelDirective', ['$rootScope', 'headerMenu_service', functio
 
       element.on('mousedown', function(){
         //TODO: Refactor to ng-click in note-controller
-        //AND references to $rootScope into headerMenu_service
+          //AND move references to $rootScope into headerMenu_service
 
         headerMenu_service.setScope($scope, element);
         $rootScope.noteSelected = {scope: $scope, element: element};
@@ -31,6 +28,8 @@ app.directive('noteModelDirective', ['$rootScope', 'headerMenu_service', functio
         $scope.note.body_style = body_style;
         $scope.$emit('updateNote', $scope);
       });
+
+      element.find('textarea')[0].focus();  //sets focus to textarea of the most recently added note
     }
   }
 ]);

@@ -38,17 +38,12 @@ angular.module('add_note_module', [])
 
               var note = {
                 title: 'Title',
-                body: 'Details...',
+                body: '',
                 position: coordinates,
                 dimensions: dimensions
               };
-              $scope.$emit('addNote', note);
-            
-            // angular.element('.textContent').focus();
-            // angular.element(('.textContent').on('focusout', function(){
-            //   $(this).attr('disabled', true);  //textarea is no longer editable - user will need to click edit
-            //   console.log('Will "autosave" in the future');
-            // }));
+
+              $scope.$emit('addNote', note, cb);
             }
           }
         });
