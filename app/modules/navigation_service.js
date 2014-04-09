@@ -27,7 +27,8 @@ angular.module('BrainSpace')
     };
 
     this.getTransformString = function() {
-      var str = "-webkit-transform: matrix(" + scale + ", 0, 0, " + scale + ", " + t.tx + ', ' + t.ty +')';
+      var str = "-webkit-transform: matrix(" + scale + ", 0, 0, " + scale + ", " + t.tx + ', ' + t.ty +');';
+      // var str = '-webkit-transform: scale(' + scale + ',' + scale + ');';
       return str;
     }
 

@@ -78,7 +78,7 @@ OVERVIEW:
         var deltaAbsY = deltaY / scale;
 
         var newScale;
-        if(mouse.deltaY > 0) {
+        if(mouse.wheelDeltaY < 0) {
           newScale = scale * 1.1;
         }
         else {

@@ -7,7 +7,7 @@ var app = angular.module("BrainSpace", ['notes_factory_module', 'group_module', 
 app.controller('menu-controller', ['$rootScope', '$scope', 'notesFactory', 'headerMenu_service',
   function($rootScope, $scope, notesFactory, headerMenu_service){
     $scope.buttonSelected = 'null';
-    $scope.menuState = 'drawGroup'; //explore, newNote, drawGroup
+    $scope.menuState = 'explore'; //explore, newNote, drawGroup
     $rootScope.menuState = $scope.menuState;
 
     $scope.$watch('menuState', function(newState){
