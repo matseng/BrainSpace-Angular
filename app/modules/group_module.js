@@ -9,6 +9,7 @@ angular.module("group_module", [])
     function link($scope, element, attrs) {
       var initialMouseX, initialMouseY;
       var deltaMouseX, deltaMouseY;
+      
         element.on('mousedown', function(mouse) {
           if(headerMenu_service.getRadioButtonState() === 'drawGroup'){
             // mouse.preventDefault();
@@ -31,6 +32,8 @@ angular.module("group_module", [])
             deltaMouseX = mouse.clientX - initialMouseX;
             deltaMouseY = mouse.clientY - initialMouseY;
             // console.log(deltaMouseX, deltaMouseY);
+            var $div = angular.element("<div class='group'> <div>");
+            $allNotesContainer.append($div);
 
           } else {
             element.unbind('mousemove', myMouseMove2);
