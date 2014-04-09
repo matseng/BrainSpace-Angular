@@ -9,7 +9,7 @@ angular.module("group_module", [])
     function link($scope, element, attrs) {
       var initialMouseX, initialMouseY;
       var deltaMouseX, deltaMouseY;
-      
+
         element.on('mousedown', function(mouse) {
           if(headerMenu_service.getRadioButtonState() === 'drawGroup'){
             // mouse.preventDefault();
@@ -33,6 +33,16 @@ angular.module("group_module", [])
             deltaMouseY = mouse.clientY - initialMouseY;
             // console.log(deltaMouseX, deltaMouseY);
             var $div = angular.element("<div class='group'> <div>");
+            var dimensionStyle = {
+              left: initialMouseX, 
+              top: initialMouseY, 
+              width: deltaMouseX,
+              height: deltaMouseY
+            };
+            var tempStr = "left:" + initialMouseX +"; top:" + initialMouseY;
+            $div.attr('style', tempStr);
+            // $div.attr('ng-style', JSON.stringify(dimensionStyle));
+            // $div.attr('ng-style', dimensionStyle);
             $allNotesContainer.append($div);
 
           } else {
