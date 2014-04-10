@@ -2,7 +2,7 @@
 // cd into directory with index file, then python -m SimpleHTTPServer 3333
 // firebase commands: firebase init, firebase deploy  // https://brainspace-biz.firebaseapp.commands
 
-var app = angular.module("BrainSpace", ['notes_factory_module', 'group_module', 'add_note_module']);
+var app = angular.module("BrainSpace", ['notes_factory_module', 'group_module', 'add_note_module', 'noteModule']);
 
 app.controller('menu-controller', ['$rootScope', '$scope', 'notesFactory', 'headerMenu_service',
   function($rootScope, $scope, notesFactory, headerMenu_service){
@@ -69,17 +69,17 @@ app.controller("allNotes-controller", ['$scope', '$firebase', 'notesFactory',
   }
 ]);
 
-app.controller("note-controller", ['$scope',
-  function($scope){
-    $scope.fontSize = "12pt";
+// app.controller("note-controller", ['$scope',
+//   function($scope){
+//     $scope.fontSize = "12pt";
 
-    $scope.change = function() {
-      $scope.$emit('updateNote', $scope);
-    };
+//     $scope.change = function() {
+//       $scope.$emit('updateNote', $scope);
+//     };
 
-    // $scope.click = function() {
-    //   //TODO: refactor from note_model_directive
-    // };
-  }
-]);
+//     // $scope.click = function() {
+//     //   //TODO: refactor from note_model_directive
+//     // };
+//   }
+// ]);
 
