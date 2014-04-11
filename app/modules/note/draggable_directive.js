@@ -1,5 +1,5 @@
 /*
-- draggable.js
+- draggable_directive.js
 - How to use: Add 'draggable' to divs to make them draggable
 - adapted from https://gist.github.com/siongui/4969457
 */
