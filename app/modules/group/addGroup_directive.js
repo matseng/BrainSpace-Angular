@@ -8,6 +8,7 @@ angular.module('group_module')
     function link($scope, element, attrs) {
       var initialMouseX, initialMouseY;
       var deltaMouseX, deltaMouseY;
+      var groupObject;
 
       $document.on('mousedown', function(mouse) {
         if(headerMenu_service.getRadioButtonState() === 'drawGroup'
@@ -29,13 +30,13 @@ angular.module('group_module')
           deltaMouseX = mouse.clientX - initialMouseX;
           deltaMouseY = mouse.clientY - initialMouseY;
           var $div = angular.element("<div draggable_directive class='group'> <div>");
-          var groupStyle = {
+          groupObject = {
             left: (initialMouseX - containerOffsetX) * 1/scale, 
             top: (initialMouseY - containerOffsetY) * 1/scale, 
             width: deltaMouseX * 1/scale,
             height: deltaMouseY * 1/scale
           };
-          $div.css(groupStyle);  //TODO: refactor using ng-style?
+          $div.css(groupObject);  //TODO: refactor using ng-style?
           element.append($div);
 
         } else {
@@ -45,6 +46,7 @@ angular.module('group_module')
       };
 
       var myMouseUp2 = function() {
+        $scope.$emit('addGroup', groupObject);
         $document.unbind('mousemove', myMouseMove2);
         $document.unbind('mouseup', myMouseUp2);
       };

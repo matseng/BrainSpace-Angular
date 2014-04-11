@@ -17,6 +17,8 @@ angular.module('notes_factory_module', ['firebase'])
       },
       getScope: function() {
         return allNotesScope;
+      },
+      getGroups: function() {
       }
     };
   }

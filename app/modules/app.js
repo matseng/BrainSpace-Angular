@@ -37,10 +37,11 @@ app.controller('menu-controller', ['$rootScope', '$scope', 'notesFactory', 'head
   }
 ]);
 
-app.controller("allNotes-controller", ['$scope', '$firebase', 'notesFactory',
+app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory',
   function($scope, $firebase, notesFactory){
 
     $scope.notes = notesFactory.getNotes();
+    $scope.groups = notesFactory.getGroups();
     notesFactory.setScope($scope.notes);
 
     $scope.noteScopeSelected = null;
@@ -64,6 +65,10 @@ app.controller("allNotes-controller", ['$scope', '$firebase', 'notesFactory',
 
     $scope.$on('deleteNote', function(event, key) {
       $scope.notes.$remove(key);
+    });
+
+    $scope.$on('addGroup', function(event, groupObject) {
+      debugger;
     });
 
   }
