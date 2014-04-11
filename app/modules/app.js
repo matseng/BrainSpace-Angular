@@ -41,10 +41,9 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory',
   function($scope, $firebase, notesFactory){
 
     $scope.notes = notesFactory.getNotes();
-    $scope.groups = [];
-    notesFactory.setScope($scope.notes);
-
+    $scope.groups = notesFactory.getGroups();
     $scope.noteScopeSelected = null;
+    notesFactory.setScope($scope.notes);
 
     $scope.$on('noteSelected', function(event, noteScope){
       $scope.noteScopeSelected = noteScope;
@@ -59,8 +58,7 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory',
       var value = noteScope.note;
       var obj = {};
       obj[key] = value;
-      // $scope.notes.$update(obj);  //NOT WORKING?!
-      $scope.notes.$save(key);
+      $scope.notes.$update(obj);
     });
 
     $scope.$on('deleteNote', function(event, key) {
@@ -68,7 +66,6 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory',
     });
 
     $scope.$on('addGroup', function(event, groupObject) {
-      $scope.groups.push(groupObject);
       notesFactory.addGroup(groupObject);
     });
 
