@@ -49,8 +49,7 @@
       <note_model_directive ng-repeat="(key, note) in notes" ng-click='click()'></note_model_directive>
     </div>
   </div>
-  <!-- http://stackoverflow.com/questions/2441565/how-do-i-make-a-div-element-editable-like-a-textarea-when-i-click-it -->
-
+  
   <script type="text/javascript" src="./bower_components/angular/angular.js"></script>
   <script type="text/javascript" src="./bower_components/angular-route/angular-route.js"></script>
   <script type="text/javascript" src="./bower_components/firebase/firebase.js"></script>
@@ -62,8 +61,9 @@
   <script type="text/javascript" src="./app/modules/notes_factory_module.js"></script>
   <script type="text/javascript" src="./app/modules/headerMenu_service.js"></script>
   <script type="text/javascript" src="./app/modules/group_module.js"></script>
+  <script type="text/javascript" src="./app/modules/addNote_directive.js"></script>
 
-  <script type="text/javascript" src="./app/modules/note/addNote_directive.js"></script>
+  <!-- // <script type="text/javascript" src="./app/modules/note/addNote_directive.js"></script> -->
   <script type="text/javascript" src="./app/modules/note/note_controller.js"></script>
   <script type="text/javascript" src="./app/modules/note/noteModel_directive.js"></script>
   <script type="text/javascript" src="./app/modules/note/draggable.js"></script>

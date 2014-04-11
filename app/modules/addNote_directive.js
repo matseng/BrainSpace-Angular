@@ -2,8 +2,8 @@
 - Listens for mouse click to add new notes at a specific position
 - This directive is added to #allNotesContainer element
 */
-angular.module('note_module', [])
-  .directive('add_note_directive', ['$document', '$compile', '$rootScope', 'navigationService',
+angular.module('BrainSpace')
+  .directive('addNoteDirective', ['$document', '$compile', '$rootScope', 'navigationService',
     function($document, $compile, $rootScope, navigationService){
       return {
         restrict: 'A',
