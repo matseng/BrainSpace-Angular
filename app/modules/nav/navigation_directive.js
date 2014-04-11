@@ -1,6 +1,6 @@
 // navigation_directive.js
 
-angular.module('BrainSpace')
+angular.module('navigation_module')
   .directive('navigationDirective', ['$document', 'navigationService', 'notesFactory', 'headerMenu_service', function($document, navigationService, notesFactory, headerMenu_service){
     return {
       restrict: 'A',

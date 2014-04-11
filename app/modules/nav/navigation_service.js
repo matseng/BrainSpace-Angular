@@ -1,5 +1,5 @@
 // navigation_service.js
-angular.module('BrainSpace')
+angular.module('navigation_module')
   .service('navigationService', [function(){
 
     var scale = 1;
