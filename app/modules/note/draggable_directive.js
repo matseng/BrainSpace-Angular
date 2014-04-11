@@ -16,6 +16,7 @@ angular.module("note_module")
 
       element.bind('mousedown', function($event){
         var elementClickedClassName = $event.srcElement.className;
+        console.log(elementClickedClassName);
         $rootScope.mouse.elementClickedClassName = elementClickedClassName;
         if(elementClickedClassName !== 'selectFontSize' && elementClickedClassName !== 'triangle'){
           element.css({position: 'absolute'});

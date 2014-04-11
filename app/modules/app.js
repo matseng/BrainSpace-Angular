@@ -7,7 +7,7 @@ var app = angular.module("BrainSpace", ['notes_factory_module', 'note_module', '
 app.controller('menu-controller', ['$rootScope', '$scope', 'notesFactory', 'headerMenu_service',
   function($rootScope, $scope, notesFactory, headerMenu_service){
     $scope.buttonSelected = 'null';
-    $scope.menuState = 'drawGroup'; //explore, newNote, drawGroup
+    $scope.menuState = 'explore'; //explore, newNote, drawGroup
     $rootScope.menuState = $scope.menuState;
 
     $scope.$watch('menuState', function(newState){
@@ -21,8 +21,8 @@ app.controller('menu-controller', ['$rootScope', '$scope', 'notesFactory', 'head
       //TODO: DOM view is not updating font size unless an element dragged
       $scope.fontSizeString = headerMenu_service.getFontSizeString();
       // $scope.$apply();  //trying to get DOM to update without needing to drag the element
-      console.log('in menu-controller: ', $scope.fontSizeString);
-      console.log(typeof $scope.fontSizeString);
+      // console.log('in menu-controller: ', $scope.fontSizeString);
+      // console.log(typeof $scope.fontSizeString);
     });
 
     $scope.deleteButtonClicked = function(event){

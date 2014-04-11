@@ -30,7 +30,6 @@ angular.module('headerMenu_module')
     };
 
     this.getFontSizeString = function() {
-      console.log('headerMenu_service, ', fontSizeString);
       return fontSizeString;
     };
 
