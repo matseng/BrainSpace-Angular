@@ -25,7 +25,6 @@ angular.module("note_module")
           initialMouseY = $event.clientY;
           $document.bind('mousemove', myMouseMove);
           $document.bind('mouseup', myMouseUp);
-          return false;
         }
       });
 
@@ -47,7 +46,6 @@ angular.module("note_module")
           $scope.note.position = position;
           element.css(position);
           $scope.$emit('updateNote', $scope);
-          // return false;
         }
       }
 
