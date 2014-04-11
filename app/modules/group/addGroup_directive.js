@@ -1,5 +1,5 @@
 angular.module('group_module')
-  .directive('addGroupDirective', ['headerMenu_service', '$document', function(headerMenu_service, $document){
+  .directive('addGroupDirective', ['headerMenu_service', '$document', 'navigationService', function(headerMenu_service, $document, navigationService){
     return {
       restrict: "A",
       link: link
@@ -27,21 +27,27 @@ angular.module('group_module')
         //draw / re-draw a new div by appending it to #allNotesContainer
           //add group_template.html
         if(mouse.which == 1) {
-          var $allNotesContainer = angular.element($document[0].querySelector("#allNotesContainer"));
+          // var $allNotesContainer = angular.element($document[0].querySelector("#allNotesContainer"));
+          var containerOffsetX = element[0].getBoundingClientRect().left;  //element points to #allNotesContainer
+          var containerOffsetY = element[0].getBoundingClientRect().top;
+          var scale = navigationService.getScale();
+
+
           deltaMouseX = mouse.clientX - initialMouseX;
           deltaMouseY = mouse.clientY - initialMouseY;
           // console.log(deltaMouseX, deltaMouseY);
           var $div = angular.element("<div class='group'> <div>");
-          var dimensionStyle = {
-            left: initialMouseX, 
-            top: initialMouseY, 
-            width: deltaMouseX,
-            height: deltaMouseY
+          var groupStyle = {
+            left: (initialMouseX - containerOffsetX) * 1/scale, 
+            top: (initialMouseY - containerOffsetY) * 1/scale, 
+            width: deltaMouseX * 1/scale,
+            height: deltaMouseY * 1/scale
           };
-          var position = "left:" + initialMouseX +"; top:" + initialMouseY;
-          var dims = "; width:" + deltaMouseX +"; height:" + deltaMouseY;
+          var position = "left:" + groupStyle.left +"; top:" + groupStyle.top;
+          var dims = "; width:" + groupStyle.width +"; height:" + groupStyle.height;
           $div.attr('style', position + dims);  //TODO: refactor using ng-style
-          $allNotesContainer.append($div);
+          // $allNotesContainer.append($div);
+          element.append($div);
 
         } else {
           element.unbind('mousemove', myMouseMove2);

@@ -27,7 +27,7 @@ angular.module('headerMenu_module')
             if (clickDuration < 333 && (elementClickedId === 'allNotesContainer' 
               || elementClickedId === 'allNotesContainerBackground') ) {
               var scale = navigationService.getScale();
-              var containerX = element[0].getBoundingClientRect().left;
+              var containerX = element[0].getBoundingClientRect().left;  //element points to #allNotesContainer
               var containerY = element[0].getBoundingClientRect().top;
               var x = mouse.clientX;
               var y = mouse.clientY;

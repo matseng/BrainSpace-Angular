@@ -44,8 +44,8 @@
   </div>
 
   </div>
-  <div navigation_directive add_group_directive id="allNotesContainerBackground">
-    <div add_note_directive  id='allNotesContainer' ng-controller='allNotes-controller'>
+  <div navigation_directive id="allNotesContainerBackground">
+    <div add_note_directive add_group_directive id='allNotesContainer' ng-controller='allNotes-controller'>
       <note_model_directive ng-repeat="(key, note) in notes" ng-click='click()'></note_model_directive>
     </div>
   </div>
