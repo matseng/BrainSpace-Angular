@@ -41,7 +41,7 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory',
   function($scope, $firebase, notesFactory){
 
     $scope.notes = notesFactory.getNotes();
-    $scope.groups = notesFactory.getGroups();
+    $scope.groups = [];
     notesFactory.setScope($scope.notes);
 
     $scope.noteScopeSelected = null;
@@ -68,7 +68,8 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory',
     });
 
     $scope.$on('addGroup', function(event, groupObject) {
-      debugger;
+      $scope.groups.push(groupObject);
+      notesFactory.addGroup(groupObject);
     });
 
   }

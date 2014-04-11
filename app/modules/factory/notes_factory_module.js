@@ -5,6 +5,10 @@ angular.module('notes_factory_module', ['firebase'])
     var ref = new Firebase('https://brainspace-biz.firebaseio.com/');
     var notesCollection = $firebase(ref);
     var allNotesScope = {};
+    // var groups = {groups: {}};
+
+    var groupsRef = ref.child('groups');
+
     return {
       getNotes: function(){
         return notesCollection;
@@ -19,6 +23,9 @@ angular.module('notes_factory_module', ['firebase'])
         return allNotesScope;
       },
       getGroups: function() {
+      },
+      addGroup: function(groupObject) {
+        groupsRef.push(groupObject);
       }
     };
   }
