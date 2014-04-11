@@ -9,8 +9,10 @@ angular.module('group_module')
       var initialMouseX, initialMouseY;
       var deltaMouseX, deltaMouseY;
 
-      element.on('mousedown', function(mouse) {
-        if(headerMenu_service.getRadioButtonState() === 'drawGroup'){
+      $document.on('mousedown', function(mouse) {
+        if(headerMenu_service.getRadioButtonState() === 'drawGroup'
+          && (mouse.srcElement.id == 'allNotesContainer' 
+            || mouse.srcElement.id == 'allNotesContainerBackground')) {
           mouse.preventDefault();
           initialMouseX = mouse.clientX;
           initialMouseY = mouse.clientY;
@@ -36,7 +38,7 @@ angular.module('group_module')
           deltaMouseX = mouse.clientX - initialMouseX;
           deltaMouseY = mouse.clientY - initialMouseY;
           // console.log(deltaMouseX, deltaMouseY);
-          var $div = angular.element("<div class='group'> <div>");
+          var $div = angular.element("<div draggable_directive class='group'> <div>");
           var groupStyle = {
             left: (initialMouseX - containerOffsetX) * 1/scale, 
             top: (initialMouseY - containerOffsetY) * 1/scale, 

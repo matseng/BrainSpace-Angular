@@ -1,5 +1,5 @@
 /*
-- Listens for mouse click to add new notes at a specific position
+- Listens for mouse click to add a new note at a specific position
 - This directive is added to #allNotesContainer element
 */
 angular.module('headerMenu_module')
@@ -36,14 +36,14 @@ angular.module('headerMenu_module')
               var coordinates = {'position': 'absolute', 'left': deltaAbsX, 'top': deltaAbsY};
               var dimensions = {'width': 192, 'height': 50};
 
-              var note = {
+              var noteObject = {
                 title: 'Title',
                 body: '',
                 position: coordinates,
                 dimensions: dimensions
               };
 
-              $scope.$emit('addNote', note);
+              $scope.$emit('addNote', noteObject);
             }
           }
         });
