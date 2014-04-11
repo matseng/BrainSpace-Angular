@@ -2,7 +2,7 @@
 // cd into directory with index file, then python -m SimpleHTTPServer 3333
 // firebase commands: firebase init, firebase deploy  // https://brainspace-biz.firebaseapp.commands
 
-var app = angular.module("BrainSpace", ['notes_factory_module', 'group_module', 'note_module']);
+var app = angular.module("BrainSpace", ['notes_factory_module', 'group_module', 'note_module', 'headerMenu_module']);
 
 app.controller('menu-controller', ['$rootScope', '$scope', 'notesFactory', 'headerMenu_service',
   function($rootScope, $scope, notesFactory, headerMenu_service){
