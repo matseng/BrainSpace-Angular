@@ -3,7 +3,7 @@
 - This directive is added to #allNotesContainer element
 */
 angular.module('add_note_module', [])
-  app.directive('addNoteDirective', ['$document', '$compile', '$rootScope', 'navigationService',
+  .directive('add_note_directive', ['$document', '$compile', '$rootScope', 'navigationService',
     function($document, $compile, $rootScope, navigationService){
       return {
         restrict: 'A',
