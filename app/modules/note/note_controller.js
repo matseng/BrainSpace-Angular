@@ -1,4 +1,4 @@
-angular.module('noteModule', [])
+angular.module('note_module', [])
   .controller('note-controller', ['$scope', function($scope) {
     $scope.fontSize = "12pt";
 

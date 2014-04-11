@@ -1,5 +1,5 @@
 // resizableDiv_directive.js
-angular.module("noteModule").directive('resizableDivDirective', ['$document', function($document){
+angular.module("note_module").directive('resizableDivDirective', ['$document', function($document){
   return {
     restrict: 'A',
     link: link

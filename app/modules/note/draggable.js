@@ -4,7 +4,7 @@
 - adapted from https://gist.github.com/siongui/4969457
 */
 
-angular.module("noteModule")
+angular.module("note_module")
   .directive('draggableDirective', ['$rootScope', '$document', 'navigationService', function($rootScope, $document, navigationService){
     return {
       restrict: 'A',

@@ -1,6 +1,6 @@
 // note_model_directive.js
 
-var app = angular.module('noteModule');
+var app = angular.module('note_module');
 
 app.directive('noteModelDirective', ['$rootScope', 'headerMenu_service', function($rootScope, headerMenu_service){
     return {
