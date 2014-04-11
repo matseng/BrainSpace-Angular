@@ -1,6 +1,6 @@
 // headerMenu_service.js
 
-angular.module('headerMenu_module', [])
+angular.module('headerMenu_module')
   .service('headerMenu_service', ['$rootScope', function($rootScope){
     var scope = {};
     var element;
