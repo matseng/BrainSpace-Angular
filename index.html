@@ -44,7 +44,7 @@
   </div>
 
   </div>
-  <div navigation_directive draw_group_directive id="allNotesContainerBackground">
+  <div navigation_directive add_group_directive id="allNotesContainerBackground">
     <div add_note_directive  id='allNotesContainer' ng-controller='allNotes-controller'>
       <note_model_directive ng-repeat="(key, note) in notes" ng-click='click()'></note_model_directive>
     </div>
@@ -69,6 +69,7 @@
   <script type="text/javascript" src="./app/modules/note/draggable_directive.js"></script>
   <script type="text/javascript" src="./app/modules/note/resizableDiv_directive.js"></script>
   <script type="text/javascript" src="./app/modules/group/group_module.js"></script>
+  <script type="text/javascript" src="./app/modules/group/addGroup_directive.js"></script>
 
   <link rel="stylesheet" type="text/css" href="./app/styles/app.css">
 </body>
