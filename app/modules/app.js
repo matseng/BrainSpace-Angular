@@ -53,12 +53,18 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory',
       $scope.notes.$add(note);
     });
 
-    $scope.$on('updateNote', function(event, noteScope) {
+    $scope.$on('updateNote', function(event, fromFile, noteScope, position ) {
+      if(position)
+        noteScope.note.position = position;
       var key = noteScope.key;
       var value = noteScope.note;
       var obj = {};
       obj[key] = value;
-      $scope.notes.$update(obj);
+      console.log(position);
+      console.log('from: ', fromFile);
+      $scope.notes.$save(key);
+      // $scope.notes.$update(obj);
+      // $scope.notes.$update(noteScope.note);
     });
 
     $scope.$on('deleteNote', function(event, key) {

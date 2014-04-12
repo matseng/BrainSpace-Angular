@@ -38,15 +38,16 @@ angular.module("note_module")
 
       function myMouseMove($event){
         if($rootScope.mouse.elementClickedClassName !== 'triangle'){
+          $event.preventDefault();
           var deltaX = $event.clientX - initialMouseX;
           var deltaY = $event.clientY - initialMouseY;
           var scale = navigationService.getScale();
           var elementX = initialElementX + deltaX * 1/scale;
           var elementY = initialElementY + deltaY * 1/scale;
           var position = {'left': elementX, 'top': elementY};
-          $scope.note.position = position;
           element.css(position);
-          $scope.$emit('updateNote', $scope);
+          $scope.note.position = position;
+          $scope.$emit('updateNote', 'draggable_directive.js', $scope, position);
         }
       }
 
