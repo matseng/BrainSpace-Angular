@@ -14,7 +14,7 @@ angular.module('headerMenu_module')
         if(scope.note.textarea_style.fontSize)
           fontSizeString = scope.note.textarea_style.fontSize;
       }
-      $rootScope.$broadcast('scope.update');
+      $rootScope.$broadcast('scope.update', 'headerMenu_service.js');
     };
     
     this.getScope = function() {

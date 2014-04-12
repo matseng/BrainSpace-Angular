@@ -5,7 +5,7 @@
   <title>BrainSpace - Angular</title>
 </head>
 <body>
-  <div id='menuContainer' ng-controller='menu-controller'>
+  <div id='menuContainer' ng-controller='menu_controller'>
     <h3>BrainSpace</h3>
     <div class="btn-group" data-toggle="buttons">
       <label class="btn btn-primary" ng-click='buttonClicked(event)'>
@@ -45,8 +45,8 @@
 
   </div>
   <div navigation_directive id="allNotesContainerBackground">
-    <div add_note_directive add_group_directive id='allNotesContainer' ng-controller='allNotes_controller'>
-      <note_model_directive ng-repeat="(key, note) in notes" ng-click='click()'></note_model_directive>
+    <div add_note_directive add_group_directive id='allNotesContainer' ng-controller='allNotes_controller'  ng-click='click($event, $scope)'>
+      <note_model_directive ng-repeat="(key, note) in notes"></note_model_directive>
       <div draggable_directive class='group' ng-repeat="(key, group) in groups" ng-style={{group}} data-type="group"></div>
     </div>
   </div>
@@ -61,6 +61,7 @@
   <script type="text/javascript" src="./app/modules/nav/navigation_directive.js"></script>
   <script type="text/javascript" src="./app/modules/nav/navigation_service.js"></script>
   <script type="text/javascript" src="./app/modules/headerMenu/headerMenu_module.js"></script>
+  <script type="text/javascript" src="./app/modules/headerMenu/menu_controller.js"></script>
   <script type="text/javascript" src="./app/modules/headerMenu/headerMenu_service.js"></script>
   <script type="text/javascript" src="./app/modules/headerMenu/noteMenu_directive.js"></script>
   <script type="text/javascript" src="./app/modules/headerMenu/addNote_directive.js"></script>

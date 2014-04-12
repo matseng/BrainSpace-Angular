@@ -21,11 +21,9 @@ angular.module('headerMenu_module')
           var elementClickedId = mouse.srcElement.id;
           // var menuButtonSelected = $rootScope.menuState;
           var menuButtonSelected = headerMenu_service.getRadioButtonState();
-          console.log(menuButtonSelected);
           if(menuButtonSelected === 'newNote') {
             var timeMouseup = new Date().getTime();
             var clickDuration = timeMouseup - timeMousedown;
-            console.log(clickDuration);
             if (clickDuration < 333 && (elementClickedId === 'allNotesContainer' 
               || elementClickedId === 'allNotesContainerBackground') ) {
               var scale = navigationService.getScale();
