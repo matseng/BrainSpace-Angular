@@ -44,22 +44,13 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory',
     $scope.groups = notesFactory.getGroups();
     $scope.noteScopeSelected = null;
     notesFactory.setScope($scope.notes);
-    $scope.notes2 = notesFactory.getNotes2();
 
     $scope.$on('noteSelected', function(event, noteScope){
       $scope.noteScopeSelected = noteScope;
     });
 
     $scope.$on('addNote', function(event, note) {
-      console.log(event);
-      angular.forEach(event.currentScope.notes, function(val, key) {
-        if(key[1] == 'J') {
-          $scope.notes2.$add(val);
-          console.log(key);
-        }
-      });
-      // $scope.notes.$add(note);
-
+      $scope.notes.$add(note);
     });
 
     $scope.$on('update:note', function(event, fromFile, position ) {

@@ -3,7 +3,6 @@
 angular.module('notes_factory_module', ['firebase'])
   .factory('notesFactory', ['$firebase', function($firebase){
     var ref = new Firebase('https://brainspace-biz.firebaseio.com/');
-    var notesCollection = $firebase(ref);  //$firebase is from AngularFire library
     var groupsRef = ref.child('groups');
     var groupsCollection = $firebase(groupsRef);  //$firebase is from AngularFire library
     var notesRef = ref.child('notes');
@@ -12,9 +11,6 @@ angular.module('notes_factory_module', ['firebase'])
 
     return {
       getNotes: function(){
-        return notesCollection;
-      },
-      getNotes2: function(){
         return notes;
       },
       addNote: function(note) {
