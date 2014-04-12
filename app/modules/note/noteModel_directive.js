@@ -26,7 +26,7 @@ app.directive('noteModelDirective', ['$rootScope', 'headerMenu_service', functio
         var height = element.find('textarea').css('height');
         var body_style = {width: width, height: height};
         $scope.note.body_style = body_style;
-        // $scope.$emit('updateNote', 'noteModel_directive.js', $scope);
+        // $scope.$emit('update:note', 'noteModel_directive.js', $scope);
       });
 
       element.find('textarea')[0].focus();  //sets focus to textarea of the most recently added note

@@ -53,7 +53,7 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory',
       $scope.notes.$add(note);
     });
 
-    $scope.$on('updateNote', function(event, fromFile, noteScope, position ) {
+    $scope.$on('update:note', function(event, fromFile, noteScope, position ) {
       if(position)
         noteScope.note.position = position;
       var key = noteScope.key;
@@ -83,7 +83,7 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory',
 //     $scope.fontSize = "12pt";
 
 //     $scope.change = function() {
-//       $scope.$emit('updateNote', $scope);
+//       $scope.$emit('update:note', $scope);
 //     };
 
 //     // $scope.click = function() {

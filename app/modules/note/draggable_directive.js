@@ -13,9 +13,10 @@ angular.module("note_module")
     function link($scope, element, attrs){
       var initialElementX, initialElementY, initialMouseX, initialMouseY;
       $rootScope.mouse = {};
+      var elementClickedClassName;
 
       element.bind('mousedown', function($event){
-        var elementClickedClassName = $event.srcElement.className;
+        elementClickedClassName = $event.srcElement.className;
         console.log(elementClickedClassName);
         $rootScope.mouse.elementClickedClassName = elementClickedClassName;
         if(elementClickedClassName !== 'selectFontSize' && elementClickedClassName !== 'triangle'){
@@ -46,8 +47,9 @@ angular.module("note_module")
           var elementY = initialElementY + deltaY * 1/scale;
           var position = {'left': elementX, 'top': elementY};
           element.css(position);
-          $scope.note.position = position;
-          $scope.$emit('updateNote', 'draggable_directive.js', $scope, position);
+          var eventName = 'update:' + element[0].dataset.type;  //e.g. 'update:note'
+          console.log(eventName);
+          $scope.$emit(eventName, 'draggable_directive.js', $scope, position);
         }
       }
 

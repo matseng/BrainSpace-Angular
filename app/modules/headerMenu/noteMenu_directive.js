@@ -16,7 +16,7 @@ angular.module('headerMenu_module')
           var textareaElement = $rootScope.noteSelected.element.find('textarea');
           noteScope.note.textarea_style = {'fontSize': fontSize};
           textareaElement.attr('style', 'font-size: ' + fontSize);
-          // $scope.$emit('updateNote', $scope);  //message NOT recieved by child scope
+          // $scope.$emit('update:note', $scope);  //message NOT recieved by child scope
         }
       });
       // var selectedScope = headerMenu_service.getScope();

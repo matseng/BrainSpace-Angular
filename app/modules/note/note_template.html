@@ -1,3 +1,3 @@
-<div draggable_directive resizable_div_directive class='noteContainer' id="{{key}}" ng-style="{left: note.position.left, top: note.position.top, width: note.dimensions.width, height: note.dimensions.height}">
+<div data-type="note" draggable_directive resizable_div_directive class='noteContainer' id="{{key}}" ng-style="{left: note.position.left, top: note.position.top, width: note.dimensions.width, height: note.dimensions.height}">
   <textarea class="note noteBody" ng-model='note.body' ng-change="change()" placeholder="Notes..." ng-style="{'font-size': note.textarea_style.fontSize}"></textarea>
 </div>
