@@ -18,6 +18,7 @@ angular.module('group_module')
           initialMouseX = mouse.clientX;
           initialMouseY = mouse.clientY;
           $divGroup = angular.element("<div draggable_directive class='group'> <div>");
+          $divGroup.css({visibility: 'hidden'});  //TODO: refactor using ng-style?
           element.append($divGroup);
           $document.bind('mousemove', myMouseMove2);
           $document.bind('mouseup', myMouseUp2);
@@ -32,6 +33,7 @@ angular.module('group_module')
           deltaMouseX = mouse.clientX - initialMouseX;
           deltaMouseY = mouse.clientY - initialMouseY;
           groupObject = {
+            visibility: 'visible',
             left: (initialMouseX - containerOffsetX) * 1/scale, 
             top: (initialMouseY - containerOffsetY) * 1/scale, 
             width: deltaMouseX * 1/scale,
