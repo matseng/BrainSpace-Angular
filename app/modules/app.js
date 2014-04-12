@@ -53,18 +53,13 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory',
       $scope.notes.$add(note);
     });
 
-    $scope.$on('update:note', function(event, fromFile, noteScope, position ) {
+    $scope.$on('update:note', function(event, fromFile, position ) {
+      console.log('from: ', fromFile);
+      var noteScope = event.targetScope;
       if(position)
         noteScope.note.position = position;
       var key = noteScope.key;
-      var value = noteScope.note;
-      var obj = {};
-      obj[key] = value;
-      console.log(position);
-      console.log('from: ', fromFile);
       $scope.notes.$save(key);
-      // $scope.notes.$update(obj);
-      // $scope.notes.$update(noteScope.note);
     });
 
     $scope.$on('deleteNote', function(event, key) {
@@ -75,6 +70,16 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory',
       notesFactory.addGroup(groupObject);
     });
 
+    $scope.$on('update:group', function(event, fromFile, position) {
+      console.log(event);
+      var groupScope = event.targetScope;
+      if(position){
+        groupScope.group.left = position.left;
+        groupScope.group.top = position.top;
+      }
+      var key = groupScope.group.key;
+      $scope.groups.$save(key);
+    });
   }
 ]);
 

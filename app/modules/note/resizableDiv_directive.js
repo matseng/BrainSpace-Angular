@@ -34,7 +34,7 @@ angular.module("note_module").directive('resizableDivDirective', ['$document', f
       var dimensions = {'width': width, 'height': height};
       $scope.note.dimensions = dimensions;
       $element.css(dimensions);
-      $scope.$emit('update:note', 'resizableDiv_directive.js', $scope);
+      $scope.$emit('update:note', 'resizableDiv_directive.js');
       }
 
     function resizableMouseUp ($event){

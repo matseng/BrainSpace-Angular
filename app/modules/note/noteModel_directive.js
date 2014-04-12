@@ -20,14 +20,14 @@ app.directive('noteModelDirective', ['$rootScope', 'headerMenu_service', functio
         $rootScope.noteSelected = {scope: $scope, element: element};
       });
 
-      element.on('mouseup', function(){
-        //TODO: Refactor to resizeableDiv_directive?
-        var width = element.find('textarea').css('width');
-        var height = element.find('textarea').css('height');
-        var body_style = {width: width, height: height};
-        $scope.note.body_style = body_style;
-        // $scope.$emit('update:note', 'noteModel_directive.js', $scope);
-      });
+      // element.on('mouseup', function(){
+      //   //TODO: Refactor to resizeableDiv_directive?
+      //   var width = element.find('textarea').css('width');
+      //   var height = element.find('textarea').css('height');
+      //   var body_style = {width: width, height: height};
+      //   $scope.note.body_style = body_style;
+      //   // $scope.$emit('update:note', 'noteModel_directive.js', $scope);
+      // });
 
       element.find('textarea')[0].focus();  //sets focus to textarea of the most recently added note
     }

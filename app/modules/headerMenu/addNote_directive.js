@@ -3,8 +3,8 @@
 - This directive is added to #allNotesContainer element
 */
 angular.module('headerMenu_module')
-  .directive('addNoteDirective', ['$document', '$compile', '$rootScope', 'navigationService',
-    function($document, $compile, $rootScope, navigationService){
+  .directive('addNoteDirective', ['$document', '$compile', '$rootScope', 'navigationService', 'headerMenu_service',
+    function($document, $compile, $rootScope, navigationService, headerMenu_service){
       return {
         restrict: 'A',
         link: link
@@ -19,7 +19,9 @@ angular.module('headerMenu_module')
 
         $document.on('mouseup', function(mouse){
           var elementClickedId = mouse.srcElement.id;
-          var menuButtonSelected = $rootScope.menuState;
+          // var menuButtonSelected = $rootScope.menuState;
+          var menuButtonSelected = headerMenu_service.getRadioButtonState();
+          console.log(menuButtonSelected);
           if(menuButtonSelected === 'newNote') {
             var timeMouseup = new Date().getTime();
             var clickDuration = timeMouseup - timeMousedown;

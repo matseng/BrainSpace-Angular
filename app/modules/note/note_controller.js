@@ -3,7 +3,7 @@ angular.module('note_module')
     $scope.fontSize = "12pt";
 
     $scope.change = function() {
-      $scope.$emit('update:note', 'note_controller.js', $scope);
+      $scope.$emit('update:note', 'note_controller.js');
     };
 
   // $scope.click = function() {

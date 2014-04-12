@@ -9,7 +9,7 @@ angular.module('group_module')
       var initialMouseX, initialMouseY;
       var deltaMouseX, deltaMouseY;
       var groupObject;
-
+      var $divGroup;
       $document.on('mousedown', function(mouse) {
         if(headerMenu_service.getRadioButtonState() === 'drawGroup'
           && (mouse.srcElement.id == 'allNotesContainer' 
@@ -17,6 +17,8 @@ angular.module('group_module')
           mouse.preventDefault();
           initialMouseX = mouse.clientX;
           initialMouseY = mouse.clientY;
+          $divGroup = angular.element("<div draggable_directive class='group'> <div>");
+          element.append($divGroup);
           $document.bind('mousemove', myMouseMove2);
           $document.bind('mouseup', myMouseUp2);
         }
@@ -29,15 +31,14 @@ angular.module('group_module')
           var scale = navigationService.getScale();
           deltaMouseX = mouse.clientX - initialMouseX;
           deltaMouseY = mouse.clientY - initialMouseY;
-          var $div = angular.element("<div draggable_directive class='group'> <div>");
           groupObject = {
             left: (initialMouseX - containerOffsetX) * 1/scale, 
             top: (initialMouseY - containerOffsetY) * 1/scale, 
             width: deltaMouseX * 1/scale,
             height: deltaMouseY * 1/scale
           };
-          $div.css(groupObject);  //TODO: refactor using ng-style?
-          element.append($div);
+          $divGroup.css(groupObject);  //TODO: refactor using ng-style?
+          // element.append($div);
 
         } else {
           element.unbind('mousemove', myMouseMove2);
@@ -47,6 +48,8 @@ angular.module('group_module')
 
       var myMouseUp2 = function() {
         $scope.$emit('addGroup', groupObject);
+        // element.remove($divGroup);
+        $divGroup.remove();
         $document.unbind('mousemove', myMouseMove2);
         $document.unbind('mouseup', myMouseUp2);
       };
