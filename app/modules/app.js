@@ -71,7 +71,6 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory',
     });
 
     $scope.$on('update:group', function(event, fromFile, position) {
-      console.log(event);
       var groupScope = event.targetScope;
       if(position){
         groupScope.group.left = position.left;

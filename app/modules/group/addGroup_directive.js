@@ -27,6 +27,7 @@ angular.module('group_module')
 
       function myMouseMove2(mouse) {
         if(mouse.which == 1) {
+          mouse.preventDefault();
           var containerOffsetX = element[0].getBoundingClientRect().left;  //element points to #allNotesContainer
           var containerOffsetY = element[0].getBoundingClientRect().top;
           var scale = navigationService.getScale();
