@@ -75,7 +75,7 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'h
       notesFactory.addGroup(groupObject);
     });
 
-    var noteKeysInGroup;  //TODO: refactor into a service
+    var noteKeysInGroup = [];  //TODO: refactor into a service
 
     $scope.$on('update:group:mousedown', function(event, fromFile) {
       noteKeysInGroup = [];
@@ -93,7 +93,7 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'h
     $scope.$on('update:group', function(event, fromFile, updatedProperty) {
       var groupScope = event.targetScope;
       var key = Object.keys(updatedProperty)[0];
-      if(updatedProperty[key] == 'position'){
+      if(key == 'position'){
         var position = updatedProperty[key];
         var groupRight = position.left + groupScope.group.width;
         var groupBottom = position.top + groupScope.group.height;
@@ -106,8 +106,9 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'h
         }
         groupScope.group.left = position.left;
         groupScope.group.top = position.top;
-      } else if(updatedProperty[key] == 'dimensions'){
-
+      } else if(key == 'dimensions'){
+        groupScope.group.width = updatedProperty[key].width;
+        groupScope.group.height = updatedProperty[key].height;
       }
       var key = groupScope.group.key;
       $scope.groups.$save(key);

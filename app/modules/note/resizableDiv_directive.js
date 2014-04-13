@@ -1,5 +1,5 @@
 // resizableDiv_directive.js
-angular.module("note_module").directive('resizableDivDirective', ['$document', function($document){
+angular.module("note_module").directive('resizableDivDirective', ['$document', 'navigationService', function($document, navigationService){
   return {
     restrict: 'A',
     link: link
@@ -29,8 +29,10 @@ angular.module("note_module").directive('resizableDivDirective', ['$document', f
       }
       var deltaX = $event.clientX - initialMouseX;
       var deltaY = $event.clientY - initialMouseY;
-      var width = initialElWidth + deltaX;
-      var height = initialElHeight + deltaY;
+      var scale = navigationService.getScale();
+
+      var width = initialElWidth + deltaX * 1/scale;
+      var height = initialElHeight + deltaY * 1/scale;
       var dimensions = {'width': width, 'height': height};
       $element.css(dimensions);
       var eventName = 'update:' + $element[0].dataset.type;  //e.g. 'update:note'

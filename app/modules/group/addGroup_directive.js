@@ -17,7 +17,7 @@ angular.module('group_module')
           mouse.preventDefault();
           initialMouseX = mouse.clientX;
           initialMouseY = mouse.clientY;
-          $divGroup = angular.element("<div draggable_directive class='group'> <div>");
+          $divGroup = angular.element("<div class='group'> <div>");  //temporary div for visualization only
           $divGroup.css({visibility: 'hidden'});  //TODO: refactor using ng-style?
           element.append($divGroup);
           $document.bind('mousemove', myMouseMove2);
