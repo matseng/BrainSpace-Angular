@@ -77,27 +77,41 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'h
       notesFactory.addGroup(groupObject);
     });
 
+    var noteKeysInGroup;  //TODO: refactor into a service
+
+    $scope.$on('update:group:mousedown', function(event, fromFile) {
+      noteKeysInGroup = [];
+      var groupScope = event.targetScope;
+      var groupRight = groupScope.group.left + groupScope.group.width;
+      var groupBottom = groupScope.group.top + groupScope.group.height;
+      angular.forEach($scope.notes, function(note, key) {
+        if((note.position) && groupScope.group.left <= note.position.left && note.position.left <= groupRight
+          && groupScope.group.top <= note.position.top && note.position.top <= groupBottom) {
+          noteKeysInGroup.push(key);
+        }
+      });
+    });
+
     $scope.$on('update:group', function(event, fromFile, position) {
       var groupScope = event.targetScope;
       if(position){
         var groupRight = position.left + groupScope.group.width;
         var groupBottom = position.top + groupScope.group.height;
-        console.log("left, top, right, bottom", position.left, position.top, groupRight, groupBottom);
-        angular.forEach($scope.notes, function(note, key) {
-          if((note.position) && groupScope.group.left <= note.position.left && note.position.left <= groupRight
-            && groupScope.group.top <= note.position.top && note.position.top <= groupBottom) {
-            // console.log(note.position);
-            var deltaX = position.left - groupScope.group.left;
-            var deltaY = position.top - groupScope.group.top;
-            note.position.left += deltaX;
-            note.position.top += deltaY;
-          }
-        });
+        for(var i = 0; i < noteKeysInGroup.length; i++) {
+          note = $scope.notes[noteKeysInGroup[i]];
+          var deltaX = position.left - groupScope.group.left;
+          var deltaY = position.top - groupScope.group.top;
+          note.position.left += deltaX;
+          note.position.top += deltaY;
+        }
         groupScope.group.left = position.left;
         groupScope.group.top = position.top;
       }
       var key = groupScope.group.key;
       $scope.groups.$save(key);
+      for(var i = 0; i < noteKeysInGroup.length; i++) {
+        $scope.notes.$save(noteKeysInGroup[i]);
+      }
     });
   }
 ]);

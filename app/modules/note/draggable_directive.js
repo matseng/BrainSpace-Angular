@@ -27,6 +27,8 @@ angular.module("note_module")
           initialMouseY = $event.clientY;
           $document.bind('mousemove', myMouseMove);
           $document.bind('mouseup', myMouseUp);
+          var eventName = 'update:' + element[0].dataset.type + ':mousedown';  //e.g. 'update:group:mousedown'
+          $scope.$emit(eventName, 'draggable_directive.js');
         }
       });
 
