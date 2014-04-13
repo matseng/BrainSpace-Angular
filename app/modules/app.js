@@ -76,9 +76,11 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'h
     });
 
     var noteKeysInGroup = [];  //TODO: refactor into a service
+    var noteInitialPositions = [];
 
     $scope.$on('update:group:mousedown', function(event, fromFile) {
       noteKeysInGroup = [];
+      noteInitialPositions = [];
       var groupScope = event.targetScope;
       var groupRight = groupScope.group.left + groupScope.group.width;
       var groupBottom = groupScope.group.top + groupScope.group.height;
@@ -86,11 +88,12 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'h
         if((note.position) && groupScope.group.left <= note.position.left && note.position.left <= groupRight
           && groupScope.group.top <= note.position.top && note.position.top <= groupBottom) {
           noteKeysInGroup.push(key);
+          noteInitialPositions.push({left: note.position.left, top: note.position.top});
         }
       });
     });
 
-    $scope.$on('update:group', function(event, fromFile, updatedProperty) {
+    $scope.$on('update:group', function(event, fromFile, updatedProperty, deltaObj) {
       var groupScope = event.targetScope;
       var key = Object.keys(updatedProperty)[0];
       if(key == 'position'){
@@ -101,8 +104,10 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'h
           note = $scope.notes[noteKeysInGroup[i]];
           var deltaX = position.left - groupScope.group.left;
           var deltaY = position.top - groupScope.group.top;
-          note.position.left += deltaX;
-          note.position.top += deltaY;
+          // note.position.left += deltaX;
+          // note.position.top += deltaY;          
+          note.position.left = noteInitialPositions[i].left + deltaObj.deltaX;
+          note.position.top = noteInitialPositions[i].top + deltaObj.deltaY;
         }
         groupScope.group.left = position.left;
         groupScope.group.top = position.top;
