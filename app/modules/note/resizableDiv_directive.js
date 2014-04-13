@@ -21,7 +21,7 @@ angular.module("note_module").directive('resizableDivDirective', ['$document', f
     });
 
     function resizableMouseDrag($event){
-      if($event.which === 0){
+      if($event.which === 0) {
         $event.preventDefault;
         $document.unbind('mousemove', resizableMouseDrag);
         $document.unbind('mouseup', resizableMouseUp);
@@ -32,9 +32,9 @@ angular.module("note_module").directive('resizableDivDirective', ['$document', f
       var width = initialElWidth + deltaX;
       var height = initialElHeight + deltaY;
       var dimensions = {'width': width, 'height': height};
-      $scope.note.dimensions = dimensions;
       $element.css(dimensions);
-      $scope.$emit('update:note', 'resizableDiv_directive.js');
+      var eventName = 'update:' + $element[0].dataset.type;  //e.g. 'update:note'
+      $scope.$emit(eventName, 'resizableDiv_directive.js', {dimensions: dimensions});
       }
 
     function resizableMouseUp ($event){

@@ -60,13 +60,11 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'h
       $scope.notes.$add(note);
     });
 
-    $scope.$on('update:note', function(event, fromFile, position ) {
-      console.log('from: ', fromFile);
+    $scope.$on('update:note', function(event, fromFile, updatedProperty) {
       var noteScope = event.targetScope;
-      if(position)
-        noteScope.note.position = position;
-      var key = noteScope.key;
-      $scope.notes.$save(key);
+      var propertyName = Object.keys(updatedProperty)[0];
+      noteScope.note[propertyName] = updatedProperty[propertyName];
+      $scope.notes.$save(noteScope.key);
     });
 
     // $scope.$on('deleteNote', function(event, key) {
@@ -92,9 +90,11 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'h
       });
     });
 
-    $scope.$on('update:group', function(event, fromFile, position) {
+    $scope.$on('update:group', function(event, fromFile, updatedProperty) {
       var groupScope = event.targetScope;
-      if(position){
+      var key = Object.keys(updatedProperty)[0];
+      if(updatedProperty[key] == 'position'){
+        var position = updatedProperty[key];
         var groupRight = position.left + groupScope.group.width;
         var groupBottom = position.top + groupScope.group.height;
         for(var i = 0; i < noteKeysInGroup.length; i++) {
@@ -106,6 +106,8 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'h
         }
         groupScope.group.left = position.left;
         groupScope.group.top = position.top;
+      } else if(updatedProperty[key] == 'dimensions'){
+
       }
       var key = groupScope.group.key;
       $scope.groups.$save(key);
