@@ -40,8 +40,8 @@ angular.module("note_module")
       });
 
       function myMouseMove($event){
-        if($rootScope.mouse.elementClickedClassName !== 'triangle'){
           $event.preventDefault();
+        if($rootScope.mouse.elementClickedClassName !== 'triangle'){
           var deltaX = $event.clientX - initialMouseX;
           var deltaY = $event.clientY - initialMouseY;
           var scale = navigationService.getScale();
