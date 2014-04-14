@@ -42,10 +42,15 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'h
 
     var noteKeysInGroup = [];  //TODO: refactor into a service
     var noteInitialPositions = [];
+    var groupKeysInGroup = [];
+    var groupInitialPositions = [];
 
     $scope.$on('update:group:mousedown', function(event, fromFile) {
       noteKeysInGroup = [];
       noteInitialPositions = [];
+      groupKeysInGroup = [];
+      groupInitialPositions = [];
+
       var groupScope = event.targetScope;
       var groupRight = groupScope.group.left + groupScope.group.width;
       var groupBottom = groupScope.group.top + groupScope.group.height;
@@ -54,6 +59,13 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'h
           && groupScope.group.top <= note.position.top && note.position.top <= groupBottom) {
           noteKeysInGroup.push(key);
           noteInitialPositions.push({left: note.position.left, top: note.position.top});
+        }
+      });
+      angular.forEach($scope.groups, function(group, key) {
+        if((group.left) && groupScope.group.left < group.left && group.left < groupRight
+          && groupScope.group.top < group.top && group.top < groupBottom) {
+          groupKeysInGroup.push(key);
+          groupInitialPositions.push({left: group.left, top: group.top});
         }
       });
     });
@@ -70,17 +82,24 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'h
           note.position.left = noteInitialPositions[i].left + deltaObj.deltaX;
           note.position.top = noteInitialPositions[i].top + deltaObj.deltaY;
         }
+        for(var i = 0; i < groupKeysInGroup.length; i++) {
+          group = $scope.groups[groupKeysInGroup[i]];
+          group.left = groupInitialPositions[i].left + deltaObj.deltaX;
+          group.top = groupInitialPositions[i].top + deltaObj.deltaY;
+        }
         groupScope.group.left = position.left;
         groupScope.group.top = position.top;
       } else if(key == 'dimensions'){
         groupScope.group.width = updatedProperty[key].width;
         groupScope.group.height = updatedProperty[key].height;
       }
-      var key = groupScope.group.key;
-      $scope.groups.$save(key);
       for(var i = 0; i < noteKeysInGroup.length; i++) {
         $scope.notes.$save(noteKeysInGroup[i]);
       }
+      for(var i = 0; i < groupKeysInGroup.length; i++) {
+        $scope.groups.$save(groupKeysInGroup[i]);
+      }
+      $scope.groups.$save(groupScope.group.key);
     });
   }
 ]);
