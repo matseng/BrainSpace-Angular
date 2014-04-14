@@ -24,8 +24,10 @@ angular.module('headerMenu_module')
           if(menuButtonSelected === 'newNote') {
             var timeMouseup = new Date().getTime();
             var clickDuration = timeMouseup - timeMousedown;
-            if (clickDuration < 333 && (elementClickedId === 'allNotesContainer' 
-              || elementClickedId === 'allNotesContainerBackground') ) {
+            console.log(elementClickedId);
+            if (clickDuration < 333 && (elementClickedId == 'allNotesContainer' 
+              || elementClickedId == 'allNotesContainerBackground'
+              || mouse.srcElement.dataset.type == 'group') ) {
               var scale = navigationService.getScale();
               var containerX = element[0].getBoundingClientRect().left;  //element points to #allNotesContainer
               var containerY = element[0].getBoundingClientRect().top;

@@ -29,8 +29,10 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'h
 
     $scope.$on('update:note', function(event, fromFile, updatedProperty) {
       var noteScope = event.targetScope;
-      var propertyName = Object.keys(updatedProperty)[0];
-      noteScope.note[propertyName] = updatedProperty[propertyName];
+      if(updatedProperty) {
+        var propertyName = Object.keys(updatedProperty)[0];
+        noteScope.note[propertyName] = updatedProperty[propertyName];
+      }
       $scope.notes.$save(noteScope.key);
     });
 
