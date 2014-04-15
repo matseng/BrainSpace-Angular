@@ -18,6 +18,17 @@ app.directive('noteModelDirective', ['$rootScope', 'headerMenu_service', functio
 
         headerMenu_service.setScope($scope, element);
         $rootScope.noteSelected = {scope: $scope, element: element};
+
+        // var selectable = {
+        //   '-webkit-touch-callout': true,
+        //   '-webkit-user-select': true,
+        //   '-khtml-user-select': true,
+        //   '-moz-user-select': true,
+        //   '-ms-user-select': true,
+        //   'user-select': true
+        // };
+        // element.css(selectable);
+        // console.log(element, selectable);
       });
 
       // element.on('mouseup', function(){
