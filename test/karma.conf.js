@@ -1,12 +1,5 @@
 module.exports = function(config){
   config.set({
-<<<<<<< HEAD:config/karma.conf.js
-    basePath : '../',
-
-    files : [
-      'app/lib/angular/angular.js',
-      'app/lib/angular/angular-*.js',
-=======
 
     basePath : '../',
 
@@ -16,8 +9,8 @@ module.exports = function(config){
       'bower_components/angular-resource/angular-resource.js',
       'bower_components/angular-animate/angular-animate.js',
       'bower_components/angular-mocks/angular-mocks.js',
->>>>>>> 980cda03680fd0d964428c0d46fff3312744b911:test/karma.conf.js
-      'app/js/**/*.js',
+      'app/modules/**/*.js',
+      'app/modules/group/*.js',
       'test/unit/**/*.js'
     ],
 
@@ -37,11 +30,6 @@ module.exports = function(config){
       outputFile: 'test_out/unit.xml',
       suite: 'unit'
     }
-<<<<<<< HEAD:config/karma.conf.js
-  });
-};
-=======
 
   });
 };
->>>>>>> 980cda03680fd0d964428c0d46fff3312744b911:test/karma.conf.js
