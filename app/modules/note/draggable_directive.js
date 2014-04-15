@@ -5,7 +5,7 @@
 */
 
 angular.module("note_module")
-  .directive('draggableDirective', ['$rootScope', '$document', 'navigationService', function($rootScope, $document, navigationService){
+  .directive('draggableDirective', ['$rootScope', '$document', 'navigationService', 'headerMenu_service', function($rootScope, $document, navigationService, headerMenu_service){
     return {
       restrict: 'A',
       link: link
@@ -19,7 +19,8 @@ angular.module("note_module")
         // $event.preventDefault();
         elementClickedClassName = $event.srcElement.className;
         $rootScope.mouse.elementClickedClassName = elementClickedClassName;
-        if(elementClickedClassName !== 'selectFontSize' && elementClickedClassName !== 'triangle'){
+        // if(elementClickedClassName !== 'selectFontSize' && elementClickedClassName !== 'triangle'){
+        if(headerMenu_service.getRadioButtonState() != 'drawGroup') {
           element.css({position: 'absolute'});
           initialElementX = element.prop('offsetLeft');
           initialElementY = element.prop('offsetTop');

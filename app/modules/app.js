@@ -36,7 +36,7 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'h
       $scope.notes.$save(noteScope.key);
     });
 
-    $scope.$on('addGroup', function(event, groupObject) {
+    $scope.$on('addGroup', function(event, emitterFile, groupObject) {
       notesFactory.addGroup(groupObject);
     });
 
