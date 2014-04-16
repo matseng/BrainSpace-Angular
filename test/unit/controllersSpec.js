@@ -1,3 +1,5 @@
+//$ npm test
+
 'use strict';
 
 /* jasmine specs for controllers go here */
@@ -17,7 +19,6 @@ describe('BrainSpace controllers', function() {
     it('should button selected equal to null', inject(function($controller, $rootScope) {
       scope = $rootScope.$new();
       var ctrl = $controller('menu_controller', {$scope:scope});
-      // var ctrl = $controller('menu_controller');
 
       expect(scope.buttonSelected).toBe(null);
     }));
