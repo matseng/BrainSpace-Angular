@@ -4,18 +4,21 @@
 describe('BrainSpace controllers', function() {
 
   describe('BrainSpaceCtrl', function(){
-    beforeEach(module('group_module')); 
-
-    // beforeEach(module('BrainSpace', 
-    //   ['notes_factory_module', 'note_module', 'headerMenu_module', 'navigation_module', 'group_module']));
+    beforeEach(module('firebase')); 
+    beforeEach(module('headerMenu_module')); 
+    beforeEach(module('notes_factory_module')); 
 
     it('should have scope with "Hello World"', inject(function($controller) {
       var scope = {};
       scope.helloWorld = 'Hello World';
-      // var scope = {},
-          // ctrl = $controller('PhoneListCtrl', {$scope:scope});
-
       expect(scope.helloWorld).toBe("Hello World");
+    }));
+
+    it('should button selected equal to null', inject(function($controller) {
+      var scope = {},
+          ctrl = $controller('menu_controller', {$scope:scope});
+
+      expect(scope.buttonSelected).toBe(null);
     }));
 
   });

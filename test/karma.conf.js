@@ -11,7 +11,10 @@ module.exports = function(config){
       'bower_components/angular-mocks/angular-mocks.js',
       // 'app/modules/*.js',
       // 'app/modules/**/*.js',
-      'app/modules/group/group_module.js',
+      'bower_components/firebase/firebase.js',
+      'app/modules/factory/*.js',
+      'app/modules/headerMenu/headerMenu_module.js',
+      // 'app/modules/headerMenu/*.js',
       'test/unit/**/*.js'
     ],
 
