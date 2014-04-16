@@ -12,9 +12,10 @@ module.exports = function(config){
       // 'app/modules/*.js',
       // 'app/modules/**/*.js',
       'bower_components/firebase/firebase.js',
+      'bower_components/angularfire/angularfire.js',
       'app/modules/factory/*.js',
       'app/modules/headerMenu/headerMenu_module.js',
-      // 'app/modules/headerMenu/*.js',
+      'app/modules/headerMenu/*.js',
       'test/unit/**/*.js'
     ],
 
