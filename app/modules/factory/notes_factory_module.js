@@ -7,7 +7,7 @@ angular.module('notes_factory_module', ['firebase'])
     var groupsRef = ref.child('groups');
     var groupsCollection = $firebase(groupsRef);  //$firebase is from AngularFire library
     var notesRef = ref.child('notes');
-    var notes = $firebase(notesRef);  //$firebase is from AngularFire library
+    var notes = $firebase(notesRef);
     var allNotesScope = {};
 
     return {

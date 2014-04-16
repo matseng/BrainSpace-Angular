@@ -19,6 +19,14 @@
     "angular-bootstrap": "~0.10.0",
     "underscore": "~1.6.0",
     "firebase": "~1.0.10",
-    "angularfire": "~0.7.0"
+    "angularfire": "~0.7.0",
+    "angular-mocks": "~1.2.15",
+    "angular-resource": "~1.2.15",
+    "jquery": "1.10.2",
+    "angular-animate": "~1.2.15",
+    "bootstrap": "~3.1.1"
+  },
+  "resolutions": {
+    "angular": "~1.2.12"
   }
 }
