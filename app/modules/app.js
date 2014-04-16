@@ -12,6 +12,11 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'h
     $scope.noteScopeSelected = null;
     notesFactory.setScope($scope.notes);
 
+    $scope.groups.$on('loaded', function() {
+      var keys = $scope.groups.$getIndex();
+      console.log("count: " + keys.length); 
+    });
+
     $scope.click = function($event) {
       // console.log($event);
       var element = angular.element($event.srcElement);
