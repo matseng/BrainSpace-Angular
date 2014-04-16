@@ -4,13 +4,10 @@
 describe('BrainSpace controllers', function() {
 
   describe('BrainSpaceCtrl', function(){
+    beforeEach(module('group_module')); 
 
-    beforeEach(module('BrainSpace'));
-    beforeEach(module('notes_factory_module'));
-    beforeEach(module('group_module'));
-    beforeEach(module('headerMenu_module'));
-    beforeEach(module('navigation_module'));
-    beforeEach(module('note_module'));
+    // beforeEach(module('BrainSpace', 
+    //   ['notes_factory_module', 'note_module', 'headerMenu_module', 'navigation_module', 'group_module']));
 
     it('should have scope with "Hello World"', inject(function($controller) {
       var scope = {};
