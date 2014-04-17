@@ -3,24 +3,12 @@
 angular.module('notes_factory_module')
   .service('refactorData', ['notesFactory', '$q',
     function(notesFactory, $q) {
-      var groups = notesFactory.getGroups();
-      var notes = notesFactory.getNotes();
-      var keys = groups.$getIndex();
-      var notes2 = notesFactory.getNotes2();
-      var groups2 = notesFactory.getGroups2();
-      console.log("count: " + keys.length);
-      
-      // var newGroupsCollection = {}; 
-      // var Group2 = function() {
-      //   this = {
-      //     data: {
-      //       parentGroup: null,
-      //       childNotes: null,
-      //       childGroups: null
-      //     },
-      //     style: null
-      //   };
-      // };
+      // var groups = notesFactory.getGroups();
+      // var notes = notesFactory.getNotes();
+      // var keys = groups.$getIndex();
+      var notes = notesFactory.getNotes2();
+      var groups = notesFactory.getGroups2();
+      // console.log("count: " + keys.length);
 
       var Note2 = function(note) {
         this.data = {
@@ -57,6 +45,7 @@ angular.module('notes_factory_module')
       groups.$on('loaded', function(groups){
         deferred1.resolve(groups);
         console.log(Object.keys(groups).length);
+        // console.log();
       });
 
       var deferred2 = $q.defer();
@@ -71,12 +60,12 @@ angular.module('notes_factory_module')
         var currDist;
         var deltaX, deltaY;
         angular.forEach(groups, function(group, keyGroup) {
-          group.right = group.left + group.width;
-          group.bottom = group.top + group.height;
-          if(group.left <= note.position.left && note.position.left <= group.right
-            && group.top <= note.position.top && note.position.top <= group.bottom) {
-            deltaX = note.position.left - group.left;
-            deltaY = note.position.top - group.top;
+          groupRight = group.style.left + group.style.width;
+          groupBottom = group.style.top + group.style.height;
+          if(group.style.left <= note.style.left && note.style.left <= groupRight
+            && group.style.top <= note.style.top && note.style.top <= groupBottom) {
+            deltaX = note.style.left - group.style.left;
+            deltaY = note.style.top - group.style.top;
             currDist = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
             if(!minDist || currDist < minDist){
               minDist = currDist;
@@ -84,6 +73,14 @@ angular.module('notes_factory_module')
             }
           }
         });
+        var noteFire = notes.$child(key);
+        var noteObj = notes[key];
+        // console.log(noteObj);
+        noteObj.data.parentGroup = parentGroupKey;
+        noteFire.$set(noteObj);
+        // noteFire.$save();
+        // console.log(JSON.stringify(notes[key]));
+        // console.log(note.data);
         // var note2 = new Note2(note);
         // notes2.$add(note2);
         // newNotesCollection[key] = note2;
@@ -109,12 +106,8 @@ angular.module('notes_factory_module')
       promiseAll.then(function(response) {
         var groups = response[0];
         var notes = response[1];
-        refactorNotes(notes);
-        refactorGroups(groups);
-
-
         angular.forEach(notes, function(note, key) {
-          //getNearestAncestorKey(note, key, groups);
+          // getNearestAncestorKey(note, key, groups);
         });
         // console.log(newNotesCollection, Object.keys(newNotesCollection).length);
         //TODO: Iterate over each group to find & set its parent group (also set child group) 
