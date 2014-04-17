@@ -28,6 +28,7 @@ angular.module('notes_factory_module')
         var noteKeys = response[1];
         console.log(groupKeys);
         console.log(noteKeys);
+        //TODO: Iterate over noteKeys --> create notes2 object with flat structure and save in Firebase
         //Find parent group of each note
           //And thus each group will have childNotes
         //Find parent group of each group
