@@ -6,6 +6,8 @@ angular.module('notes_factory_module')
       var groups = notesFactory.getGroups();
       var notes = notesFactory.getNotes();
       var keys = groups.$getIndex();
+      var notes2 = notesFactory.getNotes2();
+      var groups2 = notesFactory.getGroups2();
       console.log("count: " + keys.length);
       
       // var newGroupsCollection = {}; 
@@ -20,35 +22,45 @@ angular.module('notes_factory_module')
       //   };
       // };
 
-      var newNotesCollection = {};
-      var Note2 = function(note, parentGroupKey) {
+      var Note2 = function(note) {
         this.data = {
           text: note.body,
-          parentGroup: parentGroupKey,
+          parentGroup: null,
+          x: note.position.left,
+          y: note.position.top,
+        };
+        this.style = {
           left: note.position.left,
           top: note.position.top,
           width: note.dimensions ? note.dimensions.width : 192,
-          height: note.dimensions ? note.dimensions.height : 100
-        };
-        this.style = {
+          height: note.dimensions ? note.dimensions.height : 100,
           'font-size': note.textarea_style ? note.textarea_style.fontSize : "10pt"
         };
       }
-      
+
+      var Group2 = function(group, parentGroupKey) {
+        this.data = {
+          x: group.left,
+          y: group.top,
+          parentGroup: null,
+          childNotes: null,
+          childGroups: null
+        };
+        this.style = {
+          left: group.left,
+          top: group.top,
+          width: group.width,
+          height: group.height
+        };
+      }
       var deferred1 = $q.defer();
       groups.$on('loaded', function(groups){
-        // var keys = groups.$getIndex();
-        // for(var i = 0; i < keys.length; i++) {
-        //   console.log(keys[i]);
-        //   console.log(groups[keys[i]]);
-        // }
         deferred1.resolve(groups);
-        // console.log("count: " + keys.length);
+        console.log(Object.keys(groups).length);
       });
 
       var deferred2 = $q.defer();
       notes.$on('loaded', function(notes){
-        // var keys = notes.$getIndex();
         deferred2.resolve(notes);
         console.log(Object.keys(notes).length);
       });
@@ -72,28 +84,40 @@ angular.module('notes_factory_module')
             }
           }
         });
-        var note2 = new Note2(note, parentGroupKey);
-        newNotesCollection[key] = note2;
-        //console.log(note2);
+        // var note2 = new Note2(note);
+        // notes2.$add(note2);
+        // newNotesCollection[key] = note2;
         //TODO: For each non-null parentGroupKey, create a new Group2 and add the current keyNote as a child
-        // return parentGroupKey;
+      };
+      var refactorNotes = function(notes) {
+        notes2.$remove();
+        angular.forEach(notes, function(note, key) {
+          var note2 = new Note2(note);
+          notes2.$add(note2);
+        });
+      };
+
+      var refactorGroups = function(groups) {
+        groups2.$remove();
+        angular.forEach(groups, function(group, key) {
+          var group2 = new Group2(group);
+          groups2.$add(group2);
+        });
       };
 
       var promiseAll = $q.all([deferred1.promise, deferred2.promise]);  ////Why can't a deferred instance include its own promise (ie what's the benefit of this line in general)
       promiseAll.then(function(response) {
         var groups = response[0];
         var notes = response[1];
+        refactorNotes(notes);
+        refactorGroups(groups);
+
 
         angular.forEach(notes, function(note, key) {
-          getNearestAncestorKey(note, key, groups);
+          //getNearestAncestorKey(note, key, groups);
         });
-        console.log(newNotesCollection, Object.keys(newNotesCollection).length);
-
-        //TODO: Iterate over noteKeys --> create notes2 object with flat structure and save in Firebase
-        //Find parent group of each note
-          //And thus each group will have childNotes
-        //Find parent group of each group
-          //And thus each group will have childGroups
+        // console.log(newNotesCollection, Object.keys(newNotesCollection).length);
+        //TODO: Iterate over each group to find & set its parent group (also set child group) 
       });
 
     }

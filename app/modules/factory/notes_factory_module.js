@@ -9,7 +9,10 @@ angular.module('notes_factory_module', ['firebase'])
     var notesRef = ref.child('notes');
     var notes = $firebase(notesRef);
     var allNotesScope = {};
-
+    var notesRef2 = ref.child('notes2');
+    var notes2 = $firebase(notesRef2);
+    var groupsRef2 = ref.child('groups2');
+    var groups2 = $firebase(groupsRef2);
     return {
       getNotes: function(){
         return notes;
@@ -41,6 +44,12 @@ angular.module('notes_factory_module', ['firebase'])
       },
       getRef: function() {
         return ref;
+      },
+      getNotes2: function() {
+        return notes2;
+      },
+      getGroups2: function() {
+        return groups2;
       }
     };
   }
