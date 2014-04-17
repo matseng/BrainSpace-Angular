@@ -35,6 +35,12 @@ angular.module('notes_factory_module', ['firebase'])
       addGroup: function(groupObject) {
         // groupsRef.push(groupObject);
         groupsCollection.$add(groupObject)
+      },
+      getData: function() {
+        return allData;
+      },
+      getRef: function() {
+        return ref;
       }
     };
   }

@@ -4,7 +4,7 @@
 
 var app = angular.module("BrainSpace", ['notes_factory_module', 'note_module', 'headerMenu_module', 'navigation_module', 'group_module']);
 
-app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'headerMenu_service',
+app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'headerMenu_service', 'refactorData',
   function($scope, $firebase, notesFactory, headerMenu_service){
 
     $scope.notes = notesFactory.getNotes();
@@ -12,10 +12,10 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'h
     $scope.noteScopeSelected = null;
     notesFactory.setScope($scope.notes);
 
-    $scope.groups.$on('loaded', function() {
-      var keys = $scope.groups.$getIndex();
-      console.log("count: " + keys.length); 
-    });
+    // $scope.groups.$on('loaded', function() {
+    //   var keys = $scope.groups.$getIndex();
+    //   console.log("count: " + keys.length);
+    // });
 
     $scope.click = function($event) {
       // console.log($event);
