@@ -12,12 +12,17 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'h
     $scope.noteScopeSelected = null;
     notesFactory.setScope($scope.notes);
 
-    $scope.groups.$on('loaded', function() {
-      var keys = $scope.groups.$getIndex();
-      console.log("count: " + keys.length);
-      for(var i = 0; i < keys.length; i++) {
-        console.log($scope.groups[keys[i]]);
-      }
+    $scope.groups.$on('loaded', function(data) {
+      // var keys = $scope.groups.$getIndex();
+      // console.log("count: " + keys.length);
+      // for(var i = 0; i < keys.length; i++) {
+      //   console.log($scope.groups[keys[i]]);
+      // }
+      // var keys = data.$getIndex();
+      // console.log("count: " + keys.length);
+      // for(var i = 0; i < keys.length; i++) {
+      //   console.log(data[keys[i]]);
+      // }
     });
 
     $scope.click = function($event) {
