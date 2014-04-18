@@ -4,12 +4,14 @@
 
 var app = angular.module("BrainSpace", ['notes_factory_module', 'note_module', 'headerMenu_module', 'navigation_module', 'group_module']);
 
-app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'headerMenu_service', 'refactorData',
+app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'headerMenu_service',
   function($scope, $firebase, notesFactory, headerMenu_service){
 
-    $scope.notes = notesFactory.getNotes();
-    $scope.groups = notesFactory.getGroups();
+    $scope.groups2 = notesFactory.getGroups2();
+    $scope.notes2 = notesFactory.getNotes2();
     $scope.noteScopeSelected = null;
+    $scope.notes = $scope.notes2;
+    $scope.groups = $scope.groups2;
     notesFactory.setScope($scope.notes);
 
     $scope.groups.$on('loaded', function(data) {
@@ -42,9 +44,12 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'h
 
     $scope.$on('update:note', function(event, fromFile, updatedProperty) {
       var noteScope = event.targetScope;
-      if(updatedProperty) {
-        var propertyName = Object.keys(updatedProperty)[0];
-        noteScope.note[propertyName] = updatedProperty[propertyName];
+      if(fromFile == 'draggable_directive.js' && updatedProperty) {
+        // console.log(updatedProperty);
+        noteScope.note.data.x = updatedProperty.position.left;
+        noteScope.note.data.y = updatedProperty.position.top;
+        noteScope.note.style.left = updatedProperty.position.left;
+        noteScope.note.style.top = updatedProperty.position.top;
       }
       $scope.notes.$save(noteScope.key);
     });

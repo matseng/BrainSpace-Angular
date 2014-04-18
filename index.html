@@ -46,8 +46,9 @@
   </div>
   <div navigation_directive id="allNotesContainerBackground">
     <div add_note_directive add_group_directive id='allNotesContainer' ng-controller='allNotes_controller'  ng-click='click($event, $scope)'>
-      <note_model_directive ng-repeat="(key, note) in notes"></note_model_directive>
-      <div draggable_directive resizable_div_directive class='group' ng-repeat="(key, group) in groups"  ng-style="{left: group.left, top: group.top, width: group.width, height: group.height}" data-type="group">
+      <!-- <note_model_directive ng-repeat="(key, note) in notes"></note_model_directive> -->
+      <note_model_directive ng-repeat="(key, note) in notes2"></note_model_directive>
+      <div draggable_directive resizable_div_directive class='group' ng-repeat="(key, group) in groups2"  ng-style="{left: group.style.left, top: group.style.top, width: group.style.width, height: group.style.height}" data-type="group">
         <!-- Does NOT do 2-way data binding with: ng-style={{group}} -->
       </div>
     </div>
