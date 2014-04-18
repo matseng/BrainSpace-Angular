@@ -20,7 +20,8 @@ angular.module("note_module")
         elementClickedClassName = $event.srcElement.className;
         $rootScope.mouse.elementClickedClassName = elementClickedClassName;
         // if(elementClickedClassName !== 'selectFontSize' && elementClickedClassName !== 'triangle'){
-        if(headerMenu_service.getRadioButtonState() != 'drawGroup') {
+        if(elementClickedClassName !== 'triangle' 
+          && headerMenu_service.getRadioButtonState() != 'drawGroup') {
           element.css({position: 'absolute'});
           initialElementX = element.prop('offsetLeft');
           initialElementY = element.prop('offsetTop');

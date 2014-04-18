@@ -50,6 +50,9 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'h
         noteScope.note.data.y = updatedProperty.position.top;
         noteScope.note.style.left = updatedProperty.position.left;
         noteScope.note.style.top = updatedProperty.position.top;
+      } else if(fromFile == 'resizableDiv_directive.js' && updatedProperty) {
+        noteScope.note.style.width = updatedProperty.dimensions.width;
+        noteScope.note.style.height = updatedProperty.dimensions.height;
       }
       $scope.notes.$save(noteScope.key);
     });
