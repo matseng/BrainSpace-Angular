@@ -3,17 +3,15 @@
 angular.module('notes_factory_module')
   .service('refactorData', ['notesFactory', '$q',
     function(notesFactory, $q) {
-      // var groups = notesFactory.getGroups();
       // var notes = notesFactory.getNotes();
-      // var keys = groups.$getIndex();
+      // var groups = notesFactory.getGroups();
       var notes = notesFactory.getNotes2();
       var groups = notesFactory.getGroups2();
-      // console.log("count: " + keys.length);
 
       var Note2 = function(note) {
         this.data = {
           text: note.body,
-          parentGroup: null,
+          parentGroup: [],
           x: note.position.left,
           y: note.position.top,
         };
@@ -30,9 +28,9 @@ angular.module('notes_factory_module')
         this.data = {
           x: group.left,
           y: group.top,
-          parentGroup: null,
-          childNotes: null,
-          childGroups: null
+          parentGroup: [],
+          childNotes: [],
+          childGroups: []
         };
         this.style = {
           left: group.left,
@@ -45,7 +43,6 @@ angular.module('notes_factory_module')
       groups.$on('loaded', function(groups){
         deferred1.resolve(groups);
         console.log(Object.keys(groups).length);
-        // console.log();
       });
 
       var deferred2 = $q.defer();
@@ -54,12 +51,12 @@ angular.module('notes_factory_module')
         console.log(Object.keys(notes).length);
       });
 
-      var getNearestAncestorKey = function(note, key, groups) {
+      var updateNearestAncestorKey = function(note, keyNote, groupsData) {
         var parentGroupKey = null;
         var minDist = null;
         var currDist;
         var deltaX, deltaY;
-        angular.forEach(groups, function(group, keyGroup) {
+        angular.forEach(groupsData, function(group, keyGroup) {
           groupRight = group.style.left + group.style.width;
           groupBottom = group.style.top + group.style.height;
           if(group.style.left <= note.style.left && note.style.left <= groupRight
@@ -73,44 +70,74 @@ angular.module('notes_factory_module')
             }
           }
         });
-        var noteFire = notes.$child(key);
-        var noteObj = notes[key];
-        // console.log(noteObj);
-        noteObj.data.parentGroup = parentGroupKey;
-        noteFire.$set(noteObj);
-        // noteFire.$save();
-        // console.log(JSON.stringify(notes[key]));
-        // console.log(note.data);
-        // var note2 = new Note2(note);
-        // notes2.$add(note2);
-        // newNotesCollection[key] = note2;
-        //TODO: For each non-null parentGroupKey, create a new Group2 and add the current keyNote as a child
+        
+        note.data.parentGroup = parentGroupKey;
+        var noteObj = {};
+        noteObj[keyNote] = note;
+        notes.$update(noteObj);
+
+        if(parentGroupKey) {
+          var groupObj = groupsData[parentGroupKey];
+          if(!groupObj.data.childNotes)
+            groupObj.data.childNotes = [];
+          if(groupObj.data.childNotes.indexOf(keyNote) == -1) {
+            groupObj.data.childNotes.push(keyNote);
+            var groupObjTemp = {};
+            groupObjTemp[parentGroupKey] = groupObj;
+            groups.$update(groupObjTemp);
+          }
+        }
       };
+
+      var updateNearestGroupAncestorKey = function(group, key, groupsCollection) {
+        //TODO: Save parent / children for each group
+        console.log(key);
+      }
+
       var refactorNotes = function(notes) {
-        notes2.$remove();
+        var notes2 = {};
         angular.forEach(notes, function(note, key) {
           var note2 = new Note2(note);
-          notes2.$add(note2);
+          notes2[key] = note2;
         });
+        return notes2;
       };
 
       var refactorGroups = function(groups) {
-        groups2.$remove();
+        var groups2 = {};
         angular.forEach(groups, function(group, key) {
           var group2 = new Group2(group);
-          groups2.$add(group2);
+          groups2[key] = group2;
         });
+        return groups2;
+      };
+
+      var _each = function($collection, callback) {
+        var args = Array.prototype.slice.call(arguments, 2);
+        var keys = $collection.$getIndex();
+        var val, key;
+        for(var i = 0; i < keys.length; i++) {
+          key = keys[i];
+          val = $collection[key];
+          callback(val, key, args);
+        }
       };
 
       var promiseAll = $q.all([deferred1.promise, deferred2.promise]);  ////Why can't a deferred instance include its own promise (ie what's the benefit of this line in general)
       promiseAll.then(function(response) {
+        refactorNotes
         var groups = response[0];
         var notes = response[1];
+        // groups2 = refactorGroups(groups);
+        // notes2 = refactorNotes(notes);
         angular.forEach(notes, function(note, key) {
-          // getNearestAncestorKey(note, key, groups);
+          updateNearestAncestorKey(note, key, groups); 
         });
-        // console.log(newNotesCollection, Object.keys(newNotesCollection).length);
-        //TODO: Iterate over each group to find & set its parent group (also set child group) 
+
+        angular.forEach(groups, function(group, key) {
+          updateNearestGroupAncestorKey(group, key, groups); 
+        });
+
       });
 
     }
