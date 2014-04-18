@@ -3,10 +3,12 @@
 angular.module('notes_factory_module')
   .service('refactorData', ['notesFactory', '$q',
     function(notesFactory, $q) {
-      // var notes = notesFactory.getNotes();
-      // var groups = notesFactory.getGroups();
-      var notes = notesFactory.getNotes2();
-      var groups = notesFactory.getGroups2();
+      var notes = notesFactory.getNotes();
+      var groups = notesFactory.getGroups();
+      var notes2 = notesFactory.getNotes2();
+      var groups2 = notesFactory.getGroups2();
+      var key0;
+      var key1 = {};
 
       var Note2 = function(note) {
         this.data = {
@@ -48,6 +50,7 @@ angular.module('notes_factory_module')
       var deferred2 = $q.defer();
       notes.$on('loaded', function(notes){
         deferred2.resolve(notes);
+        var key0 = Object.keys(notes);
         console.log(Object.keys(notes).length);
       });
 
@@ -74,7 +77,7 @@ angular.module('notes_factory_module')
         note.data.parentGroup = parentGroupKey;
         var noteObj = {};
         noteObj[keyNote] = note;
-        notes.$update(noteObj);
+        notes2.$update(noteObj);
 
         if(parentGroupKey) {
           var groupObj = groupsData[parentGroupKey];
@@ -82,34 +85,42 @@ angular.module('notes_factory_module')
             groupObj.data.childNotes = [];
           if(groupObj.data.childNotes.indexOf(keyNote) == -1) {
             groupObj.data.childNotes.push(keyNote);
+            key1[keyNote] = keyNote;
             var groupObjTemp = {};
             groupObjTemp[parentGroupKey] = groupObj;
-            groups.$update(groupObjTemp);
+            console.log(parentGroupKey);
+            groups2.$update(groupObjTemp);
           }
         }
       };
 
       var updateNearestGroupAncestorKey = function(group, key, groupsCollection) {
         //TODO: Save parent / children for each group
-        console.log(key);
+        // console.log(key);
       }
 
       var refactorNotes = function(notes) {
-        var notes2 = {};
+        notes2.$remove();
+        var promArr = [];
         angular.forEach(notes, function(note, key) {
+          var currProm;
           var note2 = new Note2(note);
-          notes2[key] = note2;
+          currProm = notes2.$add(note2);
+          promArr.push(currProm);
         });
-        return notes2;
+        return $q.all(promArr);
       };
 
       var refactorGroups = function(groups) {
-        var groups2 = {};
+        groups2.$remove();
+        var promArr = [];
         angular.forEach(groups, function(group, key) {
+          var currProm;
           var group2 = new Group2(group);
-          groups2[key] = group2;
+          currProm = groups2.$add(group2);
+          promArr.push(currProm);
         });
-        return groups2;
+        return $q.all(promArr);
       };
 
       var _each = function($collection, callback) {
@@ -128,16 +139,45 @@ angular.module('notes_factory_module')
         refactorNotes
         var groups = response[0];
         var notes = response[1];
-        // groups2 = refactorGroups(groups);
-        // notes2 = refactorNotes(notes);
-        angular.forEach(notes, function(note, key) {
-          updateNearestAncestorKey(note, key, groups); 
+        var promAllGroups = refactorGroups(groups);
+        promAllGroups.then(function (res) {
+          console.log(res[0].name());
+        })
+        .then(function() {
+          return refactorNotes(notes);
+        })
+        .then(function(res) {
+          console.log(res[0].name());
+          var ref = notesFactory.getRef();
+          ref.once("value", function(data) {
+            // console.log(data.val());
+            var notesData = data.val().notes2;
+            var groupsData = data.val().groups2;
+            angular.forEach(notesData, function(note, key) {
+              updateNearestAncestorKey(note, key, groupsData); 
+            });
+            console.log('done');
+            var sum = 0;
+            angular.forEach(groupsData, function(group, key) {
+              if(group.data.childNotes)
+                sum += group.data.childNotes.length;
+              // updateNearestGroupAncestorKey(group, key, groups2); 
+            });
+            console.log(sum);
+            console.log(key1);
+            console.log(Object.keys(key1).length);
+            var keys = Object.keys(notesData);
+            console.log(keys.length);
+            for(var i = 0; i < keys.length; i++) {
+              if((keys[i] in key1))
+                console.log('found: ', keys[i]);
+              else{
+                console.log('not found(!): ', keys[i]);
+                console.log(notesData[keys[i]]); 
+              }
+            }
+          });
         });
-
-        angular.forEach(groups, function(group, key) {
-          updateNearestGroupAncestorKey(group, key, groups); 
-        });
-
       });
 
     }
