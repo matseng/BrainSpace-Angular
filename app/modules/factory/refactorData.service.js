@@ -88,15 +88,51 @@ angular.module('notes_factory_module')
             key1[keyNote] = keyNote;
             var groupObjTemp = {};
             groupObjTemp[parentGroupKey] = groupObj;
-            console.log(parentGroupKey);
+            // console.log(parentGroupKey);
             groups2.$update(groupObjTemp);
           }
         }
       };
 
-      var updateNearestGroupAncestorKey = function(group, key, groupsCollection) {
+      var updateNearestGroupAncestorKey = function(subject, key, groupsCollection) {
         //TODO: Save parent / children for each group
         // console.log(key);
+        var parentGroupKey = null;
+        var minDist = null;
+        var currDist;
+        var deltaX, deltaY;
+        angular.forEach(groupsCollection, function(group, keyGroup) {
+          groupRight = group.style.left + group.style.width;
+          groupBottom = group.style.top + group.style.height;
+          if(group.style.left <= subject.style.left && subject.style.left <= groupRight
+            && group.style.top <= subject.style.top && subject.style.top <= groupBottom) {
+            deltaX = subject.style.left - group.style.left;
+            deltaY = subject.style.top - group.style.top;
+            currDist = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
+            if(!minDist || currDist < minDist){
+              minDist = currDist;
+              parentGroupKey = keyGroup;
+            }
+          }
+        });
+
+        subject.data.parentGroup = parentGroupKey;
+        var subjectObj = {};
+        subjectObj[key] = subject;
+        console.log(subjectObj);
+        groups2.$update(subjectObj);
+
+        if(parentGroupKey) {
+          var groupObj = groupsCollection[parentGroupKey];
+          groupObj.data.childGroups = groupObj.data.childGroups || [];
+          if(groupObj.data.childGroups.indexOf(key) == -1) {
+            groupObj.data.childGroups.push(key);
+            var groupObjTemp = {};
+            groupObjTemp[parentGroupKey] = groupObj;
+            groups2.$update(groupObjTemp);
+          }
+        }
+
       }
 
       var refactorNotes = function(notes) {
@@ -156,7 +192,14 @@ angular.module('notes_factory_module')
             angular.forEach(notesData, function(note, key) {
               updateNearestAncestorKey(note, key, groupsData); 
             });
+            
+            
+            angular.forEach(groupsData, function(group, key) {
+              updateNearestGroupAncestorKey(group, key, groupsData); 
+            });
+            
             console.log('done');
+/*
             var sum = 0;
             angular.forEach(groupsData, function(group, key) {
               if(group.data.childNotes)
@@ -176,7 +219,9 @@ angular.module('notes_factory_module')
                 console.log(notesData[keys[i]]); 
               }
             }
+*/
           });
+
         });
       });
 
