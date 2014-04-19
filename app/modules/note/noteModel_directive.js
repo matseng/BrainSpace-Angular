@@ -12,24 +12,13 @@ app.directive('noteModelDirective', ['$rootScope', 'headerMenu_service', functio
     };
     function link($scope, element, attrs){
 
-      element.on('mousedown', function(){
-        //TODO: Refactor to ng-click in note-controller
-          //AND move references to $rootScope into headerMenu_service
+      // element.on('mousedown', function(){
+      //   //TODO: Refactor to ng-click in note-controller
+      //     //AND move references to $rootScope into headerMenu_service
+      //   headerMenu_service.setScope($scope, element);
+      //   $rootScope.noteSelected = {scope: $scope, element: element};
 
-        headerMenu_service.setScope($scope, element);
-        $rootScope.noteSelected = {scope: $scope, element: element};
-
-        // var selectable = {
-        //   '-webkit-touch-callout': true,
-        //   '-webkit-user-select': true,
-        //   '-khtml-user-select': true,
-        //   '-moz-user-select': true,
-        //   '-ms-user-select': true,
-        //   'user-select': true
-        // };
-        // element.css(selectable);
-        // console.log(element, selectable);
-      });
+      // });
 
       // element.on('mouseup', function(){
       //   //TODO: Refactor to resizeableDiv_directive?
