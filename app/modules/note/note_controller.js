@@ -7,8 +7,8 @@ angular.module('note_module')
     };
 
     $scope.noteMousedown = function($event) {
-      //TODO: refactor from note_model_directive
-      console.log($event, 'will use headMenu_sevice here');
+      console.log($event, $scope, 'will use headerMenu_service here');
+      headerMenu_service.setScope($scope, angular.element($event.srcElement));
     };
 }]);
 

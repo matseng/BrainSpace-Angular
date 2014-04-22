@@ -18,13 +18,13 @@ angular.module('headerMenu_module')
         });
 
         $document.on('mouseup', function(mouse){
-          var elementClickedId = mouse.srcElement.id;
           // var menuButtonSelected = $rootScope.menuState;
           var menuButtonSelected = headerMenu_service.getRadioButtonState();
           if(menuButtonSelected === 'newNote') {
             var timeMouseup = new Date().getTime();
             var clickDuration = timeMouseup - timeMousedown;
-            console.log(elementClickedId);
+            var elementClickedId = mouse.srcElement.id;
+            // console.log(elementClickedId);
             if (clickDuration < 333 && (elementClickedId == 'allNotesContainer' 
               || elementClickedId == 'allNotesContainerBackground'
               || mouse.srcElement.dataset.type == 'group') ) {

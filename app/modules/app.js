@@ -4,8 +4,8 @@
 
 var app = angular.module("BrainSpace", ['notes_factory_module', 'note_module', 'headerMenu_module', 'navigation_module', 'group_module']);
 
-app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'headerMenu_service',
-  function($scope, $firebase, notesFactory, headerMenu_service){
+app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'headerMenu_service', 'refactorData',
+  function($scope, $firebase, notesFactory, headerMenu_service, refactorData){
 
     $scope.groups2 = notesFactory.getGroups2();
     $scope.notes2 = notesFactory.getNotes2();
@@ -14,7 +14,7 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'h
     $scope.groups = $scope.groups2;
     notesFactory.setScope($scope.notes);
 
-    $scope.groups.$on('loaded', function(data) {
+    // $scope.groups.$on('loaded', function(data) {
       // var keys = $scope.groups.$getIndex();
       // console.log("count: " + keys.length);
       // for(var i = 0; i < keys.length; i++) {
@@ -25,18 +25,18 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'h
       // for(var i = 0; i < keys.length; i++) {
       //   console.log(data[keys[i]]);
       // }
-    });
+    // });
 
-    $scope.click = function($event) {
-      // console.log($event);
-      var element = angular.element($event.srcElement);
-      var localScope = element.scope();
-      headerMenu_service.setScope(localScope, element);
-    };
+    // $scope.click = function($event, b, c) {
+    //   console.log(c);
+    //   var $element = angular.element($event.srcElement);
+    //   var localScope = $element.scope();
+    //   headerMenu_service.setScope(localScope, $element);
+    // };
 
-    $scope.$on('noteSelected', function(event, noteScope){
-      $scope.noteScopeSelected = noteScope;
-    });
+    // $scope.$on('noteSelected', function(event, noteScope){
+    //   $scope.noteScopeSelected = noteScope;
+    // });
 
     $scope.$on('addNote', function(event, note) {
       $scope.notes.$add(note);
