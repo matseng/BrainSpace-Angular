@@ -22,9 +22,9 @@ angular.module('notes_factory_module', ['firebase'])
       },
       deleteObject: function(scope) {
         if(scope.note)
-          notes.$remove(scope.key);
+          notes2.$remove(scope.key);
         else if (scope.group)
-          groupsCollection.$remove(scope.key);
+          groups2.$remove(scope.key);
       },
       setScope: function(scope) {
         allNotesScope = scope;

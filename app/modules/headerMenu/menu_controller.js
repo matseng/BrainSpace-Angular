@@ -24,8 +24,7 @@ angular.module('headerMenu_module')
 
       $scope.deleteButtonClicked = function(event){
         if(headerMenu_service.getScope()){
-          if(confirm("Confirm delete?")){
-            // console.log(headerMenu_service.getScope().key);
+          if(confirm("Confirm delete?")) {
             notesFactory.deleteObject(headerMenu_service.getScope());
           }
         } else {
