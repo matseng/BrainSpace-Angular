@@ -28,8 +28,14 @@ app.directive('noteModelDirective', ['$rootScope', 'headerMenu_service', functio
       //   $scope.note.body_style = body_style;
       //   // $scope.$emit('update:note', 'noteModel_directive.js', $scope);
       // });
-
-      element.find('textarea')[0].focus();  //sets focus to textarea of the most recently added note
+      // console.log(arguments);
+      
+      $scope.$on('setFocusToNewNote', function() {
+        console.log('testing setFocusToNewNote');
+        headerMenu_service.setScope($scope, element);
+        element.find('textarea')[0].focus();  //sets focus to textarea of the most recently added note
+      });
+      
     }
   }
 ]);

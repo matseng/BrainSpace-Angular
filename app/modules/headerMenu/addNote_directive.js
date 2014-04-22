@@ -25,7 +25,7 @@ angular.module('headerMenu_module')
             top: note.position.top,
             width: note.dimensions ? note.dimensions.width : 192,
             height: note.dimensions ? note.dimensions.height : 100,
-            'font-size': note.textarea_style ? note.textarea_style.fontSize : "10pt"
+            'font-size': "10pt"
           };
         };
 

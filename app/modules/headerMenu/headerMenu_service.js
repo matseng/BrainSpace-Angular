@@ -6,12 +6,24 @@ angular.module('headerMenu_module')
     var element;
     var fontSizeString;
     var menuState;
+    var notes2 = notesFactory.getNotes2();
     
     this.setScope = function(myScope, el) {
       scope = myScope;
       element = el;
       fontSizeString = scope.note.style['font-size'];
       $rootScope.$broadcast('scope:update', 'headerMenu_service.js');
+    };
+
+    this.setScopeByKey = function(key) {
+      console.log(notes2, key);
+      element = angular.element(document.getElementById(key));
+      element.find('textarea')[0].focus();  //sets focus to textarea of the most recently added note
+      this.setScope(element.scope());
+      // scope = element.scope();
+      // console.log(scope.note.style['font-size']);
+      // fontSizeString = scope.note.style['font-size'];
+
     };
     
     this.getScope = function() {

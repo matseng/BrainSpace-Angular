@@ -16,7 +16,11 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'h
     notesFactory.setScope($scope.notes);
 
     $scope.$on('addNote', function(event, fromFile, note2) {
-      $scope.notes2.$add(note2);
+      var prom = $scope.notes2.$add(note2);
+      prom.then(function(ref) {
+        var key = ref.name();
+        headerMenu_service.setScopeByKey(key);
+      });
     });
 
     $scope.$on('update:note', function(event, fromFile, updatedProperty) {
