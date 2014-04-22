@@ -15,8 +15,8 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'h
     $scope.groups = $scope.groups2;
     notesFactory.setScope($scope.notes);
 
-    $scope.$on('addNote', function(event, note) {
-      $scope.notes.$add(note);
+    $scope.$on('addNote', function(event, fromFile, note2) {
+      $scope.notes2.$add(note2);
     });
 
     $scope.$on('update:note', function(event, fromFile, updatedProperty) {

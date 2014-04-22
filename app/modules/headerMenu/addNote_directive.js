@@ -1,4 +1,5 @@
 /*
+- addNote_directive.js
 - Listens for mouse click to add a new note at a specific position
 - This directive is added to #allNotesContainer element
 */
@@ -11,6 +12,23 @@ angular.module('headerMenu_module')
       };
 
       function link($scope, element, attrs){
+        var Note2 = function(note) {
+          this.data = {};
+          this.data = {
+            text: note.body,
+            parentGroup: [],
+            x: note.position.left,
+            y: note.position.top,
+          };
+          this.style = {
+            left: note.position.left,
+            top: note.position.top,
+            width: note.dimensions ? note.dimensions.width : 192,
+            height: note.dimensions ? note.dimensions.height : 100,
+            'font-size': note.textarea_style ? note.textarea_style.fontSize : "10pt"
+          };
+        };
+
         var timeMousedown;
 
         $document.on('mousedown', function(mouse){
@@ -45,7 +63,8 @@ angular.module('headerMenu_module')
                 dimensions: dimensions
               };
 
-              $scope.$emit('addNote', noteObject);
+              var note2 = new Note2(noteObject);
+              $scope.$emit('addNote', 'addNote_directive.js', note2);
             }
           }
         });
