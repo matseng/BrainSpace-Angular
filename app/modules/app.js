@@ -15,43 +15,18 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'h
     $scope.groups = $scope.groups2;
     notesFactory.setScope($scope.notes);
 
-    // $scope.groups.$on('loaded', function(data) {
-      // var keys = $scope.groups.$getIndex();
-      // console.log("count: " + keys.length);
-      // for(var i = 0; i < keys.length; i++) {
-      //   console.log($scope.groups[keys[i]]);
-      // }
-      // var keys = data.$getIndex();
-      // console.log("count: " + keys.length);
-      // for(var i = 0; i < keys.length; i++) {
-      //   console.log(data[keys[i]]);
-      // }
-    // });
-
-    // $scope.click = function($event, b, c) {
-    //   console.log(c);
-    //   var $element = angular.element($event.srcElement);
-    //   var localScope = $element.scope();
-    //   headerMenu_service.setScope(localScope, $element);
-    // };
-
-    // $scope.$on('noteSelected', function(event, noteScope){
-    //   $scope.noteScopeSelected = noteScope;
-    // });
-
     $scope.$on('addNote', function(event, note) {
       $scope.notes.$add(note);
     });
 
     $scope.$on('update:note', function(event, fromFile, updatedProperty) {
       var noteScope = event.targetScope;
-      if(fromFile == 'draggable_directive.js' && updatedProperty) {
-        // console.log(updatedProperty);
+      if (fromFile == 'draggable_directive.js' && updatedProperty) {
         noteScope.note.data.x = updatedProperty.position.left;
         noteScope.note.data.y = updatedProperty.position.top;
         noteScope.note.style.left = updatedProperty.position.left;
         noteScope.note.style.top = updatedProperty.position.top;
-      } else if(fromFile == 'resizableDiv_directive.js' && updatedProperty) {
+      } else if (fromFile == 'resizableDiv_directive.js' && updatedProperty) {
         noteScope.note.style.width = updatedProperty.dimensions.width;
         noteScope.note.style.height = updatedProperty.dimensions.height;
       }

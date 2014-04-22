@@ -12,17 +12,18 @@ angular.module('headerMenu_module')
         headerMenu_service.setRadioButtonState($scope.menuState);
       });
 
-      $scope.fontSizeString = "10pt";
-      $scope.$on('scope.update', function() {
-      // $scope.$on('noteClicked', function() {
-        //TODO: DOM view is not updating font size unless an element dragged
+      $scope.fontSizeString;
+      $scope.$on('scope:update', function() {
         $scope.fontSizeString = headerMenu_service.getFontSizeString();
-        // $scope.$apply();  //trying to get DOM to update without needing to drag the element
-        // console.log('in menu-controller: ', $scope.fontSizeString);
-        // console.log(typeof $scope.fontSizeString);
       });
 
-      $scope.deleteButtonClicked = function(event){
+      $scope.selectFontSizeChanged = function() {
+        if(headerMenu_service.getScope()) {
+          headerMenu_service.setStyle('font-size', event.srcElement.value);
+        }
+      };
+
+      $scope.deleteButtonClicked = function(event) {
         if(headerMenu_service.getScope()){
           if(confirm("Confirm delete?")) {
             notesFactory.deleteObject(headerMenu_service.getScope());

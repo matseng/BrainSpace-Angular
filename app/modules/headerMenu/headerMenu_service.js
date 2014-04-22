@@ -1,7 +1,7 @@
 // headerMenu_service.js
 
 angular.module('headerMenu_module')
-  .service('headerMenu_service', ['$rootScope', function($rootScope){
+  .service('headerMenu_service', ['$rootScope', 'notesFactory', function($rootScope, notesFactory){
     var scope = {};
     var element;
     var fontSizeString;
@@ -10,11 +10,8 @@ angular.module('headerMenu_module')
     this.setScope = function(myScope, el) {
       scope = myScope;
       element = el;
-      if(scope.note && scope.note.textarea_style){
-        if(scope.note.textarea_style.fontSize)
-          fontSizeString = scope.note.textarea_style.fontSize;
-      }
-      $rootScope.$broadcast('scope.update', 'headerMenu_service.js');
+      fontSizeString = scope.note.style['font-size'];
+      $rootScope.$broadcast('scope:update', 'headerMenu_service.js');
     };
     
     this.getScope = function() {
@@ -40,5 +37,10 @@ angular.module('headerMenu_module')
     this.getRadioButtonState = function() {
       return menuState;
     };
+
+    this.setStyle = function(prop, val) {
+      scope.note.style[prop] = val;
+      notesFactory.updateNote(scope.key);
+    }
   }
 ]);

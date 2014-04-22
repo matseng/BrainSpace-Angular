@@ -7,7 +7,6 @@ angular.module('note_module')
     };
 
     $scope.noteMousedown = function($event) {
-      console.log($event, $scope, 'will use headerMenu_service here');
       headerMenu_service.setScope($scope, angular.element($event.srcElement));
     };
 }]);

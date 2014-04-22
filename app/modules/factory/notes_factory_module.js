@@ -50,6 +50,9 @@ angular.module('notes_factory_module', ['firebase'])
       },
       getGroups2: function() {
         return groups2;
+      },
+      updateNote: function (key) {
+        notes2.$save(key);
       }
     };
   }

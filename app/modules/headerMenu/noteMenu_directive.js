@@ -8,23 +8,17 @@ angular.module('headerMenu_module')
     };
 
     function link ($scope, element, attrs) {
-      element.bind('change', function(){
-        var selectedScope = headerMenu_service.getScope();
-        if(selectedScope){
-          var fontSize = event.srcElement.value;
-          var noteScope = $rootScope.noteSelected.scope;
-          var textareaElement = $rootScope.noteSelected.element.find('textarea');
-          noteScope.note.textarea_style = {'fontSize': fontSize};
-          textareaElement.attr('style', 'font-size: ' + fontSize);
-          // $scope.$emit('update:note', $scope);  //message NOT recieved by child scope
-        }
-      });
-      // var selectedScope = headerMenu_service.getScope();
-      // selectedScope.$watch("$id", function(){
-      //   console.log(selectedScope.$id);
-      // })
-      // $document.getElementsByClassName('selectFontSize')[0].value = selectedScope.note.textarea_style.fontSize;​​​​​​​​​​
-
+      // element.bind('change', function(){
+      //   var selectedScope = headerMenu_service.getScope();
+      //   if(selectedScope){
+      //     var fontSize = event.srcElement.value;
+      //     var noteScope = $rootScope.noteSelected.scope;
+      //     var textareaElement = $rootScope.noteSelected.element.find('textarea');
+      //     noteScope.note.textarea_style = {'fontSize': fontSize};
+      //     textareaElement.attr('style', 'font-size: ' + fontSize);
+      //     // $scope.$emit('update:note', $scope);  //message NOT recieved by child scope
+      //   }
+      // });
     }
   }
 ]);
