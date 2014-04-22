@@ -4,7 +4,8 @@
 
 var app = angular.module("BrainSpace", ['notes_factory_module', 'note_module', 'headerMenu_module', 'navigation_module', 'group_module']);
 
-app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'headerMenu_service', 'refactorData',
+// app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'headerMenu_service', 'refactorData',  //includes refactorData to update previous data structure
+app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'headerMenu_service',
   function($scope, $firebase, notesFactory, headerMenu_service, refactorData){
 
     $scope.groups2 = notesFactory.getGroups2();
