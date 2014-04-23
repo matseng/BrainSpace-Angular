@@ -26,13 +26,17 @@ app.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'h
     $scope.$on('update:note', function(event, fromFile, updatedProperty) {
       var noteScope = event.targetScope;
       if (fromFile == 'draggable_directive.js' && updatedProperty) {
-        noteScope.note.data.x = updatedProperty.position.left;
-        noteScope.note.data.y = updatedProperty.position.top;
-        noteScope.note.style.left = updatedProperty.position.left;
-        noteScope.note.style.top = updatedProperty.position.top;
+        // noteScope.note.data.x = updatedProperty.position.left;
+        // noteScope.note.data.y = updatedProperty.position.top;
+        // noteScope.note.style.left = updatedProperty.position.left;
+        // noteScope.note.style.top = updatedProperty.position.top;
+        noteScope.set('x', updatedProperty.position.left);
+        noteScope.set('y', updatedProperty.position.top);
+        noteScope.set('left', updatedProperty.position.left);
+        noteScope.set('top', updatedProperty.position.top);
       } else if (fromFile == 'resizableDiv_directive.js' && updatedProperty) {
-        noteScope.note.style.width = updatedProperty.dimensions.width;
-        noteScope.note.style.height = updatedProperty.dimensions.height;
+        noteScope.set('width', updatedProperty.dimensions.width);
+        noteScope.set('height', updatedProperty.dimensions.height);
       }
       $scope.notes.$save(noteScope.key);
     });
