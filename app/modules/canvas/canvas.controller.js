@@ -6,7 +6,7 @@
 
 angular.module('canvas.module', [])
   //.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'headerMenu_service', 'refactorData',  //refactorData is used to update previous data structure
-  .controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'headerMenu_service',
+  .controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'headerMenu_service', 'render.service',
     function($scope, $firebase, notesFactory, headerMenu_service, refactorData){
 
       $scope.groups2 = notesFactory.getGroups2();
