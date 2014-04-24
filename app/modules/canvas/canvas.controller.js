@@ -15,6 +15,11 @@ angular.module('canvas.module', [])
       $scope.notes = $scope.notes2;
       $scope.groups = $scope.groups2;
       notesFactory.setScope($scope.notes);
+      
+      $scope.notes2.$on('child_added', function(childSnapShot, prev) {
+        console.log('Scope? ', childSnapShot);
+        console.log($scope.notes2);
+      });
 
       $scope.$on('addNote', function(event, fromFile, note2) {
         var prom = $scope.notes2.$add(note2);
@@ -27,10 +32,6 @@ angular.module('canvas.module', [])
       $scope.$on('update:note', function(event, fromFile, updatedProperty) {
         var noteScope = event.targetScope;
         if (fromFile == 'draggable_directive.js' && updatedProperty) {
-          // noteScope.note.data.x = updatedProperty.position.left;
-          // noteScope.note.data.y = updatedProperty.position.top;
-          // noteScope.note.style.left = updatedProperty.position.left;
-          // noteScope.note.style.top = updatedProperty.position.top;
           noteScope.set('x', updatedProperty.position.left);
           noteScope.set('y', updatedProperty.position.top);
           noteScope.set('left', updatedProperty.position.left);
@@ -39,6 +40,7 @@ angular.module('canvas.module', [])
           noteScope.set('width', updatedProperty.dimensions.width);
           noteScope.set('height', updatedProperty.dimensions.height);
         }
+        $scope.notes[noteScope.key] = noteScope.note;  //NOTE: This line is a HACK to resolve different note objects for same intial note data 
         $scope.notes.$save(noteScope.key);
       });
 
