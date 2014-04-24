@@ -4,7 +4,7 @@ angular.module('note_module')
     // $scope.fontSize = "12pt";
       // $scope.data = {};
       // $scope.style = {};
-      $scope.myNote = {};
+      $scope.note = {};
 
       $scope.change = function() {
         $scope.$emit('update:note', 'note_controller.js');
