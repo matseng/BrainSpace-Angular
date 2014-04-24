@@ -16,9 +16,9 @@ angular.module('canvas.module', [])
       $scope.groups = $scope.groups2;
       notesFactory.setScope($scope.notes);
       
-      $scope.notes2.$on('child_added', function(childSnapShot, prev) {
-        console.log(childSnapShot);
-      });
+      // $scope.notes2.$on('child_added', function(childSnapShot, prev) {
+      //   console.log(childSnapShot);
+      // });
 
       $scope.$on('addNote', function(event, fromFile, note2) {
         var prom = $scope.notes2.$add(note2);
