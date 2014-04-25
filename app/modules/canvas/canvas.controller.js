@@ -41,7 +41,9 @@ angular.module('canvas.module', [])
       });
 
       $scope.$on('addGroup', function(event, emitterFile, groupObject) {
-        notesFactory.addGroup(groupObject);
+        // notesFactory.addGroup(groupObject);
+        $scope.groups2.$add(groupObject);
+        console.log(groupObject);
       });
 
       var noteKeysInGroup = [];  //TODO: refactor into a service
