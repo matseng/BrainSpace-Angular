@@ -6,7 +6,8 @@
 
 angular.module('canvas.module', [])
   //.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'headerMenu_service', 'refactorData',  //refactorData is used to update previous data structure
-  .controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'headerMenu_service', 'render.service',
+  // .controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'headerMenu_service', 'render.service',
+  .controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'headerMenu_service',
     function($scope, $firebase, notesFactory, headerMenu_service, refactorData){
 
       $scope.groups2 = notesFactory.getGroups2();
@@ -35,7 +36,7 @@ angular.module('canvas.module', [])
           noteScope.set('width', updatedProperty.dimensions.width);
           noteScope.set('height', updatedProperty.dimensions.height);
         }
-        $scope.notes[noteScope.key] = noteScope.note;  //NOTE: This line is a HACK to resolve different note objects for same intial note data 
+        // $scope.notes[noteScope.key] = noteScope.note;  //NOTE: This line is a HACK to resolve different note objects for same initial note data 
         $scope.notes.$save(noteScope.key);
       });
 
@@ -90,8 +91,14 @@ angular.module('canvas.module', [])
             group.left = groupInitialPositions[i].left + deltaObj.deltaX;
             group.top = groupInitialPositions[i].top + deltaObj.deltaY;
           }
-          groupScope.group.left = position.left;
-          groupScope.group.top = position.top;
+
+          groupScope.group.data.left = position.left;
+          groupScope.group.data.top = position.top;
+          groupScope.group.style.left = position.left;
+          groupScope.group.style.top = position.top;
+          delete groupScope.group.left;
+          delete groupScope.group.top;
+
         } else if(key == 'dimensions'){
           groupScope.group.width = updatedProperty[key].width;
           groupScope.group.height = updatedProperty[key].height;
@@ -102,7 +109,8 @@ angular.module('canvas.module', [])
         for(var i = 0; i < groupKeysInGroup.length; i++) {
           $scope.groups.$save(groupKeysInGroup[i]);
         }
-        $scope.groups.$save(groupScope.group.key);
+        // $scope.groups[groupScope.key] = groupScope.group;  //NOTE: This line is a HACK to resolve different group objects for same initial group data 
+        $scope.groups.$save(groupScope.key);
       });
     }
   ]);
