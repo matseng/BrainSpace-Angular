@@ -64,6 +64,7 @@ angular.module('headerMenu_module')
               };
 
               var note2 = new Note2(noteObject);
+              console.log(note2);
               $scope.$emit('addNote', 'addNote_directive.js', note2);
             }
           }

@@ -24,7 +24,7 @@ angular.module('notes_factory_module')
           height: note.dimensions ? note.dimensions.height : 100,
           'font-size': note.textarea_style ? note.textarea_style.fontSize : "10pt"
         };
-      }
+      };
 
       var Group2 = function(group, parentGroupKey) {
         this.data = {
@@ -40,7 +40,8 @@ angular.module('notes_factory_module')
           width: group.width,
           height: group.height
         };
-      }
+      };
+
       var deferred1 = $q.defer();
       groups.$on('loaded', function(groups){
         deferred1.resolve(groups);

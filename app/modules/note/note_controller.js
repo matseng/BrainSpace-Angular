@@ -1,11 +1,7 @@
 angular.module('note_module')
   .controller('note-controller', ['$scope', 'headerMenu_service', 
     function($scope, headerMenu_service) {
-    // $scope.fontSize = "12pt";
-      // $scope.data = {};
-      // $scope.style = {};
-      $scope.note = {};
-
+    
       $scope.change = function() {
         $scope.$emit('update:note', 'note_controller.js');
       };

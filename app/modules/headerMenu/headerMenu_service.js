@@ -11,8 +11,8 @@ angular.module('headerMenu_module')
     this.setScope = function(myScope, el) {
       scope = myScope;
       element = el;
-      if(myScope.note)  //check if we have a note, else it's a group
-        fontSizeString = scope.note.style['font-size'];
+      if(scope.note && scope.note.style)  //check if we have a note, else it's a group
+        fontSizeString = scope.note.style['font-size'] || '10pt';
       $rootScope.$broadcast('scope:update', 'headerMenu_service.js');
     };
 

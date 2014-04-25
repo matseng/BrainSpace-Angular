@@ -19,15 +19,15 @@ angular.module('group_module')
       var nestChildrenInDOM = function(noteKeysInGroup) {
         // console.log($element, noteKeysInGroup);
         if(noteKeysInGroup.length > 0) {
-          var $childrenNotes = angular.element("<div class='childrenNotes'></div>");
+          var $childrenNotesContainer = angular.element("<div class='childrenNotes'></div>");
           for(var i = 0; i < noteKeysInGroup.length; i++) {
             var el = document.getElementById(noteKeysInGroup[i]);
             var $el = angular.element(el);
             console.log($el.scope().note.data.text, noteKeysInGroup[i]);
-            $childrenNotes.append($el);
+            $childrenNotesContainer.append($el);
           }
+          $element.append($childrenNotesContainer);
         }
-        $element.append($childrenNotes);
 
       };
 
@@ -44,7 +44,7 @@ angular.module('group_module')
           }
         });
         
-        //nestChildrenInDOM(noteKeysInGroup);
+        // nestChildrenInDOM(noteKeysInGroup);
 
         // angular.forEach(notes, function(note, key) {
         //   if($scope.group.left <= note.style.left && note.style.left <= groupRight
