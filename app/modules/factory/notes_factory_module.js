@@ -13,6 +13,7 @@ angular.module('notes_factory_module', ['firebase'])
     var notes2 = $firebase(notesRef2);
     var groupsRef2 = ref.child('groups2');
     var groups2 = $firebase(groupsRef2);
+
     return {
       getNotes: function(){
         return notes;
@@ -53,6 +54,15 @@ angular.module('notes_factory_module', ['firebase'])
       },
       updateNote: function (key) {
         notes2.$save(key);
+      },
+      forEach: function(collection, callback) {
+        var keys = collection.$getIndex();
+        var key, val;
+        for(var i = 0; i < keys.length; i++) {
+          key = keys[i];
+          val = collection[key];
+          callback(val, key);
+        }
       }
     };
   }
