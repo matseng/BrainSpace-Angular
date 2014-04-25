@@ -100,8 +100,8 @@ angular.module('canvas.module', [])
           delete groupScope.group.top;
 
         } else if(key == 'dimensions'){
-          groupScope.group.width = updatedProperty[key].width;
-          groupScope.group.height = updatedProperty[key].height;
+          groupScope.group.style.width = updatedProperty[key].width;
+          groupScope.group.style.height = updatedProperty[key].height;
         }
         for(var i = 0; i < noteKeysInGroup.length; i++) {
           $scope.notes.$save(noteKeysInGroup[i]);
