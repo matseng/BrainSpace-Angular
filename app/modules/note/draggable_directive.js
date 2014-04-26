@@ -16,21 +16,27 @@ angular.module("note_module")
       var elementClickedClassName;
 
       element.bind('mousedown', function($event){
-        // $event.preventDefault();
-        elementClickedClassName = $event.srcElement.className;
-        $rootScope.mouse.elementClickedClassName = elementClickedClassName;
-        // if(elementClickedClassName !== 'selectFontSize' && elementClickedClassName !== 'triangle'){
-        if(elementClickedClassName !== 'triangle' 
-          && headerMenu_service.getRadioButtonState() != 'drawGroup') {
-          element.css({position: 'absolute'});
-          initialElementX = element.prop('offsetLeft');
-          initialElementY = element.prop('offsetTop');
-          initialMouseX = $event.clientX;
-          initialMouseY = $event.clientY;
-          $document.bind('mousemove', myMouseMove);
-          $document.bind('mouseup', myMouseUp);
-          var eventName = 'update:' + element[0].dataset.type + ':mousedown';  //e.g. 'update:group:mousedown'
-          $scope.$emit(eventName, 'draggable_directive.js');
+        // // $event.preventDefault();
+        // console.log(element[0].dataset.type);
+        // console.log($event.srcElement.dataset.type);
+        // console.log($event.srcElement.parentElement.dataset.type);
+        if(element[0].dataset.type ==  $event.srcElement.dataset.type 
+          || element[0].dataset.type == $event.srcElement.parentElement.dataset.type) { 
+          elementClickedClassName = $event.srcElement.className;
+          $rootScope.mouse.elementClickedClassName = elementClickedClassName;
+          // if(elementClickedClassName !== 'selectFontSize' && elementClickedClassName !== 'triangle'){
+          if(elementClickedClassName !== 'triangle' 
+            && headerMenu_service.getRadioButtonState() != 'drawGroup') {
+            element.css({position: 'absolute'});
+            initialElementX = element.prop('offsetLeft');
+            initialElementY = element.prop('offsetTop');
+            initialMouseX = $event.clientX;
+            initialMouseY = $event.clientY;
+            $document.bind('mousemove', myMouseMove);
+            $document.bind('mouseup', myMouseUp);
+            var eventName = 'update:' + element[0].dataset.type + ':mousedown';  //e.g. 'update:group:mousedown'
+            $scope.$emit(eventName, 'draggable_directive.js');
+          }
         }
       });
 
@@ -42,7 +48,7 @@ angular.module("note_module")
       });
 
       function myMouseMove($event){
-          $event.preventDefault();
+        $event.preventDefault();
         if($rootScope.mouse.elementClickedClassName !== 'triangle'){
           var deltaX = $event.clientX - initialMouseX;
           var deltaY = $event.clientY - initialMouseY;
