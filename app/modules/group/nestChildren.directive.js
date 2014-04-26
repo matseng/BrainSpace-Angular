@@ -1,4 +1,5 @@
 // nestChildren.directive.js
+// TODO: On mouse up, calculate and $save the notes' global x,y and style left,top
 
 angular.module('group_module')
   .directive('nestChildrenDirective', ['notesFactory', '$compile', function(notesFactory, $compile) { 
@@ -33,7 +34,7 @@ angular.module('group_module')
             console.log($scope.group.data.x, $scope.group.data.y);
             console.log($scope.group.style.left, $scope.group.style.top);
             console.log(scope.note.style.left, scope.note.style.top);
-            scope.note.style.left = scope.note.style.left - $scope.group.style.left;
+            scope.note.style.left = scope.note.style.left - $scope.group.style.left;  //NOTE: will likely cause errors in the future when data.x,y and style.top,left are fixed
             scope.note.style.top = scope.note.style.top - $scope.group.style.top;
             // scope.note.style.left = 0;
             // scope.note.style.top = 0;

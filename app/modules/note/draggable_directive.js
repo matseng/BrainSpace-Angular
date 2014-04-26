@@ -16,15 +16,10 @@ angular.module("note_module")
       var elementClickedClassName;
 
       element.bind('mousedown', function($event){
-        // // $event.preventDefault();
-        // console.log(element[0].dataset.type);
-        // console.log($event.srcElement.dataset.type);
-        // console.log($event.srcElement.parentElement.dataset.type);
         if(element[0].dataset.type ==  $event.srcElement.dataset.type 
           || element[0].dataset.type == $event.srcElement.parentElement.dataset.type) { 
           elementClickedClassName = $event.srcElement.className;
           $rootScope.mouse.elementClickedClassName = elementClickedClassName;
-          // if(elementClickedClassName !== 'selectFontSize' && elementClickedClassName !== 'triangle'){
           if(elementClickedClassName !== 'triangle' 
             && headerMenu_service.getRadioButtonState() != 'drawGroup') {
             element.css({position: 'absolute'});
