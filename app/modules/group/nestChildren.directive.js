@@ -1,7 +1,7 @@
 // nestChildren.directive.js
 
 angular.module('group_module')
-  .directive('nestChildrenDirective', ['notesFactory', function(notesFactory) { 
+  .directive('nestChildrenDirective', ['notesFactory', '$compile', function(notesFactory, $compile) { 
     return {
       attribute: "A",
       link: link
@@ -18,15 +18,30 @@ angular.module('group_module')
 
       var nestChildrenInDOM = function(noteKeysInGroup) {
         // console.log($element, noteKeysInGroup);
+        var $childrenNotesContainer;
         if(noteKeysInGroup.length > 0) {
-          var $childrenNotesContainer = angular.element("<div class='childrenNotes'></div>");
-          for(var i = 0; i < noteKeysInGroup.length; i++) {
-            var el = document.getElementById(noteKeysInGroup[i]);
-            var $el = angular.element(el);
-            console.log($el.scope().note.data.text, noteKeysInGroup[i]);
-            $childrenNotesContainer.append($el);
+          $childrenNotesContainer = angular.element($element[0].getElementsByClassName('childrenNotes')[0]);
+          if($childrenNotesContainer.length == 0){
+            childrenNotesContainer = "<div class='childrenNotes'></div>";
+            $childrenNotesContainer = angular.element(childrenNotesContainer);
+            $element.append($childrenNotesContainer);
           }
-          $element.append($childrenNotesContainer);
+          for(var i = 0; i < noteKeysInGroup.length; i++) {
+            var childEl = document.getElementById(noteKeysInGroup[i]);
+            var $childEl = angular.element(childEl);
+            var scope = $childEl.scope();
+            console.log($scope.group.data.x, $scope.group.data.y);
+            console.log($scope.group.style.left, $scope.group.style.top);
+            console.log(scope.note.style.left, scope.note.style.top);
+            scope.note.style.left = scope.note.style.left - $scope.group.style.left;
+            scope.note.style.top = scope.note.style.top - $scope.group.style.top;
+            // scope.note.style.left = 0;
+            // scope.note.style.top = 0;
+            $childEl.css({'left': scope.note.style.left, 'top': scope.note.style.top })
+            $childrenNotesContainer.append($childEl);
+            $compile($childEl)(scope);
+            console.log($childEl.scope().note.data.text, noteKeysInGroup[i], $element);
+          }
         }
 
       };
@@ -44,7 +59,7 @@ angular.module('group_module')
           }
         });
         
-        // nestChildrenInDOM(noteKeysInGroup);
+        nestChildrenInDOM(noteKeysInGroup);
 
         // angular.forEach(notes, function(note, key) {
         //   if($scope.group.left <= note.style.left && note.style.left <= groupRight

@@ -96,8 +96,8 @@ angular.module('canvas.module', [])
             group.top = groupInitialPositions[i].top + deltaObj.deltaY;
           }
 
-          groupScope.group.data.left = position.left;
-          groupScope.group.data.top = position.top;
+          groupScope.group.data.x = position.left;
+          groupScope.group.data.y = position.top;
           groupScope.group.style.left = position.left;
           groupScope.group.style.top = position.top;
           delete groupScope.group.left;
