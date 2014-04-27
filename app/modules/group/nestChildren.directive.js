@@ -1,5 +1,11 @@
 // nestChildren.directive.js
-// TODO: On mouse up, calculate and $save the notes' global x,y and style left,top
+// TODO: Working on hierarchical group/note MODEL and VIEW in DOM
+  //Model will contain parent and/or child list 
+  //On mousedown on a group, create list of child keys
+    //Keep track of previous list of child keys
+      //Update DOM reflect the notes added and notes removed
+  //Create nested view in DOM from group model
+  //When a note is dragged, validate it's data.x,y  
 
 angular.module('group_module')
   .directive('nestChildrenDirective', ['notesFactory', '$compile', 'notesFactory', 
@@ -22,16 +28,31 @@ angular.module('group_module')
 
         var nestChildrenInDOM = function(noteKeysInGroup) {
           var $childrenNotesContainer;
-          var newLeft, newTop;
-          if(noteKeysInGroup.length > 0) {
+          var newLeft, newTop; 
+          var previousChildrenContainers;
+          // console.log(Object.keys(noteKeysInGroup).length);
+          if(Object.keys(noteKeysInGroup).length > 0) {
             $childrenNotesContainer = angular.element($element[0].getElementsByClassName('childrenNotes')[0]);
             if($childrenNotesContainer.length == 0){
               childrenNotesContainer = "<div class='childrenNotes'></div>";
               $childrenNotesContainer = angular.element(childrenNotesContainer);
               $element.append($childrenNotesContainer);
             }
-            for(var i = 0; i < noteKeysInGroup.length; i++) {
-              var childEl = document.getElementById(noteKeysInGroup[i]);
+
+            previousChildrenContainers = $childrenNotesContainer[0].getElementsByClassName('noteContainer');
+            var noteId;
+            console.log('');
+            for(var i = 0; i < previousChildrenContainers.length; i++) {
+              noteId = previousChildrenContainers[i].id;
+              console.log(noteId);
+              if(!(noteId in noteKeysInGroup)){
+                console.log(noteId);
+              }
+            }
+
+            for(var key in noteKeysInGroup) {
+              // var childEl = document.getElementById(noteKeysInGroup[key]);
+              var childEl = document.getElementById(key);
               var $childEl = angular.element(childEl);
               var scope = $childEl.scope();
               scope.note.style.left = scope.note.data.x - $scope.group.data.x;
@@ -45,20 +66,23 @@ angular.module('group_module')
         };
 
         $element.bind('mousedown', function() {
-          noteKeysInGroup = [];
-          // noteInitialPositions = [];
+          // noteKeysInGroup = [];
+          noteKeysInGroup = {};
           var groupRight = $scope.group.data.x + $scope.group.style.width;
           var groupBottom = $scope.group.data.y + $scope.group.style.height;
           groupInitialX = $scope.group.data.x;
           groupInitialY = $scope.group.data.y;
+          var counter = 0;
           notesFactory.forEach(notes, function(note, key){
             if(note.data && $scope.group.data.x <= note.data.x && note.data.x <= groupRight
               && $scope.group.data.y <= note.data.y && note.data.y <= groupBottom) {
-              noteKeysInGroup.push(key);
-              // noteInitialPositions.push({left: note.data.x, top: note.data.y});
+              // noteKeysInGroup.push(key);
+              noteKeysInGroup[key] = true;
             }
+            counter++;
           });
-          
+          console.log(counter);
+          console.log(Object.keys(noteKeysInGroup).length);
           nestChildrenInDOM(noteKeysInGroup);
 
           $element.bind('mouseup', myMouseUp);
@@ -66,20 +90,21 @@ angular.module('group_module')
         });
 
         function myMouseUp(event) {
-          console.log(event);
+          // console.log(event);
           var key;
           var allNotesScope = notesFactory.getScope();
           var note;
           deltaX = $scope.group.data.x - groupInitialX;
           deltaY = $scope.group.data.y - groupInitialY;
-          for(var i = 0; i < noteKeysInGroup.length; i++) {
-            key = noteKeysInGroup[i];
+          // for(var i = 0; i < noteKeysInGroup.length; i++) {
+          for(var key in noteKeysInGroup) {
+            // key = noteKeysInGroup[i];
             note = allNotesScope[key];
             note.data.x += deltaX;
             note.data.y += deltaY;
             // note.style.left += deltaX;
             // note.style.top += deltaY;
-            console.log(note);
+            // console.log(note);
 
           }
           //iterate over notes in group that has been dragged
