@@ -54,6 +54,11 @@ h1 {
 * NOTE STYLING
 *
 */
+.childrenNotes {
+  position: relative;
+}
+
+
 .noteContainer {
   border: 1;
   border-style: solid;

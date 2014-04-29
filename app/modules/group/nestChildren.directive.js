@@ -8,8 +8,8 @@
   //When a note is dragged, validate it's data.x,y  
 
 angular.module('group_module')
-  .directive('nestChildrenDirective', ['notesFactory', '$compile', 'notesFactory', 
-    function(notesFactory, $compile, notesFactory) { 
+  .directive('nestChildrenDirective', ['notesFactory', '$compile', 'notesFactory', 'navigationService',
+    function(notesFactory, $compile, notesFactory, navigationService) { 
       return {
         attribute: "A",
         link: link
@@ -55,9 +55,10 @@ angular.module('group_module')
               var childEl = document.getElementById(key);
               var $childEl = angular.element(childEl);
               var scope = $childEl.scope();
+              $childEl.attr('ng-style', "{left: note.style.left, top: note.style.top, width: note.style.width, height: note.style.height}");
               scope.note.style.left = scope.note.data.x - $scope.group.data.x;
               scope.note.style.top = scope.note.data.y - $scope.group.data.y;
-              $childEl.css({'left': scope.note.style.left, 'top': scope.note.style.top })
+              $childEl.css({'left': scope.note.style.left, 'top': scope.note.style.top });
               $childrenNotesContainer.append($childEl);
               $compile($childEl)(scope);
             }
@@ -81,16 +82,15 @@ angular.module('group_module')
             }
             counter++;
           });
-          console.log(counter);
-          console.log(Object.keys(noteKeysInGroup).length);
-          nestChildrenInDOM(noteKeysInGroup);
+          console.log("Number of notes in group", Object.keys(noteKeysInGroup).length);
+          //nestChildrenInDOM(noteKeysInGroup);
 
           $element.bind('mouseup', myMouseUp);
 
         });
 
         function myMouseUp(event) {
-          // console.log(event);
+          var scale = navigationService.getScale();
           var key;
           var allNotesScope = notesFactory.getScope();
           var note;
@@ -102,9 +102,7 @@ angular.module('group_module')
             note = allNotesScope[key];
             note.data.x += deltaX;
             note.data.y += deltaY;
-            // note.style.left += deltaX;
-            // note.style.top += deltaY;
-            // console.log(note);
+            // allNotesScope.$save(key);
 
           }
           //iterate over notes in group that has been dragged
