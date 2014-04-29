@@ -60,7 +60,7 @@ angular.module('group_module')
               scope.note.style.top = scope.note.data.y - $scope.group.data.y;
               $childEl.css({'left': scope.note.style.left, 'top': scope.note.style.top });
               $childrenNotesContainer.append($childEl);
-              $compile($childEl)(scope);
+              $compile($childEl)(scope);  //this line is need, but also need to remove scope from previous $childEl???
             }
           }
 
