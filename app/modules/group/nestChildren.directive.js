@@ -32,6 +32,8 @@ angular.module('group_module')
           var newLeft, newTop; 
           var noteElements;
           var noteId;
+          var $allNotesContainer = angular.element(document.getElementById('allNotesContainer'));
+
           // console.log(Object.keys(noteKeysInGroup).length);
           if(Object.keys(noteKeysInGroup).length > 0) {
             $childrenNotesContainer = angular.element($element[0].getElementsByClassName('childrenNotes')[0]);
@@ -41,26 +43,38 @@ angular.module('group_module')
               $element.append($childrenNotesContainer);
             }
 
-            // noteElements = $childrenNotesContainer[0].getElementsByClassName('noteContainer');
-            // for(var i = 0; i < noteElements.length; i++) {
-            //   noteId = noteElements[i].id;
-            //   // console.log(noteId);
-            //   if(noteId in noteKeysInGroup) {
-            //     delete noteKeysInGroup[noteId];
-            //   }
-            // }
+            noteElements = $childrenNotesContainer[0].getElementsByClassName('noteContainer');
+            for(var i = 0; i < noteElements.length; i++) {
+              noteId = noteElements[i].id;
+              // console.log(noteId);
+              if(noteId in noteKeysInGroup) {
+                delete noteKeysInGroup[noteId];
+              } 
+              // else {
+              //   var childEl = document.getElementById(key);
+              //   var $childElContainer = angular.element(childEl.parentElement);
+              //   var $childEl = angular.element(childEl);
+              //   $childEl.attr('ng-style', "{left: note.data.x, top: note.data.y, width: note.style.width, height: note.style.height}");
+              //   // $childEl.css({'left': scope.note.style.left, 'top': scope.note.style.top });
+              //   $allNotesContainer.append($childElContainer);
+              
+              // }
+            }
 
             for(var key in noteKeysInGroup) {
               var childEl = document.getElementById(key);
+              var $childElContainer = angular.element(childEl.parentElement);
               var $childEl = angular.element(childEl);
               var scope = $childEl.scope();
-              $childEl.attr('style', "");
+              // $childEl.attr('style', "");
               $childEl.attr('ng-style', "{left: note.style.left, top: note.style.top, width: note.style.width, height: note.style.height}");
+              $childEl.attr('style', "{left: note.style.left, top: note.style.top, width: note.style.width, height: note.style.height}");
               scope.note.style.left = scope.note.data.x - $scope.group.data.x;
               scope.note.style.top = scope.note.data.y - $scope.group.data.y;
+              $childrenNotesContainer.append($childElContainer);
               $childEl.css({'left': scope.note.style.left, 'top': scope.note.style.top });
-              $childrenNotesContainer.append($childEl);
-              $compile($childEl)(scope);  //this line is need, but also need to remove scope from previous $childEl???
+              // childEl.parentElement = $childrenNotesContainer[0];
+              // $compile($childEl)(scope);  //this line is need, but also need to remove scope from previous $childEl???
             }
           }
 
@@ -82,7 +96,7 @@ angular.module('group_module')
           });
           console.log("Number of notes in group", Object.keys(noteKeysInGroup).length);
           
-          // nestChildrenInDOM(noteKeysInGroup);
+          nestChildrenInDOM(noteKeysInGroup);
 
           $element.bind('mouseup', myMouseUp);  //SAVE this line
 
@@ -100,8 +114,7 @@ angular.module('group_module')
             note = allNotesScope[key];
             note.data.x += deltaX;
             note.data.y += deltaY;
-            //allNotesScope.$save(key);
-
+            allNotesScope.$save(key);
           }
           //iterate over notes in group that has been dragged
             //get window coordinates for each note
