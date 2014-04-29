@@ -32,8 +32,8 @@ angular.module('canvas.module', [])
         if (fromFile == 'draggable_directive.js' && updatedProperty) {
           noteScope.set('x', updatedProperty.position.left);
           noteScope.set('y', updatedProperty.position.top);
-          noteScope.set('left', updatedProperty.position.left);
-          noteScope.set('top', updatedProperty.position.top);
+          // noteScope.set('left', updatedProperty.position.left);
+          // noteScope.set('top', updatedProperty.position.top);
         } else if (fromFile == 'resizableDiv_directive.js' && updatedProperty) {
           noteScope.set('width', updatedProperty.dimensions.width);
           noteScope.set('height', updatedProperty.dimensions.height);

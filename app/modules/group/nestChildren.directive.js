@@ -20,6 +20,7 @@ angular.module('group_module')
         var notes = notesFactory.getNotes2();
         var groups = notesFactory.getGroups2();
         var noteKeysInGroup;
+        var noteKeysInGroupElement;
         var groupKeysInGroup, groupKeysInGroupPrevious;
         var noteInitialPositions;
         var groupInitialPositions;
@@ -29,32 +30,31 @@ angular.module('group_module')
         var nestChildrenInDOM = function(noteKeysInGroup) {
           var $childrenNotesContainer;
           var newLeft, newTop; 
-          var previousChildrenContainers;
+          var noteElements;
+          var noteId;
           // console.log(Object.keys(noteKeysInGroup).length);
           if(Object.keys(noteKeysInGroup).length > 0) {
             $childrenNotesContainer = angular.element($element[0].getElementsByClassName('childrenNotes')[0]);
-            if($childrenNotesContainer.length == 0){
+            if($childrenNotesContainer.length == 0) {  //ie this container doesn't exist yet
               childrenNotesContainer = "<div class='childrenNotes'></div>";
               $childrenNotesContainer = angular.element(childrenNotesContainer);
               $element.append($childrenNotesContainer);
             }
 
-            previousChildrenContainers = $childrenNotesContainer[0].getElementsByClassName('noteContainer');
-            var noteId;
-            console.log('');
-            for(var i = 0; i < previousChildrenContainers.length; i++) {
-              noteId = previousChildrenContainers[i].id;
-              console.log(noteId);
-              if(!(noteId in noteKeysInGroup)){
-                console.log(noteId);
-              }
-            }
+            // noteElements = $childrenNotesContainer[0].getElementsByClassName('noteContainer');
+            // for(var i = 0; i < noteElements.length; i++) {
+            //   noteId = noteElements[i].id;
+            //   // console.log(noteId);
+            //   if(noteId in noteKeysInGroup) {
+            //     delete noteKeysInGroup[noteId];
+            //   }
+            // }
 
             for(var key in noteKeysInGroup) {
-              // var childEl = document.getElementById(noteKeysInGroup[key]);
               var childEl = document.getElementById(key);
               var $childEl = angular.element(childEl);
               var scope = $childEl.scope();
+              $childEl.attr('style', "");
               $childEl.attr('ng-style', "{left: note.style.left, top: note.style.top, width: note.style.width, height: note.style.height}");
               scope.note.style.left = scope.note.data.x - $scope.group.data.x;
               scope.note.style.top = scope.note.data.y - $scope.group.data.y;
@@ -67,7 +67,6 @@ angular.module('group_module')
         };
 
         $element.bind('mousedown', function() {
-          // noteKeysInGroup = [];
           noteKeysInGroup = {};
           var groupRight = $scope.group.data.x + $scope.group.style.width;
           var groupBottom = $scope.group.data.y + $scope.group.style.height;
@@ -77,36 +76,36 @@ angular.module('group_module')
           notesFactory.forEach(notes, function(note, key){
             if(note.data && $scope.group.data.x <= note.data.x && note.data.x <= groupRight
               && $scope.group.data.y <= note.data.y && note.data.y <= groupBottom) {
-              // noteKeysInGroup.push(key);
               noteKeysInGroup[key] = true;
             }
             counter++;
           });
           console.log("Number of notes in group", Object.keys(noteKeysInGroup).length);
-          //nestChildrenInDOM(noteKeysInGroup);
+          
+          // nestChildrenInDOM(noteKeysInGroup);
 
-          $element.bind('mouseup', myMouseUp);
+          $element.bind('mouseup', myMouseUp);  //SAVE this line
 
         });
 
         function myMouseUp(event) {
           var scale = navigationService.getScale();
           var key;
-          var allNotesScope = notesFactory.getScope();
           var note;
+          var allNotesScope = notesFactory.getScope();
           deltaX = $scope.group.data.x - groupInitialX;
           deltaY = $scope.group.data.y - groupInitialY;
-          // for(var i = 0; i < noteKeysInGroup.length; i++) {
+          console.log(deltaX, deltaY);
           for(var key in noteKeysInGroup) {
-            // key = noteKeysInGroup[i];
             note = allNotesScope[key];
             note.data.x += deltaX;
             note.data.y += deltaY;
-            // allNotesScope.$save(key);
+            //allNotesScope.$save(key);
 
           }
           //iterate over notes in group that has been dragged
             //get window coordinates for each note
+        $element.unbind('mouseup', myMouseUp);
         };
 
       };  //END link

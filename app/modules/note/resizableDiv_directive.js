@@ -7,8 +7,9 @@ angular.module("note_module").directive('resizableDivDirective', ['$document', '
 
   function link($scope, $element, atts){
     var initialElWidth, initialElHeight, initialMouseX, initialMouseY;
-    var $triangle = angular.element("<div class='triangle'></div");
-    $element.append($triangle);
+    // var $triangle = angular.element("<div class='triangle'></div>");
+    // $element.append($triangle);
+    $triangle = angular.element($element[0].getElementsByClassName('triangle')[0]);
 
     $triangle.bind('mousedown', function($event){
       $event.preventDefault();

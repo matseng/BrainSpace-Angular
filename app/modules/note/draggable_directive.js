@@ -22,10 +22,12 @@ angular.module("note_module")
           $rootScope.mouse.elementClickedClassName = elementClickedClassName;
           if(elementClickedClassName !== 'triangle' 
             && headerMenu_service.getRadioButtonState() != 'drawGroup') {
-            element.css({position: 'absolute'});
+            // element.css({position: 'absolute'});
+            // element.css({'left': $scope[element[0].dataset.type].style.left, 'top': $scope[element[0].dataset.type].style.top });
+
             // initialElementX = element.prop('offsetLeft');
             // initialElementY = element.prop('offsetTop');
-            initialElementX = $scope[element[0].dataset.type].data.x
+            initialElementX = $scope[element[0].dataset.type].data.x;
             initialElementY = $scope[element[0].dataset.type].data.y;
             initialMouseX = $event.clientX;
             initialMouseY = $event.clientY;
@@ -34,7 +36,7 @@ angular.module("note_module")
             console.log(element[0].dataset.type, 'x:', $scope[element[0].dataset.type].data.x, 'y:', $scope[element[0].dataset.type].data.y);
             console.log(' ', 'left:', $scope[element[0].dataset.type].style.left, 'top:', $scope[element[0].dataset.type].style.top);
             var eventName = 'update:' + element[0].dataset.type + ':mousedown';  //e.g. 'update:group:mousedown'
-            $scope.$emit(eventName, 'draggable_directive.js');
+            // $scope.$emit(eventName, 'draggable_directive.js');
           }
         }
       });
@@ -49,13 +51,13 @@ angular.module("note_module")
       function myMouseMove($event){
         $event.preventDefault();
         if($rootScope.mouse.elementClickedClassName !== 'triangle'){
+          var scale = navigationService.getScale();
           var deltaX = $event.clientX - initialMouseX;
           var deltaY = $event.clientY - initialMouseY;
-          var scale = navigationService.getScale();
           var elementX = initialElementX + deltaX * 1/scale;
           var elementY = initialElementY + deltaY * 1/scale;
           var position = {'left': elementX, 'top': elementY};
-          element.css(position);
+          // element.css(position);
           var eventName = 'update:' + element[0].dataset.type;  //e.g. 'update:note'
           $scope.$emit(eventName, 'draggable_directive.js', {position: position}, {deltaX: deltaX * 1/scale, deltaY: deltaY * 1/scale});
         }
