@@ -104,7 +104,7 @@ angular.module('group_module')
             note = allNotesScope[key];
             note.data.x += deltaX;
             note.data.y += deltaY;
-            allNotesScope.$save(key);
+            // allNotesScope.$save(key);
           }
           //iterate over notes in group that has been dragged
             //get window coordinates for each note
