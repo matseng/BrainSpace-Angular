@@ -4,17 +4,28 @@
 */
 
 angular.module('headerMenu_module')
-  .directive('modalDirective', ['$document', function($document) {
+  .directive('modalDirective', ['$compile', function($compile) {
     return {
       restrict: 'A',
       link: link
     };
 
     function link($scope, $element, attrs) {
-      console.log('hello world');
-      // var modalString = "<div class='modalContainer'><div class='modal'>Hello World</div></div>";
-      // var $modal = angular.element(modalString);
-      // $document.append($modal);
+      var $modal;
+      $scope.toggleModal = function() {
+        if(document.body.getElementsByClassName('modal').length === 0) {
+          console.log('hello world 2');
+          var modalString = "<div class='modalBackground'><div class='modal'>Hello World</div></div>";
+          $modal = angular.element(modalString);
+          $compile($modal)($scope);
+          angular.element(document.body).append($modal);
+        } else {
+          if($modal.css('visibility') === 'hidden')
+            $modal.css({'visibility': 'visible'});
+          else 
+            $modal.css({'visibility': 'hidden'});
+        }
+      };
     };
 
   }]);
