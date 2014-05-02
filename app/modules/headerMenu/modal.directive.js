@@ -15,7 +15,7 @@ angular.module('headerMenu_module')
       $scope.toggleModal = function() {
         if(document.body.getElementsByClassName('modal').length === 0) {
           console.log('hello world 2');
-          var modalString = "<div class='modalBackground'><div class='modal'>Hello World</div></div>";
+          var modalString = "<div class='modalContainer'><div class='modalBackground'></div><div class='modal'><span>Hello World, Hello World, Hello World, Hello World, Hello World</span></div></div>";
           $modal = angular.element(modalString);
           $compile($modal)($scope);
           angular.element(document.body).append($modal);

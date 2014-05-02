@@ -86,9 +86,9 @@ angular.module('group_module')
           });
           console.log("Number of notes in group", Object.keys(noteKeysInGroup).length);
           
-          nestChildrenInDOM(noteKeysInGroup);
+          // nestChildrenInDOM(noteKeysInGroup);
 
-          $element.bind('mouseup', myMouseUp);  //SAVE this line
+          // $element.bind('mouseup', myMouseUp);  //SAVE this line
 
         });
 
