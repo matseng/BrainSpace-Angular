@@ -5,7 +5,7 @@
   <title>BrainSpace - Angular</title>
 </head>
 <body>
-  <div id='menuContainer' ng-controller='menu_controller'>
+  <div modal_directive id='menuContainer' ng-controller='menu_controller'>
     <h3>BrainSpace</h3>
     <div class="btn-group" data-toggle="buttons">
       <label class="btn btn-primary" ng-click='buttonClicked(event)'>
@@ -20,7 +20,9 @@
       <label class="btn btn-primary">
         <input type="radio" ng-model="menuState" value="drawGroup"> Draw Group
       </label>
-      <label class="btn btn-primary">
+      <label>
+      </label>
+        <button>Toggle Modal</button>
       </label>
       <!-- <tt>menuState = {{menuState | json}}</tt><br/> -->
     </div>
@@ -71,6 +73,7 @@
   <script type="text/javascript" src="./app/modules/headerMenu/headerMenu_service.js"></script>
   <script type="text/javascript" src="./app/modules/headerMenu/noteMenu_directive.js"></script>
   <script type="text/javascript" src="./app/modules/headerMenu/addNote_directive.js"></script>
+  <script type="text/javascript" src="./app/modules/headerMenu/modal.directive.js"></script>
   <script type="text/javascript" src="./app/modules/note/note_module.js"></script>
   <script type="text/javascript" src="./app/modules/note/note_controller.js"></script>
   <script type="text/javascript" src="./app/modules/note/noteModel_directive.js"></script>

@@ -8,8 +8,8 @@
   //When a note is dragged, validate it's data.x,y  
 
 angular.module('group_module')
-  .directive('nestChildrenDirective', ['notesFactory', '$compile', 'notesFactory', 'navigationService',
-    function(notesFactory, $compile, notesFactory, navigationService) { 
+  .directive('nestChildrenDirective', ['notesFactory', '$compile', 'navigationService',
+    function(notesFactory, $compile, navigationService) { 
       return {
         attribute: "A",
         link: link
