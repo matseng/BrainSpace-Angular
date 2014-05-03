@@ -24,9 +24,15 @@
       </label>
         <button ng-click='toggleModal()'>Toggle Modal</button>
       </label>
+      <div>
+        <input type='text'>
+        <!-- <button>U+25BC</button> -->
+        <button>&#x25BC;</button>
         <select hash_tags class='selectHashTag' ng-model="hashTag" ng-change='hashTagChanged()'>
+          <option selected="selected" value='Hashtag...'>Hashtag...</option>
           <option value="{{key}}" ng-repeat='(key, hashTag) in hashTags'>{{key}}</option>
         </select>
+      </div>
       <!-- <tt>menuState = {{menuState | json}}</tt><br/> -->
     </div>
     <note_menu_directive>
