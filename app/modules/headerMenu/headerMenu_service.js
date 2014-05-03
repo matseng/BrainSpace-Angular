@@ -64,5 +64,9 @@ angular.module('headerMenu_module')
     this.getHashTags = function() {
       return hashTags;
     };
+
+    this.getKeysForHashTag = function(hashTag) {
+      return hashTags[hashTag];
+    }
   }
 ]);

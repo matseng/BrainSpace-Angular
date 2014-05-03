@@ -1,5 +1,5 @@
 angular.module('canvas.module')
-  .service('hashTag', [function() {
+  .service('hashTags', [function() {
     var hashTags = {};
 
     this.set = function(currHashTag, key) {
