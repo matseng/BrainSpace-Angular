@@ -24,6 +24,9 @@
       </label>
         <button ng-click='toggleModal()'>Toggle Modal</button>
       </label>
+        <select append_hash_tags class='selectHashTag'>
+          <option value="{{key}}" ng-repeat='(key, hashTag) in hashTags'>{{key}}</option>
+        </select>
       <!-- <tt>menuState = {{menuState | json}}</tt><br/> -->
     </div>
     <note_menu_directive>
@@ -48,7 +51,8 @@
   </div>
   <div navigation_directive id="allNotesContainerBackground">
     <div add_note_directive add_group_directive id='allNotesContainer' ng-controller='allNotes_controller'>
-      <note_model_directive ng-repeat="(key, note) in notes2"></note_model_directive>
+      <note_model_directive ng-repeat="(key, note) in notes2">
+      </note_model_directive>
       <div draggable_directive resizable_div_directive nest_children_directive class='group' ng-controller='group_controller' ng-repeat="(key, group) in groups2"  ng-style="{left: group.style.left, top: group.style.top, width: group.style.width, height: group.style.height}" data-type="group" ng-mousedown='groupMousedown($event)'>
         <!-- Does NOT do 2-way data binding with: ng-style={{group}} -->
       <div class='triangle'></div>
@@ -64,7 +68,8 @@
   <script type="text/javascript" src="./app/modules/factory/notes_factory_module.js"></script>
   <script type="text/javascript" src="./app/modules/factory/refactorData.service.js"></script>
   <script type="text/javascript" src="./app/modules/canvas/canvas.controller.js"></script>
-  <!-- // <script type="text/javascript" src="./app/modules/canvas/render.service.js"></script> -->
+  <script type="text/javascript" src="./app/modules/canvas/render.service.js"></script>
+  <script type="text/javascript" src="./app/modules/canvas/hashTag.service.js"></script>
   <script type="text/javascript" src="./app/modules/nav/navigation_module.js"></script>
   <script type="text/javascript" src="./app/modules/nav/navigation_directive.js"></script>
   <script type="text/javascript" src="./app/modules/nav/navigation_service.js"></script>
@@ -74,6 +79,7 @@
   <script type="text/javascript" src="./app/modules/headerMenu/noteMenu_directive.js"></script>
   <script type="text/javascript" src="./app/modules/headerMenu/addNote_directive.js"></script>
   <script type="text/javascript" src="./app/modules/headerMenu/modal.directive.js"></script>
+  <script type="text/javascript" src="./app/modules/headerMenu/appendHashTags.directive.js"></script>
   <script type="text/javascript" src="./app/modules/note/note_module.js"></script>
   <script type="text/javascript" src="./app/modules/note/note_controller.js"></script>
   <script type="text/javascript" src="./app/modules/note/noteModel_directive.js"></script>

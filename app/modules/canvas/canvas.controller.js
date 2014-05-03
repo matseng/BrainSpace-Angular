@@ -6,8 +6,8 @@
 
 angular.module('canvas.module', [])
   //.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'headerMenu_service', 'refactorData',  //refactorData is used to update previous data structure
-  // .controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'headerMenu_service', 'render.service',
-  .controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'headerMenu_service',
+  .controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'headerMenu_service', 'render_service',
+  // .controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'headerMenu_service',
     function($scope, $firebase, notesFactory, headerMenu_service, refactorData){
 
       $scope.groups2 = notesFactory.getGroups2();
@@ -39,6 +39,7 @@ angular.module('canvas.module', [])
           noteScope.set('height', updatedProperty.dimensions.height);
         }
         // $scope.notes[noteScope.key] = noteScope.note;  //NOTE: This line is a HACK to resolve different note objects for same initial note data 
+        // console.log(noteScope.note.data.hashTags);
         $scope.notes.$save(noteScope.key);
       });
 

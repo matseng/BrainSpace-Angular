@@ -12,6 +12,15 @@ app.directive('noteModelDirective', ['$rootScope', 'headerMenu_service', functio
     };
 
     function link($scope, element, attrs) {
+      var hashTags;
+      element.on('focusout', function() {
+        hashTags = $scope.note.data.text.match(/\#\w*/);
+        if(hashTags) {
+          $scope.note.data.hashTags = hashTags;
+          headerMenu_service.setHashTags(hashTags, $scope.key);
+        }
+        $scope.$emit('update:note', 'note_controller.js');
+      });
     }
   }
 ]);

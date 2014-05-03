@@ -7,6 +7,7 @@ angular.module('headerMenu_module')
     var fontSizeString;
     var menuState;
     var notes2 = notesFactory.getNotes2();
+    var hashTags = {};
     
     this.setScope = function(myScope, el) {
       scope = myScope;
@@ -50,6 +51,18 @@ angular.module('headerMenu_module')
     this.setStyle = function(prop, val) {
       scope.note.style[prop] = val;
       notesFactory.updateNote(scope.key);
-    }
+    };
+
+    this.setHashTags = function(currHashTag, key) {
+      if(!(currHashTag in hashTags)) {
+        hashTags[currHashTag] = [];
+      }
+      hashTags[currHashTag].push(key); 
+      console.log(hashTags);
+    };
+
+    this.getHashTags = function() {
+      return hashTags;
+    };
   }
 ]);

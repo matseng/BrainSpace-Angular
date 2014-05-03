@@ -6,6 +6,7 @@ angular.module('headerMenu_module')
       $scope.buttonSelected = null;
       $scope.menuState = 'explore'; //explore, newNote, drawGroup
       $rootScope.menuState = $scope.menuState;
+      $scope.hashTags = headerMenu_service.getHashTags();
 
       $scope.$watch('menuState', function(newState){
         $rootScope.menuState = newState;
