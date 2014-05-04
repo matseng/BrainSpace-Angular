@@ -33,7 +33,7 @@ angular.module('hashtag.module')
       link: link
     };
 
-    function link($scope, element, attrs){
+    function link($scope, element, attrs) {
       var noteKeysPrevious = [];
       $scope.hashTag = 'Select #...';
       $scope.hashTagChanged = function() {

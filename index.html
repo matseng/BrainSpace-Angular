@@ -7,7 +7,16 @@
 <body>
   <div modal_directive id='menuContainer' ng-controller='menu_controller'>
     <h3>BrainSpace</h3>
+
     <div class="btn-group" data-toggle="buttons">
+      <span ng-controller='autocomplete_controller'>
+        <input type='text' placeholder='Search...' ng-model='searchInput' ng-change="searchInputChanged()">
+        <!-- <button>&#x25BC;</button> -->
+      </span>
+      <select hashtag_menu class='selectHashTag' ng-model="hashTag" ng-change='hashTagChanged()'>
+        <option selected="selected" value='Select #...'>Select #...</option>
+        <option value="{{key}}" ng-repeat='(key, hashTag) in hashTags'>{{key}}</option>
+      </select>
       <label class="btn btn-primary" ng-click='buttonClicked(event)'>
         <input type="radio" ng-model="menuState" value="explore" checked> Explore
       </label>
@@ -20,18 +29,7 @@
       <label>
       </label>
         <button ng-click='toggleModal()'>Toggle Modal</button>
-      </label>
-      <!-- TODO: Finish autocomplete bar
-      <div ng-controller='autocomplete_controller'>
-        <input type='text' ng-model='searchInput' ng-change="searchInputChanged()">
-        <button>&#x25BC;</button>
-      </div>
-      -->
-      <!-- <select hash_tags class='selectHashTag' ng-model="hashTag" ng-change='hashTagChanged()'> -->
-      <select hashtag_menu class='selectHashTag' ng-model="hashTag" ng-change='hashTagChanged()'>
-        <option selected="selected" value='Select #...'>Select #...</option>
-        <option value="{{key}}" ng-repeat='(key, hashTag) in hashTags'>{{key}}</option>
-      </select>
+      </label>     
     </div>
     <note_menu_directive>
       <div class="btn-group">
