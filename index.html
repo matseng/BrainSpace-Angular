@@ -27,7 +27,8 @@
         <button>&#x25BC;</button>
       </div>
       -->
-      <select hash_tags class='selectHashTag' ng-model="hashTag" ng-change='hashTagChanged()'>
+      <!-- <select hash_tags class='selectHashTag' ng-model="hashTag" ng-change='hashTagChanged()'> -->
+      <select hashtag_menu class='selectHashTag' ng-model="hashTag" ng-change='hashTagChanged()'>
         <option selected="selected" value='Select #...'>Select #...</option>
         <option value="{{key}}" ng-repeat='(key, hashTag) in hashTags'>{{key}}</option>
       </select>
@@ -92,6 +93,7 @@
   <script type="text/javascript" src="./app/modules/group/group_controller.js"></script>
   <script type="text/javascript" src="./app/modules/group/addGroup_directive.js"></script>
   <script type="text/javascript" src="./app/modules/group/nestChildren.directive.js"></script>
+  <script type="text/javascript" src="./app/modules/hashtag/hashtag.module.js"></script>
   <script type="text/javascript" src="./app/modules/autocomplete/autocomplete.module.js"></script>
 
   <link rel="stylesheet" type="text/css" href="./app/styles/app.css">
