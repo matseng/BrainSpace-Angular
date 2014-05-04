@@ -14,8 +14,10 @@ angular.module('canvas.module')
         var ctrl = $controller('note-controller', {$scope:scope});
         scope.key = data.snapshot.name;
         scope.note = data.snapshot.value;
-        if(scope.note.data.hashTags) {
-          hashtagService.setHashTags(scope.note.data.hashTags[0], scope.key);
+        if(scope.note.data.hashtags) {
+          for(var i = 0; i < scope.note.data.hashtags.length; i++) {
+            hashtagService.setHashtags(scope.note.data.hashtags[i], scope.key);
+          }
         }
         var $compiled = $compile(angular.element('<note_model_directive></note_model_directive>'))(scope);
         // $canvas.append($compiled);
