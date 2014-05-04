@@ -1,7 +1,7 @@
 //render.service.js
 angular.module('canvas.module')
-  .service('render_service', ['notesFactory', '$document', '$rootScope', '$controller', '$compile', 'headerMenu_service',
-    function(notesFactory, $document, $rootScope, $controller, $compile, headerMenu_service) {
+  .service('render_service', ['notesFactory', '$document', '$rootScope', '$controller', '$compile', 'hashtagService',
+    function(notesFactory, $document, $rootScope, $controller, $compile, hashtagService) {
       var notes2 = notesFactory.getNotes2();
       var groups2 = notesFactory.getGroups2();
       // var $canvas = angular.element($document[0].getElementById('allNotesContainer'));
@@ -15,7 +15,7 @@ angular.module('canvas.module')
         scope.key = data.snapshot.name;
         scope.note = data.snapshot.value;
         if(scope.note.data.hashTags) {
-          headerMenu_service.setHashTags(scope.note.data.hashTags[0], scope.key);
+          hashtagService.setHashTags(scope.note.data.hashTags[0], scope.key);
         }
         var $compiled = $compile(angular.element('<note_model_directive></note_model_directive>'))(scope);
         // $canvas.append($compiled);

@@ -6,12 +6,28 @@ angular.module('hashtag.module', []);
 
 angular.module('hashtag.module')
   .service('hashtagService', [function() {
-    var hashtags = {};
+    var hashtags = {};  // {hashtag: noteKeysArray}
+
+    this.setHashTags = function(currHashTag, key) {
+      if(!(currHashTag in hashtags)) {
+        hashtags[currHashTag] = [];
+      }
+      hashtags[currHashTag].push(key); 
+      console.log(hashtags);
+    };
+
+    this.getHashTags = function() {
+      return hashtags;
+    };
+
+    this.getKeysForHashTag = function(hashtag) {
+      return hashtags[hashtag];
+    }
 
   }]);
 
 angular.module('hashtag.module')
-  .directive('hashtagMenu', ['headerMenu_service', function(headerMenu_service) {
+  .directive('hashtagMenu', ['hashtagService', function(hashtagService) {
     return {
       restrict: 'A',
       link: link
@@ -21,7 +37,7 @@ angular.module('hashtag.module')
       var noteKeysPrevious = [];
       $scope.hashTag = 'Select #...';
       $scope.hashTagChanged = function() {
-        var noteKeys = headerMenu_service.getKeysForHashTag($scope.hashTag) || [];
+        var noteKeys = hashtagService.getKeysForHashTag($scope.hashTag) || [];
         console.log(noteKeys);
         for(var i = 0; i < noteKeysPrevious.length; i++) {
           var note = angular.element(document.getElementById(noteKeysPrevious[i]));
@@ -50,7 +66,7 @@ angular.module('hashtag.module')
         hashTags = $scope.note.data.text.match(/\#\w*/) || null;
         $scope.note.data.hashTags = hashTags;  //Ok to set to null, which overwrites hashTags that were just deleted by a user
         if(hashTags) {
-          headerMenu_service.setHashTags(hashTags, $scope.key);
+          hashtagService.setHashTags(hashTags, $scope.key);
         }
         $scope.$emit('update:note', 'note_controller.js');
       });

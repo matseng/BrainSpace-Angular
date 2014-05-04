@@ -1,12 +1,12 @@
 //headerMenu_controller.js
 
 angular.module('headerMenu_module')
-  .controller('menu_controller', ['$rootScope', '$scope', 'notesFactory', 'headerMenu_service', 'autocomplete_service',
-    function($rootScope, $scope, notesFactory, headerMenu_service, autocomplete_service) {
+  .controller('menu_controller', ['$rootScope', '$scope', 'notesFactory', 'headerMenu_service', 'hashtagService', 'autocomplete_service',
+    function($rootScope, $scope, notesFactory, headerMenu_service, hashtagService, autocomplete_service) {
       $scope.buttonSelected = null;
       $scope.menuState = 'explore'; //explore, newNote, drawGroup
       $rootScope.menuState = $scope.menuState;
-      $scope.hashTags = headerMenu_service.getHashTags();
+      $scope.hashTags = hashtagService.getHashTags();
 
       $scope.$watch('menuState', function(newState){
         $rootScope.menuState = newState;
