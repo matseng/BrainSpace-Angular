@@ -1,7 +1,7 @@
 //render.service.js
 angular.module('canvas.module')
-  .service('render_service', ['notesFactory', '$rootScope', '$controller', '$compile', 'hashtagService',
-    function(notesFactory, $rootScope, $controller, $compile, hashtagService) {
+  .service('render_service', ['notesFactory', '$rootScope', '$controller', '$compile', 'hashtagService', 'autocomplete_service',
+    function(notesFactory, $rootScope, $controller, $compile, hashtagService, autocomplete_service) {
       var notes2 = notesFactory.getNotes2();
       var groups2 = notesFactory.getGroups2();
       var $canvas = angular.element(document.getElementById('allNotesContainer'));
@@ -17,6 +17,7 @@ angular.module('canvas.module')
             hashtagService.setHashtags(scope.note.data.hashtags[i], scope.key);
           }
         }
+        autocomplete_service.addNote(scope.note.data.text, scope.key);
         var $compiled = $compile(angular.element('<note_model_directive></note_model_directive>'))(scope);
         // $canvas.append($compiled);
       });

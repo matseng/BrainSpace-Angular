@@ -2,16 +2,18 @@
 * Setup: Add autocomplete.module.js to index.html, inject autcomplete module into app.js, inject autocomplete_service into menu_controller.js
 */
 
-angular.module('autocomplete', [])
-  .service('autocomplete_service', [function() {
-
-  }])
-
-  .controller('autocomplete_controller', ['$scope', 'notesFactory', '$filter', function($scope, notesFactory, $filter) {
+angular.module('autocomplete_module', [])
+  .controller('autocomplete_controller', ['$scope', 'notesFactory', '$filter', 'autocomplete_service', function($scope, notesFactory, $filter, autocomplete_service) {
     $scope.notes2 = notesFactory.getNotes2();
     
-    var matchingNoteKeysPrevious;
     $scope.searchInputChanged = function() {
+      var searchInput = $scope.searchInput;
+      var autocompleteResults = autocomplete_service.autocomplete(searchInput);
+      console.log(autocompleteResults);
+    }
+    
+    var matchingNoteKeysPrevious;
+    $scope.searchInputChanged_Angular = function() {
       var noteText;
       var keys = $scope.notes2.$getIndex();
       var searchRegExp = new RegExp($scope.searchInput, 'i');  //'i' is for case insensitive
