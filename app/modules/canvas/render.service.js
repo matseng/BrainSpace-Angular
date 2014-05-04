@@ -1,13 +1,11 @@
 //render.service.js
 angular.module('canvas.module')
-  .service('render_service', ['notesFactory', '$document', '$rootScope', '$controller', '$compile', 'hashtagService',
-    function(notesFactory, $document, $rootScope, $controller, $compile, hashtagService) {
+  .service('render_service', ['notesFactory', '$rootScope', '$controller', '$compile', 'hashtagService',
+    function(notesFactory, $rootScope, $controller, $compile, hashtagService) {
       var notes2 = notesFactory.getNotes2();
       var groups2 = notesFactory.getGroups2();
-      // var $canvas = angular.element($document[0].getElementById('allNotesContainer'));
       var $canvas = angular.element(document.getElementById('allNotesContainer'));
       var canvasScope = $canvas.scope();
-      var hashTags = {};
 
       notes2.$on('child_added', function(data) {
         var scope = canvasScope.$new();
@@ -32,9 +30,5 @@ angular.module('canvas.module')
         var $compiled = $compile(angular.element(groupEl))(scope);
         // $canvas.append($compiled);
       });
-
-      this.getHashTags = function() {
-        return hashTags;
-      };
     }
   ]);
