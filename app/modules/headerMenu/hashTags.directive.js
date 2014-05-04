@@ -7,9 +7,9 @@ angular.module('headerMenu_module')
 
     function link($scope, element, attrs){
       var noteKeysPrevious = [];
-      $scope.hashTag = 'Hashtag...';
+      $scope.hashTag = 'Select #...';
       $scope.hashTagChanged = function() {
-        var noteKeys = headerMenu_service.getKeysForHashTag($scope.hashTag);
+        var noteKeys = headerMenu_service.getKeysForHashTag($scope.hashTag) || [];
         console.log(noteKeys);
         for(var i = 0; i < noteKeysPrevious.length; i++) {
           var note = angular.element(document.getElementById(noteKeysPrevious[i]));

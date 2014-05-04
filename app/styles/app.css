@@ -119,6 +119,7 @@ h1 {
 * Group: 
 */
 .group {
+  z-index: -1;
   position: absolute;
   background-color: LightGray;
   border: 2;

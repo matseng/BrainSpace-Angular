@@ -14,9 +14,6 @@
       <label class="btn btn-primary">
         <input type="radio" ng-model="menuState" value="newNote"> New Note
       </label>
-<!--       <label class="btn btn-primary">
-        <input type="radio" ng-model="menuState" value="insertImage"> Insert Image
-      </label> -->
       <label class="btn btn-primary">
         <input type="radio" ng-model="menuState" value="drawGroup"> Draw Group
       </label>
@@ -24,16 +21,16 @@
       </label>
         <button ng-click='toggleModal()'>Toggle Modal</button>
       </label>
-      <div>
-        <input type='text'>
-        <!-- <button>U+25BC</button> -->
+      <!-- TODO: Finish autocomplete bar
+      <div ng-controller='autocomplete_controller'>
+        <input type='text' ng-model='searchInput' ng-change="searchInputChanged()">
         <button>&#x25BC;</button>
-        <select hash_tags class='selectHashTag' ng-model="hashTag" ng-change='hashTagChanged()'>
-          <option selected="selected" value='Hashtag...'>Hashtag...</option>
-          <option value="{{key}}" ng-repeat='(key, hashTag) in hashTags'>{{key}}</option>
-        </select>
       </div>
-      <!-- <tt>menuState = {{menuState | json}}</tt><br/> -->
+      -->
+      <select hash_tags class='selectHashTag' ng-model="hashTag" ng-change='hashTagChanged()'>
+        <option selected="selected" value='Select #...'>Select #...</option>
+        <option value="{{key}}" ng-repeat='(key, hashTag) in hashTags'>{{key}}</option>
+      </select>
     </div>
     <note_menu_directive>
       <div class="btn-group">
@@ -95,6 +92,7 @@
   <script type="text/javascript" src="./app/modules/group/group_controller.js"></script>
   <script type="text/javascript" src="./app/modules/group/addGroup_directive.js"></script>
   <script type="text/javascript" src="./app/modules/group/nestChildren.directive.js"></script>
+  <script type="text/javascript" src="./app/modules/autocomplete/autocomplete.module.js"></script>
 
   <link rel="stylesheet" type="text/css" href="./app/styles/app.css">
 </body>

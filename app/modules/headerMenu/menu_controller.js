@@ -1,8 +1,8 @@
 //headerMenu_controller.js
 
 angular.module('headerMenu_module')
-  .controller('menu_controller', ['$rootScope', '$scope', 'notesFactory', 'headerMenu_service',
-    function($rootScope, $scope, notesFactory, headerMenu_service) {
+  .controller('menu_controller', ['$rootScope', '$scope', 'notesFactory', 'headerMenu_service', 'autocomplete_service',
+    function($rootScope, $scope, notesFactory, headerMenu_service, autocomplete_service) {
       $scope.buttonSelected = null;
       $scope.menuState = 'explore'; //explore, newNote, drawGroup
       $rootScope.menuState = $scope.menuState;
