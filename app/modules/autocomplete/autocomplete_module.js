@@ -6,10 +6,24 @@ angular.module('autocomplete_module', [])
   .controller('autocomplete_controller', ['$scope', 'notesFactory', '$filter', 'autocomplete_service', function($scope, notesFactory, $filter, autocomplete_service) {
     $scope.notes2 = notesFactory.getNotes2();
     
+    var autocompleteResultsPrevious;
     $scope.searchInputChanged = function() {
+      var noteKeys;
+      var autocompleteResults;
       var searchInput = $scope.searchInput;
-      var autocompleteResults = autocomplete_service.autocomplete(searchInput);
-      console.log(autocompleteResults);
+      if(searchInput.length > 0) {
+        autocompleteResults = autocomplete_service.autocomplete(searchInput);
+        console.log(autocompleteResults);
+      }
+      for(word in autocompleteResultsPrevious) {
+        noteKeys = autocompleteResultsPrevious[word];
+        removeHighlight(noteKeys)
+      }
+      for(word in autocompleteResults) {
+        noteKeys = autocompleteResults[word];
+        addHighlight(noteKeys)
+      }
+      autocompleteResultsPrevious = autocompleteResults;
     }
     
     var matchingNoteKeysPrevious;
@@ -35,5 +49,21 @@ angular.module('autocomplete_module', [])
         note.addClass('highlightShadow');
       }
       matchingNoteKeysPrevious = matchingNoteKeys;
+    };
+
+    var removeHighlight = function(noteKeys) {
+      var note; 
+      for(var i = 0; i < noteKeys.length; i++) {
+        note = angular.element(document.getElementById(noteKeys[i]));
+        note.removeClass('highlightShadow');
+      }
+    };
+
+    var addHighlight = function(noteKeys) {
+      var note; 
+      for(var i = 0; i < noteKeys.length; i++) {
+        note = angular.element(document.getElementById(noteKeys[i]));
+        note.addClass('highlightShadow');
+      }
     };
   }]);
