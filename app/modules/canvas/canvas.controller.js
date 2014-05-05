@@ -113,7 +113,7 @@ angular.module('canvas.module', [])
         for(var i = 0; i < groupKeysInGroup.length; i++) {
           $scope.groups.$save(groupKeysInGroup[i]);
         }
-        // $scope.groups[groupScope.key] = groupScope.group;  //NOTE: This line is a HACK to resolve different group objects for same initial group data 
+        $scope.groups[groupScope.key] = groupScope.group;  //NOTE: This line is a hack to resolve different group objects for same initial group data 
         $scope.groups.$save(groupScope.key);
       });
     }
