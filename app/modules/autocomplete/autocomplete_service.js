@@ -36,12 +36,11 @@ angular.module('autocomplete_module')
       var runningStr = [];  //path of letters storage in an array, later converted to a string
       var recur = function(node, index) {
         if(index >= subStr.length){  //traverse tree past subStr and add stringified leaf nodes to result array
-          if(Object.keys(node.children).length == 0 && index >= subStr.length){  //At a leaf node bc it has no children, and check that depth is greater than subString's length
-            // var resultObj = {};
-            // resultObj[runningStr.join('')] = node.noteKeys;
-            // results.push(resultObj);
+          // if(Object.keys(node.children).length == 0){  //At a leaf node bc it has no children, and check that depth is greater than subString's length
+          if(node.noteKeys.length > 0) {
             results[runningStr.join('')] = node.noteKeys;
-          } else {
+          }
+          if(Object.keys(node.children).length > 0){
             for(var letter in node.children) {
               runningStr.push(letter);
               index += 1;
