@@ -3,7 +3,7 @@ angular.module('autocomplete_module')
 
     var Node = function() {
       this.value;
-      this.children = {};  //keys will be single letters, values are nodes
+      this.children = {};  //keys will be single characters, values are nodes
       this.noteKeys = [];
     }
 

@@ -20,6 +20,7 @@ angular.module('canvas.module')
         autocomplete_service.insertText(scope.note.data.text, scope.key);
         var $compiled = $compile(angular.element('<note_model_directive></note_model_directive>'))(scope);
         $canvas.append($compiled);
+        notes2[scope.key] = scope.note;
       });
 
       groups2.$on('child_added', function(data) {

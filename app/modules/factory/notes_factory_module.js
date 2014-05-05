@@ -22,8 +22,11 @@ angular.module('notes_factory_module', ['firebase'])
         notes.$add(note);
       },
       deleteObject: function(scope) {
-        if(scope.note)
+        if(scope.note) {
+          notes2[scope.key] = scope.note;  //NOTE: This line is a hack to resolve different note objects for the same initial note data 
           notes2.$remove(scope.key);
+          scope.$destroy();
+        }
         else if (scope.group)
           groups2.$remove(scope.key);
       },

@@ -38,12 +38,8 @@ angular.module('canvas.module', [])
           noteScope.set('width', updatedProperty.dimensions.width);
           noteScope.set('height', updatedProperty.dimensions.height);
         }
-        // $scope.notes[noteScope.key] = noteScope.note;  //NOTE: This line is a HACK to resolve different note objects for same initial note data 
-        // console.log(noteScope.note.data.hashTags);
-        // $scope.notes.$save(noteScope.key);
-        var obj = {};
-        obj[noteScope.key] = noteScope.note;
-        $scope.notes.$update(obj);  //DANGER with set!!!
+        $scope.notes[noteScope.key] = noteScope.note;  //NOTE: This line is a hack to resolve different note objects for the same initial note data 
+        $scope.notes.$save(noteScope.key);
       });
 
       $scope.$on('addGroup', function(event, emitterFile, groupObject) {
