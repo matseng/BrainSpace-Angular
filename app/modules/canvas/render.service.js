@@ -28,9 +28,9 @@ angular.module('canvas.module')
         var ctrl = $controller('group_controller', {$scope:scope});
         scope.key = data.snapshot.name;
         scope.group = data.snapshot.value;
-        var groupEl = "<div draggable_directive resizable_div_directive nest_children_directive class='group' ng-style='{left: group.style.left, top: group.style.top, width: group.style.width, height: group.style.height}' data-type='group' ng-mousedown='groupMousedown($event)'>";
+        var groupEl = "<div draggable_directive resizable_div_directive nest_children_directive class='group' ng-controller='group_controller' ng-style='{left: group.data.x, top: group.data.y, width: group.style.width, height: group.style.height}' data-type='group' ng-mousedown='groupMousedown($event)'><div class='triangle'></div></div>";
         var $compiled = $compile(angular.element(groupEl))(scope);
-        // $canvas.append($compiled);
+        $canvas.append($compiled);
       });
     }
   ]);
