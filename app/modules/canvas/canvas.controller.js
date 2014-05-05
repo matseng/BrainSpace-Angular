@@ -40,7 +40,10 @@ angular.module('canvas.module', [])
         }
         // $scope.notes[noteScope.key] = noteScope.note;  //NOTE: This line is a HACK to resolve different note objects for same initial note data 
         // console.log(noteScope.note.data.hashTags);
-        $scope.notes.$save(noteScope.key);
+        // $scope.notes.$save(noteScope.key);
+        var obj = {};
+        obj[noteScope.key] = noteScope.note;
+        $scope.notes.$update(obj);  //DANGER with set!!!
       });
 
       $scope.$on('addGroup', function(event, emitterFile, groupObject) {

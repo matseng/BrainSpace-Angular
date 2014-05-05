@@ -59,6 +59,7 @@ angular.module("note_module")
           var position = {'left': elementX, 'top': elementY};
           var eventName = 'update:' + element[0].dataset.type;  //e.g. 'update:note'
           $scope.$emit(eventName, 'draggable_directive.js', {position: position}, {deltaX: deltaX * 1/scale, deltaY: deltaY * 1/scale});
+          $scope.$apply();
         }
       }
 

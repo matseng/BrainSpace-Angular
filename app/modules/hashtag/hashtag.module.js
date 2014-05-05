@@ -13,7 +13,6 @@ angular.module('hashtag.module')
         hashtags[currHashTag] = [];
       }
       hashtags[currHashTag].push(key); 
-      console.log(hashtags);
     };
 
     this.getHashtags = function() {
