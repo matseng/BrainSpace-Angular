@@ -25,9 +25,10 @@ angular.module('autocomplete_module', [])
       }
       autocompleteResultsPrevious = autocompleteResults;
     }
-    
+    /*
+    // Previous implementation using Angular's brute force approach
     var matchingNoteKeysPrevious;
-    $scope.searchInputChanged_Angular = function() {
+    $scope.searchInputChanged = function() {
       var noteText;
       var keys = $scope.notes2.$getIndex();
       var searchRegExp = new RegExp($scope.searchInput, 'i');  //'i' is for case insensitive
@@ -50,6 +51,7 @@ angular.module('autocomplete_module', [])
       }
       matchingNoteKeysPrevious = matchingNoteKeys;
     };
+    */
 
     var removeHighlight = function(noteKeys) {
       var note; 

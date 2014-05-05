@@ -8,10 +8,13 @@ angular.module('autocomplete_module')
     }
 
     Node.prototype.insert = function(inputStr, noteKey) {
+      inputStr = inputStr.toLowerCase();
       var recur = function(node, index){
         var currLetter = inputStr[index];
         if(index === inputStr.length) {
-          node.noteKeys.push(noteKey);
+          if(node.noteKeys.indexOf(noteKey) === -1){
+            node.noteKeys.push(noteKey);
+          }
           return;
         }
         if(currLetter in node.children){
@@ -28,15 +31,14 @@ angular.module('autocomplete_module')
     };
 
     /*
-    * autocomplete finds all complete words that match the input substring:
+    * autocomplete the input substring:
     */
     Node.prototype.autocomplete = function(subStr) {
-      // var results = [];
+      subStr = subStr.toLowerCase();
       var results = {};
       var runningStr = [];  //path of letters storage in an array, later converted to a string
       var recur = function(node, index) {
-        if(index >= subStr.length){  //traverse tree past subStr and add stringified leaf nodes to result array
-          // if(Object.keys(node.children).length == 0){  //At a leaf node bc it has no children, and check that depth is greater than subString's length
+        if(index >= subStr.length){  //traverse tree past subStr to autcomplete the remaining possible words
           if(node.noteKeys.length > 0) {
             results[runningStr.join('')] = node.noteKeys;
           }
@@ -48,7 +50,7 @@ angular.module('autocomplete_module')
               runningStr.pop();
             }
           }
-        } else if(subStr[index] in node.children){  //traverse tree via subStr
+        } else if(subStr[index] in node.children){  //traverse tree  subStr
           var currLetter = subStr[index];
           runningStr.push(currLetter);
           index += 1;
@@ -62,8 +64,8 @@ angular.module('autocomplete_module')
     };
 
     var root = new Node();
-    this.addNote = function(note, noteKey) {
-      var strings = note.match(/\S+/g);
+    this.insertText = function(text, noteKey) {
+      var strings = text.match(/\S+/g);
       for(var i = 0; strings && i < strings.length; i++) {
         root.insert(strings[i], noteKey);
       }

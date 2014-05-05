@@ -2,7 +2,7 @@
 
 var app = angular.module('note_module');
 
-app.directive('noteModelDirective', ['$rootScope', 'headerMenu_service', function($rootScope, headerMenu_service){
+app.directive('noteModelDirective', ['$rootScope', 'autocomplete_service', function($rootScope, autocomplete_service){
     return {
       restrict: "E",
       controller: 'note-controller',  // NOTE: ng-controller="note-controller" does NOT appear in the HTML!
@@ -12,6 +12,9 @@ app.directive('noteModelDirective', ['$rootScope', 'headerMenu_service', functio
     };
 
     function link($scope, element, attrs) {
+      element.on('focusout', function() {
+        autocomplete_service.insertText($scope.note.data.text, $scope.key);
+      });
       // var hashTags;
       // element.on('focusout', function() {
       //   // hashTags = $scope.note.data.text.match(/\#\w*/g) || null;  //TODO: use this line for multiple hashtags

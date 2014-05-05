@@ -62,8 +62,7 @@ angular.module('hashtag.module')
     function link($scope, element, attrs) {
       var hashtags;
       element.on('focusout', function() {
-        hashtags = $scope.note.data.text.match(/\#\w*/g) || null;  //TODO: use this line for multiple hashtags
-        // hashtags = $scope.note.data.text.match(/\#\w*/) || null;
+        hashtags = $scope.note.data.text.match(/\#\w*/g) || null;
         $scope.note.data.hashtags = hashtags;  //Ok to set to null, which overwrites hashtags that were just deleted by a user
         if(hashtags) {
           for(var i = 0; i < hashtags.length; i++) {

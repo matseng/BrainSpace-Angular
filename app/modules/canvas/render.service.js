@@ -17,7 +17,7 @@ angular.module('canvas.module')
             hashtagService.setHashtags(scope.note.data.hashtags[i], scope.key);
           }
         }
-        autocomplete_service.addNote(scope.note.data.text, scope.key);
+        autocomplete_service.insertText(scope.note.data.text, scope.key);
         var $compiled = $compile(angular.element('<note_model_directive></note_model_directive>'))(scope);
         // $canvas.append($compiled);
       });
