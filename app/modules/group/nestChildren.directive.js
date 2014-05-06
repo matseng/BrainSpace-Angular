@@ -8,8 +8,8 @@
   //When a note is dragged, validate it's data.x,y  
 
 angular.module('group_module')
-  .directive('nestChildrenDirective', ['notesFactory', '$compile', 'navigationService', 'nest_service',
-    function(notesFactory, $compile, navigationService, nest_service) { 
+  .directive('nestChildrenDirective', ['notesFactory', '$compile', 'navigationService', 'nest_service', 'headerMenu_service',
+    function(notesFactory, $compile, navigationService, nest_service, headerMenu_service) {
       return {
         attribute: "A",
         link: link
@@ -82,10 +82,12 @@ angular.module('group_module')
         };
 
         $element.bind('mousedown', function() {
-          $scope.group.data.childNotes = nest_service.findChildren($scope.key, notes, nestChildInGroup);
-          $scope.group.data.childGroups = nest_service.findChildren($scope.key, groups, nestChildInGroup);
-          console.log($scope.group.data.childNotes);
-          $element.bind('mouseup', myMouseUp);  //SAVE this line
+          if(headerMenu_service.getRadioButtonState() !== 'drawGroup') {
+            $scope.group.data.childNotes = nest_service.findChildren($scope.key, notes, nestChildInGroup);
+            $scope.group.data.childGroups = nest_service.findChildren($scope.key, groups, nestChildInGroup);
+            console.log($scope.group.data.childNotes);
+            $element.bind('mouseup', myMouseUp);  //SAVE this line
+          }
         });
 
         function myMouseUp(event) {
