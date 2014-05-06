@@ -8,6 +8,7 @@ angular.module('headerMenu_module')
     function($document, $compile, $rootScope, navigationService, headerMenu_service){
       return {
         restrict: 'A',
+        scope: {},
         link: link
       };
 

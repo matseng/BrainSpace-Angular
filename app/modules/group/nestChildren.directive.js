@@ -27,17 +27,39 @@ angular.module('group_module')
         var groupInitialX, groupInitialY;
         var deltaX, deltaY;
 
-        var nestChildInDOM = function(groupKey, childKey) {
+        var nestChildInGroup = function(groupKey, childKey) {
           var $groupEl = angular.element(document.getElementById(groupKey));
           var $childEl = angular.element(document.getElementById(childKey));
           var child = $childEl.scope().note;
+          // var childScope = $childEl.scope();
+          notes[childKey] = child;
           child.style.left = child.data.x - $groupEl.scope().group.data.x;
           child.style.top = child.data.y - $groupEl.scope().group.data.y;
           $childEl.attr('ng-style', "{left: note.style.left, top: note.style.top, width: note.style.width, height: note.style.height}");
           $childEl.css({'left': child.style.left, 'top': child.style.top });
           $compile($childEl)($childEl.scope());  //otherwise scope gets lost
-          $groupEl.append($childEl);   
+          // $compile($childEl)($childEl.scope().$new());  //otherwise scope gets lost
+          // $childEl.scope().$destroy();  //destroy the old scope?
+          console.log($childEl.scope());
+          $groupEl.append($childEl);
+          console.log($childEl.scope());
+          // debugger;
+        };
 
+        var removeChildFromGroup = function(groupKey, childKey) {
+          var $allNotesContainer = angular.element(document.getElementById('allNotesContainer'));
+          var $groupEl = angular.element(document.getElementById(groupKey));
+          var $childEl = angular.element(document.getElementById(childKey));
+          var group = $groupEl.scope().group;
+          var child = $childEl.scope().note;
+          notes[childKey] = child;
+          child.data.x = group.data.x + child.style.left;
+          child.data.y = group.data.y + child.style.top;
+          $childEl.attr('ng-style', "{left: note.data.x, top: note.data.y, width: note.style.width, height: note.style.height}");
+          $childEl.css({'left': child.data.x, 'top': child.data.y});
+          $compile($childEl)($childEl.scope().$new());  //otherwise scope gets lost
+          // $childEl.scope().$destroy();  //destroy the old scope?
+          $allNotesContainer.append($childEl);
         };
 
         var nestChildrenInDOM = function(noteKeysInGroup) {
@@ -102,7 +124,7 @@ angular.module('group_module')
           // nestChildrenInDOM(noteKeysInGroup);
 
           // $element.bind('mouseup', myMouseUp);  //SAVE this line
-          $scope.group.data.childNotes = nest_service.findChildren($scope.key, nestChildInDOM);
+          $scope.group.data.childNotes = nest_service.findChildren($scope.key, nestChildInGroup);
           console.log($scope.group.data.childNotes);
           $element.bind('mouseup', myMouseUp);  //SAVE this line
 
@@ -112,19 +134,20 @@ angular.module('group_module')
         function myMouseUp(event) {
           // var scale = navigationService.getScale();
           var key;
-          var note;
-          var notes = notesFactory.getNotes2();
+          // var note;
+          
           // deltaX = $scope.group.data.x - groupInitialX;
           // deltaY = $scope.group.data.y - groupInitialY;
           // console.log(deltaX, deltaY);
           angular.forEach($scope.group.data.childNotes, function(noteKey, index) {
-            note = notes[noteKey];
-            console.log(note.style.left, note.style.top);
-            note.data.x = $scope.group.data.x + note.style.left;
-            note.data.y = $scope.group.data.y + note.style.top;
-            console.log(note.data.x, note.data.y);
+            removeChildFromGroup($scope.key, noteKey);
+            var note = notes[noteKey];
+            console.log(note.data.text);
+            // note.data.x = $scope.group.data.x + note.style.left;
+            // note.data.y = $scope.group.data.y + note.style.top;
+            // console.log(note.data.x, note.data.y);
             $scope.notes[noteKey] = note;  //NOTE: This line is a hack to resolve different note objects for the same initial note data 
-            // $scope.notes.$save(noteKey);
+            $scope.notes.$save(noteKey);
           });
 
           // for(var key in noteKeysInGroup) {
