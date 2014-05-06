@@ -10,7 +10,6 @@ angular.module('nest_module')
       var children = [];
       _each(notes2, function(note, noteKey) {
         if(inBounds(group, note)) {
-          console.log(note.data.text);
           callback(groupKey, noteKey);
           children.push(noteKey);
         }
