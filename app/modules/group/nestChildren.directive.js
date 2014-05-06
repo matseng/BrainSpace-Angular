@@ -58,8 +58,12 @@ angular.module('group_module')
           child.style.left = child.data.x - $groupEl.scope().group.data.x;
           child.style.top = child.data.y - $groupEl.scope().group.data.y;
           togglePosition(child, $childEl);
-          $compile($childEl)($childEl.scope());  //otherwise scope gets lost
-          $groupEl.append($childEl);
+          // $compile($childEl)($childEl.scope());  //otherwise scope gets lost
+          var $childEl2 = $compile($childEl.clone())($childEl.scope());  //otherwise scope gets lost
+          // $groupEl.append($childEl);
+          $childEl.scope().$apply();
+          $groupEl.append($childEl2);
+          $childEl.remove();
         };
 
         var removeChildFromGroup = function(groupKey, childKey) {
@@ -71,8 +75,10 @@ angular.module('group_module')
           child.data.x = group.data.x + child.style.left;
           child.data.y = group.data.y + child.style.top;
           togglePosition(child, $childEl);
-          $compile($childEl)($childEl.scope());  //otherwise scope gets lost
-          $allNotesContainer.append($childEl);
+          var $childEl2 = $compile($childEl.clone())($childEl.scope());  //otherwise scope gets lost
+          $childEl.scope().$apply();
+          $allNotesContainer.append($childEl2);
+          $childEl.remove();
         };
 
         $element.bind('mousedown', function() {
@@ -89,7 +95,7 @@ angular.module('group_module')
           });
           angular.forEach($scope.group.data.childGroups, function(groupKey, index) {
             removeChildFromGroup($scope.key, groupKey);
-            $scope.groups.$save(groupKey);
+            $scope.groups.$save(groupKey);  //$scope inherits from its parent scope
           });
         $element.unbind('mouseup', myMouseUp);
         };
