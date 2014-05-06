@@ -42,11 +42,11 @@ angular.module('group_module')
         var togglePosition = function(child, $childEl) {
           var childType = $childEl.attr('data-type');
           var childStyle = $childEl.attr('ng-style');
-          if(/data.x/.test($childEl.attr('ng-style'))) {
-            $childEl.attr('ng-style', "{left: note.style.left, top: note.style.top, width: note.style.width, height: note.style.height}");
+          if(/data.x/.test(childStyle)) {
+            $childEl.attr('ng-style', "{left:" + childType + ".style.left, top:" + childType + ".style.top, width:" + childType + ".style.width, height:" + childType + ".style.height}");
             $childEl.css({'left': child.style.left, 'top': child.style.top });
-          } else if(/style.left/.test($childEl.attr('ng-style'))) {
-            $childEl.attr('ng-style', "{left: note.data.x, top: note.data.y, width: note.style.width, height: note.style.height}");
+          } else if(/style.left/.test(childStyle)) {
+            $childEl.attr('ng-style', "{left:" + childType + ".data.x, top:" + childType + ".data.y, width:" + childType + ".style.width, height:" + childType + ".style.height}");
             $childEl.css({'left': child.data.x, 'top': child.data.y});
           }
         };
@@ -54,13 +54,9 @@ angular.module('group_module')
         var nestChildInGroup = function(groupKey, childKey) {
           var $groupEl = angular.element(document.getElementById(groupKey));
           var $childEl = angular.element(document.getElementById(childKey));
-          // var child = $childEl.scope().note;
-          // notes[childKey] = child;
           var child = syncChild($childEl);
           child.style.left = child.data.x - $groupEl.scope().group.data.x;
           child.style.top = child.data.y - $groupEl.scope().group.data.y;
-          // $childEl.attr('ng-style', "{left: note.style.left, top: note.style.top, width: note.style.width, height: note.style.height}");
-          // $childEl.css({'left': child.style.left, 'top': child.style.top });
           togglePosition(child, $childEl);
           $compile($childEl)($childEl.scope());  //otherwise scope gets lost
           $groupEl.append($childEl);
@@ -71,13 +67,9 @@ angular.module('group_module')
           var $groupEl = angular.element(document.getElementById(groupKey));
           var $childEl = angular.element(document.getElementById(childKey));
           var group = $groupEl.scope().group;
-          // var child = $childEl.scope().note;
-          // notes[childKey] = child;
           var child = syncChild($childEl);
           child.data.x = group.data.x + child.style.left;
           child.data.y = group.data.y + child.style.top;
-          // $childEl.attr('ng-style', "{left: note.data.x, top: note.data.y, width: note.style.width, height: note.style.height}");
-          // $childEl.css({'left': child.data.x, 'top': child.data.y});
           togglePosition(child, $childEl);
           $compile($childEl)($childEl.scope());  //otherwise scope gets lost
           $allNotesContainer.append($childEl);
@@ -92,8 +84,6 @@ angular.module('group_module')
         function myMouseUp(event) {
           angular.forEach($scope.group.data.childNotes, function(noteKey, index) {
             removeChildFromGroup($scope.key, noteKey);
-            // var note = notes[noteKey];
-            // $scope.notes[noteKey] = note;  //NOTE: This line is a hack to resolve different note objects for the same initial note data 
             $scope.notes.$save(noteKey);
           });
         $element.unbind('mouseup', myMouseUp);
