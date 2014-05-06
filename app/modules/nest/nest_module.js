@@ -33,8 +33,8 @@ angular.module('nest_module')
     var inBounds = function(group, target) {
       groupRight = group.data.x + group.style.width;
       groupBottom = group.data.y + group.style.height;
-      if(group.data.x <= target.data.x && target.data.x <= groupRight
-        && group.data.y <= target.data.y && target.data.y <= groupBottom) {
+      if(group.data.x < target.data.x && target.data.x < groupRight
+        && group.data.y < target.data.y && target.data.y < groupBottom) {
        return true; 
       }
     };

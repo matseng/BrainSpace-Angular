@@ -77,6 +77,7 @@ angular.module('group_module')
 
         $element.bind('mousedown', function() {
           $scope.group.data.childNotes = nest_service.findChildren($scope.key, notes, nestChildInGroup);
+          $scope.group.data.childGroups = nest_service.findChildren($scope.key, groups, nestChildInGroup);
           console.log($scope.group.data.childNotes);
           $element.bind('mouseup', myMouseUp);  //SAVE this line
         });
@@ -85,6 +86,10 @@ angular.module('group_module')
           angular.forEach($scope.group.data.childNotes, function(noteKey, index) {
             removeChildFromGroup($scope.key, noteKey);
             $scope.notes.$save(noteKey);
+          });
+          angular.forEach($scope.group.data.childGroups, function(groupKey, index) {
+            removeChildFromGroup($scope.key, groupKey);
+            $scope.groups.$save(groupKey);
           });
         $element.unbind('mouseup', myMouseUp);
         };
