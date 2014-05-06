@@ -5,13 +5,13 @@ angular.module('nest_module')
     var notes2 = notesFactory.getNotes2();
     var groups2 = notesFactory.getGroups2();
 
-    this.findChildren = function(groupKey, callback) {
+    this.findChildren = function(groupKey, collection, callback) {
       var group = groups2[groupKey];
       var children = [];
-      _each(notes2, function(note, noteKey) {
-        if(inBounds(group, note)) {
-          callback(groupKey, noteKey);
-          children.push(noteKey);
+      _each(collection, function(child, childKey) {
+        if(inBounds(group, child)) {
+          callback(groupKey, childKey);
+          children.push(childKey);
         }
       });
       return children;
@@ -19,13 +19,13 @@ angular.module('nest_module')
 
     this.findParent = function(key, callback) {};
 
-    var _each = function($collection, callback) {
+    var _each = function(collection, callback) {
       var args = Array.prototype.slice.call(arguments, 2);
-      var keys = $collection.$getIndex();
+      var keys = collection.$getIndex();
       var val, key;
       for(var i = 0; i < keys.length; i++) {
         key = keys[i];
-        val = $collection[key];
+        val = collection[key];
         callback(val, key, args);
       }
     };
