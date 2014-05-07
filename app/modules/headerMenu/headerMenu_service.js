@@ -20,7 +20,7 @@ angular.module('headerMenu_module')
       console.log(notes2, key);
       element = angular.element(document.getElementById(key));
       element.find('textarea')[0].focus();  //sets focus to textarea of the most recently added note
-      this.setScope(element.scope());
+      this.setScope(element.scope(), element);
     };
     
     this.getScope = function() {
