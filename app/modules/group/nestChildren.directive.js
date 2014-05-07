@@ -1,30 +1,16 @@
 // nestChildren.directive.js
-// TODO: Working on hierarchical group/note MODEL and VIEW in DOM
-  //Model will contain parent and/or child list 
-  //On mousedown on a group, create list of child keys
-    //Keep track of previous list of child keys
-      //Update DOM reflect the notes added and notes removed
-  //Create nested view in DOM from group model
-  //When a note is dragged, validate it's data.x,y  
 
 angular.module('group_module')
-  .directive('nestChildrenDirective', ['notesFactory', '$compile', 'navigationService', 'nest_service', 'headerMenu_service',
-    function(notesFactory, $compile, navigationService, nest_service, headerMenu_service) {
+  .directive('nestChildrenDirective', ['$compile', 'navigationService', 'nest_service', 'headerMenu_service', 'data_service',
+    function($compile, navigationService, nest_service, headerMenu_service, data_service) {
       return {
         attribute: "A",
         link: link
       };
 
       function link($scope, $element, attrs) {
-        var notes = notesFactory.getNotes2();
-        var groups = notesFactory.getGroups2();
-        var noteKeysInGroup;
-        var noteKeysInGroupElement;
-        var groupKeysInGroup, groupKeysInGroupPrevious;
-        var noteInitialPositions;
-        var groupInitialPositions;
-        var groupInitialX, groupInitialY;
-        var deltaX, deltaY;
+        var notes = data_service.getNotes();
+        var groups = data_service.getGroups();
 
         var syncChild = function($childEl) {  //helper function to keep data sync'd prior to future $save's in firebase
           var childScope = $childEl.scope();
@@ -58,9 +44,7 @@ angular.module('group_module')
           child.style.left = child.data.x - $groupEl.scope().group.data.x;
           child.style.top = child.data.y - $groupEl.scope().group.data.y;
           togglePosition(child, $childEl);
-          // $compile($childEl)($childEl.scope());  //otherwise scope gets lost
-          var $childEl2 = $compile($childEl.clone())($childEl.scope());  //otherwise scope gets lost
-          // $groupEl.append($childEl);
+          var $childEl2 = $compile($childEl.clone())($childEl.scope());  //create new element & remove old element to avoid weird duplication of directives
           $childEl.scope().$apply();
           $groupEl.append($childEl2);
           $childEl.remove();
@@ -75,7 +59,7 @@ angular.module('group_module')
           child.data.x = group.data.x + child.style.left;
           child.data.y = group.data.y + child.style.top;
           togglePosition(child, $childEl);
-          var $childEl2 = $compile($childEl.clone())($childEl.scope());  //otherwise scope gets lost
+          var $childEl2 = $compile($childEl.clone())($childEl.scope());
           $childEl.scope().$apply();
           $allNotesContainer.append($childEl2);
           $childEl.remove();
@@ -86,18 +70,18 @@ angular.module('group_module')
             $scope.group.data.childNotes = nest_service.findChildren($scope.key, notes, nestChildInGroup);
             $scope.group.data.childGroups = nest_service.findChildren($scope.key, groups, nestChildInGroup);
             console.log($scope.group.data.childNotes);
-            $element.bind('mouseup', myMouseUp);  //SAVE this line
+            $element.bind('mouseup', myMouseUp);
           }
         });
 
         function myMouseUp(event) {
           angular.forEach($scope.group.data.childNotes, function(noteKey, index) {
             removeChildFromGroup($scope.key, noteKey);
-            $scope.notes.$save(noteKey);
+            data_service.saveKey(noteKey);
           });
           angular.forEach($scope.group.data.childGroups, function(groupKey, index) {
             removeChildFromGroup($scope.key, groupKey);
-            $scope.groups.$save(groupKey);  //$scope inherits from its parent scope
+            data_service.saveKey(groupKey);
           });
         $element.unbind('mouseup', myMouseUp);
         };

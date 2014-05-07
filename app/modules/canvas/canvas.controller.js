@@ -23,12 +23,8 @@ angular.module('canvas.module', [])
       console.log(data_service);
 
       $scope.$on('addNote', function(event, fromFile, note2) {
-        // console.log(note2);
-        // $scope.notes2.$add(note2);
-        // var prom = $scope.notes2.$add(note2);
         var prom = data_service.addNote(note2);
         prom.then(function(ref) {
-          // var key = ref.name();
           headerMenu_service.setScopeByKey(ref);
         });
       });
@@ -46,9 +42,6 @@ angular.module('canvas.module', [])
       });
 
       $scope.$on('addGroup', function(event, emitterFile, groupObject) {
-        // notesFactory.addGroup(groupObject);
-        // $scope.groups2.$add(groupObject);
-        // console.log(groupObject);
         data_service.addGroup(groupObject);
       });
 
@@ -67,10 +60,7 @@ angular.module('canvas.module', [])
           groupScope.group.style.width = updatedProperty[key].width;
           groupScope.group.style.height = updatedProperty[key].height;
         }
-        // $scope.groups[groupScope.key] = groupScope.group;  //NOTE: This line is a hack to resolve different group objects for same initial group data 
-        // $scope.groups.$save(groupScope.key);
-        data_service.saveKey(groupScope.key);
-        
+        data_service.saveKey(groupScope.key);s
       });
     }
   ]);

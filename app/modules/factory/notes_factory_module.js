@@ -72,16 +72,7 @@ angular.module('notes_factory_module', ['firebase'])
           val = collection[key];
           callback(val, key);
         }
-      },
-      // saveKey: function(key) {  //NOTE working bc of data sync problem btw firebase obj and scope obj
-      //   if(key in notes2) {
-      //     notes2.$save(key);
-      //   } else if(key in groups2) {
-      //     groups2.$save(key);
-      //   } else {
-      //     console.log("Error");
-      //   }
-      // }
+      }
     };
   }
 ]);
