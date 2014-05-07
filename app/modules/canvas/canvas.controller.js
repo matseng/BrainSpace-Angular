@@ -6,9 +6,10 @@
 
 angular.module('canvas.module', [])
   //.controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'headerMenu_service', 'refactorData',  //refactorData is used to update previous data structure
-  .controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'headerMenu_service', 'render_service',
+  // .controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'headerMenu_service', 'render_service',
   // .controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'headerMenu_service',
-    function($scope, $firebase, notesFactory, headerMenu_service, refactorData){
+  .controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'headerMenu_service', 'data_service',
+    function($scope, $firebase, notesFactory, headerMenu_service, data_service) {
 
       $scope.groups2 = notesFactory.getGroups2();
       $scope.notes2 = notesFactory.getNotes2();
@@ -16,14 +17,19 @@ angular.module('canvas.module', [])
       $scope.notes = $scope.notes2;
       $scope.groups = $scope.groups2;
       notesFactory.setScope($scope.notes);
+      $scope.notesCollection = notesFactory.getNotes();
+      $scope.groupsCollection = notesFactory.getGroups();
+      console.log(headerMenu_service);
+      console.log(data_service);
 
       $scope.$on('addNote', function(event, fromFile, note2) {
         // console.log(note2);
         // $scope.notes2.$add(note2);
-        var prom = $scope.notes2.$add(note2);
+        // var prom = $scope.notes2.$add(note2);
+        var prom = data_service.addNote(note2);
         prom.then(function(ref) {
-          var key = ref.name();
-          headerMenu_service.setScopeByKey(key);
+          // var key = ref.name();
+          headerMenu_service.setScopeByKey(ref);
         });
       });
 
@@ -32,14 +38,11 @@ angular.module('canvas.module', [])
         if (fromFile == 'draggable_directive.js' && updatedProperty) {
           noteScope.set('x', updatedProperty.position.left);
           noteScope.set('y', updatedProperty.position.top);
-          // noteScope.set('left', updatedProperty.position.left);
-          // noteScope.set('top', updatedProperty.position.top);
         } else if (fromFile == 'resizableDiv_directive.js' && updatedProperty) {
           noteScope.set('width', updatedProperty.dimensions.width);
           noteScope.set('height', updatedProperty.dimensions.height);
         }
-        $scope.notes[noteScope.key] = noteScope.note;  //NOTE: This line is a hack to resolve different note objects for the same initial note data 
-        $scope.notes.$save(noteScope.key);
+        data_service.saveKey(noteScope.key);
       });
 
       $scope.$on('addGroup', function(event, emitterFile, groupObject) {
