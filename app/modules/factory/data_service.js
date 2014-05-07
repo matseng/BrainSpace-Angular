@@ -16,6 +16,11 @@ angular.module('notes_factory_module')
         var ctrl = $controller('note-controller', {$scope:scope});
         scope.key = data.name();
         scope.note = data.val();
+        if(scope.note.data.hashtags) {
+          for(var i = 0; i < scope.note.data.hashtags.length; i++) {
+            hashtagService.setHashtags(scope.note.data.hashtags[i], scope.key);
+          }
+        }
         autocomplete_service.insertText(scope.note.data.text, scope.key);
         var $compiled = $compile(angular.element('<note_model_directive></note_model_directive>'))(scope);
         $canvas.append($compiled);
