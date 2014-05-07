@@ -43,7 +43,7 @@ angular.module('group_module')
           var child = syncChild($childEl);
           child.style.left = child.data.x - $groupEl.scope().group.data.x;
           child.style.top = child.data.y - $groupEl.scope().group.data.y;
-          setPosition(child, $childEl, 'style');
+          setPositionType(child, $childEl, 'style');
           var $childEl2 = $compile($childEl.clone())($childEl.scope());  //create new element & remove old element to avoid weird duplication of directives
           $childEl.scope().$apply();
           $groupEl.append($childEl2);
@@ -58,7 +58,7 @@ angular.module('group_module')
           var child = syncChild($childEl);
           child.data.x = group.data.x + child.style.left;
           child.data.y = group.data.y + child.style.top;
-          setPosition(child, $childEl, 'data');
+          setPositionType(child, $childEl, 'data');
           var $childEl2 = $compile($childEl.clone())($childEl.scope());
           $childEl.scope().$apply();
           $allNotesContainer.append($childEl2);
