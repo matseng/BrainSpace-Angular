@@ -15,10 +15,10 @@ angular.module('group_module')
         var syncChild = function($childEl) {  //helper function to keep data sync'd prior to future $save's in firebase
           var childScope = $childEl.scope();
           var child;
-          if('note' in childScope) {
+          if(childScope && 'note' in childScope) {
             child = $childEl.scope().note;
             notes[childScope.key] = child; 
-          } else if('group' in childScope) {
+          } else if(childScope && 'group' in childScope) {
             child = $childEl.scope().group;
             groups[childScope.key] = child; 
           }
