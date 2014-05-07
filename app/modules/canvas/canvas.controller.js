@@ -52,70 +52,20 @@ angular.module('canvas.module', [])
         // data_service.addGroup(groupObject);
       });
 
-      var noteKeysInGroup = [];  //TODO: refactor into a service
-      var noteInitialPositions = [];
-      var groupKeysInGroup = [];
-      var groupInitialPositions = [];
-
-      $scope.$on('update:group:mousedown', function(event, fromFile) {
-        noteKeysInGroup = [];
-        noteInitialPositions = [];
-        groupKeysInGroup = [];
-        groupInitialPositions = [];
-
-        var groupScope = event.targetScope;
-        var groupRight = groupScope.group.left + groupScope.group.width;
-        var groupBottom = groupScope.group.top + groupScope.group.height;
-        angular.forEach($scope.notes, function(note, key) {
-          if((note.position) && groupScope.group.left <= note.position.left && note.position.left <= groupRight
-            && groupScope.group.top <= note.position.top && note.position.top <= groupBottom) {
-            noteKeysInGroup.push(key);
-            noteInitialPositions.push({left: note.position.left, top: note.position.top});
-          }
-        });
-        angular.forEach($scope.groups, function(group, key) {
-          if((group.left) && groupScope.group.left < group.left && group.left < groupRight
-            && groupScope.group.top < group.top && group.top < groupBottom) {
-            groupKeysInGroup.push(key);
-            groupInitialPositions.push({left: group.left, top: group.top});
-          }
-        });
-      });
-
       $scope.$on('update:group', function(event, fromFile, updatedProperty, deltaObj) {
         var groupScope = event.targetScope;
         var key = Object.keys(updatedProperty)[0];
         if(key == 'position'){
           var position = updatedProperty[key];
-          var groupRight = position.left + groupScope.group.width;
-          var groupBottom = position.top + groupScope.group.height;
-          for(var i = 0; i < noteKeysInGroup.length; i++) {
-            note = $scope.notes[noteKeysInGroup[i]];
-            note.position.left = noteInitialPositions[i].left + deltaObj.deltaX;
-            note.position.top = noteInitialPositions[i].top + deltaObj.deltaY;
-          }
-          for(var i = 0; i < groupKeysInGroup.length; i++) {
-            group = $scope.groups[groupKeysInGroup[i]];
-            group.left = groupInitialPositions[i].left + deltaObj.deltaX;
-            group.top = groupInitialPositions[i].top + deltaObj.deltaY;
-          }
-
           groupScope.group.data.x = position.left;
           groupScope.group.data.y = position.top;
           groupScope.group.style.left = position.left;
           groupScope.group.style.top = position.top;
           delete groupScope.group.left;
           delete groupScope.group.top;
-
         } else if(key == 'dimensions'){
           groupScope.group.style.width = updatedProperty[key].width;
           groupScope.group.style.height = updatedProperty[key].height;
-        }
-        for(var i = 0; i < noteKeysInGroup.length; i++) {
-          $scope.notes.$save(noteKeysInGroup[i]);
-        }
-        for(var i = 0; i < groupKeysInGroup.length; i++) {
-          $scope.groups.$save(groupKeysInGroup[i]);
         }
         $scope.groups[groupScope.key] = groupScope.group;  //NOTE: This line is a hack to resolve different group objects for same initial group data 
         $scope.groups.$save(groupScope.key);
