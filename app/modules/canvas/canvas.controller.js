@@ -47,9 +47,9 @@ angular.module('canvas.module', [])
 
       $scope.$on('addGroup', function(event, emitterFile, groupObject) {
         // notesFactory.addGroup(groupObject);
-        $scope.groups2.$add(groupObject);
+        // $scope.groups2.$add(groupObject);
         // console.log(groupObject);
-        // data_service.addGroup(groupObject);
+        data_service.addGroup(groupObject);
       });
 
       $scope.$on('update:group', function(event, fromFile, updatedProperty, deltaObj) {
@@ -67,8 +67,10 @@ angular.module('canvas.module', [])
           groupScope.group.style.width = updatedProperty[key].width;
           groupScope.group.style.height = updatedProperty[key].height;
         }
-        $scope.groups[groupScope.key] = groupScope.group;  //NOTE: This line is a hack to resolve different group objects for same initial group data 
-        $scope.groups.$save(groupScope.key);
+        // $scope.groups[groupScope.key] = groupScope.group;  //NOTE: This line is a hack to resolve different group objects for same initial group data 
+        // $scope.groups.$save(groupScope.key);
+        data_service.saveKey(groupScope.key);
+        
       });
     }
   ]);

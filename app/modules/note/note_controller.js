@@ -23,18 +23,6 @@ angular.module('note_module')
         else (property in $scope.note.data)
           $scope.note.data[property] = val;
       };
-
-      // $scope.setData = function(data) {
-      //   for(prop in data) {
-      //     $scope.data[prop] = data[prop];
-      //   }
-      // };
-
-      // $scope.setStyle = function(style) {
-      //   for(prop in style) {
-      //     $scope.style[prop] = style[prop];
-      //   }
-      // };
     }
   ]);
 
