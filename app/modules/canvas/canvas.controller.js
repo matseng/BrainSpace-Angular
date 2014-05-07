@@ -10,17 +10,8 @@ angular.module('canvas.module', [])
   // .controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'headerMenu_service',
   .controller("allNotes_controller", ['$scope', '$firebase', 'notesFactory', 'headerMenu_service', 'data_service',
     function($scope, $firebase, notesFactory, headerMenu_service, data_service) {
-
-      $scope.groups2 = notesFactory.getGroups2();
-      $scope.notes2 = notesFactory.getNotes2();
-      $scope.noteScopeSelected = null;
-      $scope.notes = $scope.notes2;
-      $scope.groups = $scope.groups2;
-      notesFactory.setScope($scope.notes);
       $scope.notesCollection = notesFactory.getNotes();
       $scope.groupsCollection = notesFactory.getGroups();
-      console.log(headerMenu_service);
-      console.log(data_service);
 
       $scope.$on('addNote', function(event, fromFile, note2) {
         var prom = data_service.addNote(note2);
@@ -54,13 +45,13 @@ angular.module('canvas.module', [])
           groupScope.group.data.y = position.top;
           groupScope.group.style.left = position.left;
           groupScope.group.style.top = position.top;
-          delete groupScope.group.left;
-          delete groupScope.group.top;
+          // delete groupScope.group.left;
+          // delete groupScope.group.top;
         } else if(key == 'dimensions'){
           groupScope.group.style.width = updatedProperty[key].width;
           groupScope.group.style.height = updatedProperty[key].height;
         }
-        data_service.saveKey(groupScope.key);s
+        data_service.saveKey(groupScope.key);
       });
     }
   ]);

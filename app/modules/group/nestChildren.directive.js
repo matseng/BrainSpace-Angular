@@ -25,13 +25,13 @@ angular.module('group_module')
           return child;
         };
 
-        var togglePosition = function(child, $childEl) {
+        var setPositionType = function(child, $childEl, positionType) {
           var childType = $childEl.attr('data-type');
           var childStyle = $childEl.attr('ng-style');
-          if(/data.x/.test(childStyle)) {
+          if(positionType === 'style') {
             $childEl.attr('ng-style', "{left:" + childType + ".style.left, top:" + childType + ".style.top, width:" + childType + ".style.width, height:" + childType + ".style.height}");
             $childEl.css({'left': child.style.left, 'top': child.style.top });
-          } else if(/style.left/.test(childStyle)) {
+          } else if(positionType === 'data') {
             $childEl.attr('ng-style', "{left:" + childType + ".data.x, top:" + childType + ".data.y, width:" + childType + ".style.width, height:" + childType + ".style.height}");
             $childEl.css({'left': child.data.x, 'top': child.data.y});
           }
@@ -43,7 +43,7 @@ angular.module('group_module')
           var child = syncChild($childEl);
           child.style.left = child.data.x - $groupEl.scope().group.data.x;
           child.style.top = child.data.y - $groupEl.scope().group.data.y;
-          togglePosition(child, $childEl);
+          setPosition(child, $childEl, 'style');
           var $childEl2 = $compile($childEl.clone())($childEl.scope());  //create new element & remove old element to avoid weird duplication of directives
           $childEl.scope().$apply();
           $groupEl.append($childEl2);
@@ -58,7 +58,7 @@ angular.module('group_module')
           var child = syncChild($childEl);
           child.data.x = group.data.x + child.style.left;
           child.data.y = group.data.y + child.style.top;
-          togglePosition(child, $childEl);
+          setPosition(child, $childEl, 'data');
           var $childEl2 = $compile($childEl.clone())($childEl.scope());
           $childEl.scope().$apply();
           $allNotesContainer.append($childEl2);
