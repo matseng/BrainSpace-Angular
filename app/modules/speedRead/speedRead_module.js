@@ -22,10 +22,16 @@ angular.module('speedRead_module')
       //open modal
       //start playing words from a group or a note
       var words = getWordsFromSelectedScope();
-      console.log(words);
-      // setInterval(function(){
-
-      // }, 333);
+      var length = words.length;
+      var i = 0;
+      var recur = function() {
+        console.log(words[i]);
+        i += 1;
+        if(i < length) {
+          setTimeout(recur, 333);
+        }
+      }
+      recur();
     };
 
     var getWordsFromSelectedScope = function() {
