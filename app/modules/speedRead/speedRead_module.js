@@ -6,7 +6,7 @@ angular.module('speedRead_module')
       restrict: 'A',
       controller: function($scope, $element) {
         $scope.speedRead = function() {
-          speedRead_service.getWords();
+          speedRead_service.displayAndPlay();
         };
       }
     };
@@ -14,16 +14,30 @@ angular.module('speedRead_module')
 
 angular.module('speedRead_module')
   .service('speedRead_service', ['headerMenu_service', function(headerMenu_service) {
-    var selectedObjectScope;
+    var selectedScope;
     var noteKeys;
     var words;
 
-    this.getWords = function() {
+    this.displayAndPlay = function() {
+      //open modal
+      //start playing words from a group or a note
+      getWordsFromSelectedScope();
+    };
+
+    var getWordsFromSelectedScope = function() {
       selectedScope = headerMenu_service.getScope();
       if('group' in selectedScope) {
         console.log('group');
       } else if('note' in selectedScope) {
         console.log('note');
+        getWordsFromNote(selectedScope)
       }
     };
+
+    var getWordsFromNote = function(noteScope) {
+      var text = noteScope.note.data.text;
+      var words = text.match(/\S+/g);
+      console.log(words);
+    };
+
   }]);
