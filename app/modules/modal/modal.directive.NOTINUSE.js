@@ -10,7 +10,7 @@ angular.module('headerMenu_module')
       link: link
     };
 
-    function link($scope, $element, attrs) {
+    function link ($scope, $element, attrs) {
       var $modal;
       $scope.toggleModal = function() {
         if(document.body.getElementsByClassName('modal').length === 0) {

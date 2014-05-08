@@ -44,10 +44,5 @@ angular.module('headerMenu_module')
           $modal.css({visibility: 'hidden'});
         }
       };
-
-      $scope.speedReadClicked = function() {
-        // speedRead_service
-        console.log("hello world");
-      };
     }
   ]);
