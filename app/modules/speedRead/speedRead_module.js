@@ -13,7 +13,7 @@ angular.module('speedRead_module')
   }]);
 
 angular.module('speedRead_module')
-  .service('speedRead_service', ['headerMenu_service', function(headerMenu_service) {
+  .service('speedRead_service', ['headerMenu_service', '$rootScope', function(headerMenu_service, $rootScope) {
     var selectedScope;
     var noteKeys;
     var words;
@@ -25,6 +25,7 @@ angular.module('speedRead_module')
       var length = words.length;
       var i = 0;
       var recur = function() {
+        $rootScope.$broadcast('modal:update', 'speedRead_service', words[i]);
         console.log(words[i]);
         i += 1;
         if(i < length) {
