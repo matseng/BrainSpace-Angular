@@ -20,8 +20,8 @@ angular.module('canvas.module', [])
         });
       });
 
-      $scope.$on('update:note', function(event, fromFile, updatedProperty) {
-        var noteScope = event.targetScope;
+      $scope.$on('update:note', function(event, fromFile, noteScope, updatedProperty) {
+        // var noteScope = event.targetScope;
         if (fromFile == 'draggable_directive.js' && updatedProperty) {
           noteScope.set('x', updatedProperty.position.left);
           noteScope.set('y', updatedProperty.position.top);

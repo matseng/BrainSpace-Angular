@@ -7,7 +7,7 @@ angular.module('notes_factory_module')
       var notesRef = notesFactory.getNotesRef();
       var groupsRef = notesFactory.getGroupsRef();
       var $canvas = angular.element(document.getElementById('allNotesContainer'));
-      var canvasScope = $canvas.scope();
+      var canvasScope = $canvas.scope() || $rootScope;
       var notesCollection = {};
       var groupsCollection = {};
 

@@ -1,16 +1,23 @@
 angular.module('nest_module', []);
 
 angular.module('nest_module')
+  // .service('nest_service', [function() {
   .service('nest_service', ['data_service', function(data_service) {
-    var notes2 = data_service.getNotes();
-    var groups2 = data_service.getGroups();
+    var notes = data_service.getNotes();
+    var groups = data_service.getGroups(); 
+    this.setNotesAndGroups = function() {};
 
     this.findChildren = function(groupKey, collection, callback) {
-      var group = groups2[groupKey];
+      var group = groups[groupKey];
       var children = [];
+      if(typeof collection === 'string') {
+        collection = (collection === 'notes') ? notes : (collection === 'groups') ? groups : 'Error';
+      }
       angular.forEach(collection, function(child, childKey) {
         if(inBounds(group, child)) {
-          callback(groupKey, childKey);
+          if(callback) { 
+            callback(groupKey, childKey);
+          }
           children.push(childKey);
         }
       });

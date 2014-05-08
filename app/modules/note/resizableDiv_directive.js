@@ -1,5 +1,5 @@
 // resizableDiv_directive.js
-angular.module("note_module").directive('resizableDivDirective', ['$document', 'navigationService', function($document, navigationService){
+angular.module("note_module").directive('resizableDivDirective', ['$rootScope', '$document', 'navigationService', function($rootScope, $document, navigationService){
   return {
     restrict: 'A',
     link: link
@@ -37,7 +37,8 @@ angular.module("note_module").directive('resizableDivDirective', ['$document', '
       var dimensions = {'width': width, 'height': height};
       $element.css(dimensions);
       var eventName = 'update:' + $element[0].dataset.type;  //e.g. 'update:note'
-      $scope.$emit(eventName, 'resizableDiv_directive.js', {dimensions: dimensions});
+      // $scope.$emit(eventName, 'resizableDiv_directive.js', {dimensions: dimensions});
+      $rootScope.$broadcast(eventName, 'resizableDiv_directive.js', $scope, {dimensions: dimensions});
       }
 
     function resizableMouseUp ($event){

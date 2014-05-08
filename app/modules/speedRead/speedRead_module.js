@@ -1,27 +1,31 @@
 angular.module('speedRead_module', []);
 
 angular.module('speedRead_module')
-  .directive('speedRead', ['speedRead_service', function(speedRead_service) {
+  .directive('speedRead', ['speedRead_service', 'data_service', function(speedRead_service, data_service) {
+  // .directive('speedRead', ['speedRead_service', function(speedRead_service) {
     return {
       restrict: 'A',
       controller: function($scope, $element) {
         $scope.speedRead = function() {
-          speedRead_service.displayAndPlay();
+          //speedRead_service.displayAndPlay();
         };
       }
     };
   }]);
 
 angular.module('speedRead_module')
-  .service('speedRead_service', ['headerMenu_service', '$rootScope', function(headerMenu_service, $rootScope) {
+  .service('speedRead_service', ['headerMenu_service', '$rootScope', function(headerMenu_service, $rootScope, nest_service) {
+  // .service('speedRead_service', ['data_service', 'headerMenu_service', '$rootScope', 'nest_service', function(data_service, headerMenu_service, $rootScope, nest_service) {
     var selectedScope;
     var noteKeys;
     var words;
+    // var notes = data_service.getNotes();
 
     this.displayAndPlay = function() {
       //open modal
       //start playing words from a group or a note
       var words = getWordsFromSelectedScope();
+      console.log(words);
       var length = words.length;
       var i = 0;
       var recur = function() {
@@ -39,16 +43,32 @@ angular.module('speedRead_module')
       selectedScope = headerMenu_service.getScope();
       if('group' in selectedScope) {
         console.log('group');
+        return getWordsFromGroup(selectedScope);
       } else if('note' in selectedScope) {
         console.log('note');
         return getWordsFromNote(selectedScope)
       }
     };
 
-    var getWordsFromNote = function(noteScope) {
-      var text = noteScope.note.data.text;
-      var words = text.match(/\S+/g);
+    var getWordsFromNote = function(noteScopeOrKey) {
+      var text, words;
+      if (typeof noteScopeOrKey === 'string') {
+        text = notes[noteScopeOrKey].data.text;
+      } else {
+        text = noteScope.note.data.text;
+      }
+      words = text.match(/\S+/g);
       return words;
+    };
+
+    var getWordsFromGroup = function(groupScope) {
+      var groupKey = groupScope.key;
+      var noteKeys = nest_service(groupKey, 'notes');
+      var allWords = [];
+      angular.forEach(noteKeys, function(noteKey) {
+        allWords.concat(getWordsFromNote(noteKey));
+      });
+      return allWords;
     };
 
 
