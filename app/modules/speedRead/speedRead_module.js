@@ -21,7 +21,11 @@ angular.module('speedRead_module')
     this.displayAndPlay = function() {
       //open modal
       //start playing words from a group or a note
-      getWordsFromSelectedScope();
+      var words = getWordsFromSelectedScope();
+      console.log(words);
+      // setInterval(function(){
+
+      // }, 333);
     };
 
     var getWordsFromSelectedScope = function() {
@@ -30,14 +34,16 @@ angular.module('speedRead_module')
         console.log('group');
       } else if('note' in selectedScope) {
         console.log('note');
-        getWordsFromNote(selectedScope)
+        return getWordsFromNote(selectedScope)
       }
     };
 
     var getWordsFromNote = function(noteScope) {
       var text = noteScope.note.data.text;
       var words = text.match(/\S+/g);
-      console.log(words);
+      return words;
     };
+
+
 
   }]);
