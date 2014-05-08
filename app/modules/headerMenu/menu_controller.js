@@ -34,5 +34,16 @@ angular.module('headerMenu_module')
           console.log("Select a note prior to clicking delete.");
         }
       };
+
+      $scope.toggleModal = function() {
+        console.log("hello world");
+        var $modal = angular.element(document.getElementById('modalContainer'));
+        // console.log($modal.css('visibility'));
+        if(!$modal.css('visibility') || $modal.css('visibility') === 'visible') {
+          $modal.css({visibility: 'hidden'});
+        } else {
+          $modal.css({visibility: 'visible'});
+        }
+      };
     }
   ]);

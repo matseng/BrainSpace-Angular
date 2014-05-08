@@ -5,7 +5,7 @@
   <title>BrainSpace - Angular</title>
 </head>
 <body>
-  <div modal_directive id='menuContainer' ng-controller='menu_controller'>
+  <div id='menuContainer' ng-controller='menu_controller'>
     <h3>BrainSpace</h3>
 
     <div class="btn-group" data-toggle="buttons">
@@ -26,10 +26,8 @@
       <label class="btn btn-primary">
         <input type="radio" ng-model="menuState" value="drawGroup"> Draw Group
       </label>
-      <label>
-      </label>
-        <button ng-click='toggleModal()'>Toggle Modal</button>
-      </label>     
+      <button ng-click='toggleModal()'>Toggle Modal</button>
+      <button ng-click='speedRead()'>Speed Read</button>
     </div>
     <note_menu_directive>
       <div class="btn-group">
@@ -60,7 +58,8 @@
       </div> -->
     </div>
   </div>
-  
+  <div id='modalContainer'><div class='modalBackground'></div><div class='modal'><span>Hello World, Hello World, Hello World, Hello World, Hello World</span></div></div>
+
   <script type="text/javascript" src="./bower_components/angular/angular.js"></script>
   <script type="text/javascript" src="./bower_components/angular-route/angular-route.js"></script>
   <script type="text/javascript" src="./bower_components/firebase/firebase.js"></script>
@@ -79,7 +78,7 @@
   <script type="text/javascript" src="./app/modules/headerMenu/headerMenu_service.js"></script>
   <script type="text/javascript" src="./app/modules/headerMenu/noteMenu_directive.js"></script>
   <script type="text/javascript" src="./app/modules/headerMenu/addNote_directive.js"></script>
-  <script type="text/javascript" src="./app/modules/headerMenu/modal.directive.js"></script>
+  <!-- // <script type="text/javascript" src="./app/modules/headerMenu/modal.directive.js"></script> -->
   <script type="text/javascript" src="./app/modules/note/note_module.js"></script>
   <script type="text/javascript" src="./app/modules/note/note_controller.js"></script>
   <script type="text/javascript" src="./app/modules/note/noteModel_directive.js"></script>

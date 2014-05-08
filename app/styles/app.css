@@ -132,9 +132,9 @@ h1 {
 /*
 * Modal window
 */
-.modalContainer {
+#modalContainer {
   position: fixed;
-  visibility: visible;
+  visibility: hidden;
   top: 0;
   right: 0;
   bottom: 0;
