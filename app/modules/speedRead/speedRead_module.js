@@ -7,19 +7,19 @@ angular.module('speedRead_module')
       restrict: 'A',
       controller: function($scope, $element) {
         $scope.speedRead = function() {
-          //speedRead_service.displayAndPlay();
+          speedRead_service.displayAndPlay();
         };
       }
     };
   }]);
 
 angular.module('speedRead_module')
-  .service('speedRead_service', ['headerMenu_service', '$rootScope', function(headerMenu_service, $rootScope, nest_service) {
-  // .service('speedRead_service', ['data_service', 'headerMenu_service', '$rootScope', 'nest_service', function(data_service, headerMenu_service, $rootScope, nest_service) {
+  // .service('speedRead_service', ['headerMenu_service', '$rootScope', function(headerMenu_service, $rootScope, nest_service) {
+  .service('speedRead_service', ['data_service', 'headerMenu_service', '$rootScope', 'nest_service', function(data_service, headerMenu_service, $rootScope, nest_service) {
     var selectedScope;
     var noteKeys;
     var words;
-    // var notes = data_service.getNotes();
+    var notes = data_service.getNotes();
 
     this.displayAndPlay = function() {
       //open modal
@@ -33,7 +33,7 @@ angular.module('speedRead_module')
         console.log(words[i]);
         i += 1;
         if(i < length) {
-          setTimeout(recur, 333);
+          setTimeout(recur, 166);
         }
       }
       recur();
@@ -55,7 +55,7 @@ angular.module('speedRead_module')
       if (typeof noteScopeOrKey === 'string') {
         text = notes[noteScopeOrKey].data.text;
       } else {
-        text = noteScope.note.data.text;
+        text = noteScopeOrKey.note.data.text;
       }
       words = text.match(/\S+/g);
       return words;
@@ -63,10 +63,12 @@ angular.module('speedRead_module')
 
     var getWordsFromGroup = function(groupScope) {
       var groupKey = groupScope.key;
-      var noteKeys = nest_service(groupKey, 'notes');
+      var noteKeys = nest_service.findChildren(groupKey, 'notes');
       var allWords = [];
+      var allWordsTemp;
       angular.forEach(noteKeys, function(noteKey) {
-        allWords.concat(getWordsFromNote(noteKey));
+        allWordsTemp = Array.prototype.concat(allWords, getWordsFromNote(noteKey));
+        allWords = allWordsTemp;
       });
       return allWords;
     };
