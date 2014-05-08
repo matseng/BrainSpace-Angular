@@ -1,8 +1,8 @@
 //headerMenu_controller.js
 
 angular.module('headerMenu_module')
-  .controller('menu_controller', ['$rootScope', '$scope', 'notesFactory', 'headerMenu_service', 'hashtagService', 'autocomplete_service',
-    function($rootScope, $scope, notesFactory, headerMenu_service, hashtagService, autocomplete_service) {
+  .controller('menu_controller', ['$rootScope', '$scope', 'notesFactory', 'headerMenu_service', 'hashtagService', 'autocomplete_service', 'speedRead_service',
+    function($rootScope, $scope, notesFactory, headerMenu_service, hashtagService, autocomplete_service, speedRead_service) {
       $scope.buttonSelected = null;
       $scope.menuState = 'explore'; //explore, newNote, drawGroup
       $rootScope.menuState = $scope.menuState;
@@ -38,12 +38,16 @@ angular.module('headerMenu_module')
       $scope.toggleModal = function() {
         console.log("hello world");
         var $modal = angular.element(document.getElementById('modalContainer'));
-        // console.log($modal.css('visibility'));
-        if(!$modal.css('visibility') || $modal.css('visibility') === 'visible') {
-          $modal.css({visibility: 'hidden'});
-        } else {
+        if(!$modal.css('visibility') || $modal.css('visibility') === 'hidden') {
           $modal.css({visibility: 'visible'});
+        } else {
+          $modal.css({visibility: 'hidden'});
         }
+      };
+
+      $scope.speedReadClicked = function() {
+        // speedRead_service
+        console.log("hello world");
       };
     }
   ]);
