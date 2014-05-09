@@ -64,6 +64,7 @@ angular.module('speedRead_module')
     var getWordsFromGroup = function(groupScope) {
       var groupKey = groupScope.key;
       var noteKeys = nest_service.findChildren(groupKey, 'notes');
+      nest_service.sortByY(noteKeys);
       var allWords = [];
       var allWordsTemp;
       angular.forEach(noteKeys, function(noteKey) {

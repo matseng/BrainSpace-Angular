@@ -35,4 +35,12 @@ angular.module('nest_module')
       }
     };
 
+    this.sortByY = function(arrayOfKeys) {
+      arrayOfKeys.sort(function(keyA, keyB) {
+        var Ya = notes[keyA].data.y;
+        var Yb = notes[keyB].data.y;
+        return Ya - Yb;
+      });
+    };
+
   }]);

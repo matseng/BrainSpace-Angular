@@ -1,9 +1,10 @@
 angular.module('note_module')
-  .controller('note-controller', ['$scope', 'headerMenu_service', 
-    function($scope, headerMenu_service) {
+  .controller('note-controller', ['$scope', 'headerMenu_service', '$rootScope',
+    function($scope, headerMenu_service, $rootScope) {
     
       $scope.change = function() {
-        $scope.$emit('update:note', 'note_controller.js');
+        // $scope.$emit('update:note', 'note_controller.js');
+        $rootScope.$broadcast('update:note', 'note_controller.js', $scope);
       };
 
       $scope.noteMousedown = function($event) {
