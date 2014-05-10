@@ -36,8 +36,8 @@ angular.module('canvas.module', [])
         data_service.addGroup(groupObject);
       });
 
-      $scope.$on('update:group', function(event, fromFile, updatedProperty, deltaObj) {
-        var groupScope = event.targetScope;
+      $scope.$on('update:group', function(event, fromFile, groupScope, updatedProperty, deltaObj) {
+        // var groupScope = event.targetScope;
         var key = Object.keys(updatedProperty)[0];
         if(key == 'position'){
           var position = updatedProperty[key];
