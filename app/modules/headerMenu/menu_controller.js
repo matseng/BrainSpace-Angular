@@ -37,7 +37,7 @@ angular.module('headerMenu_module')
 
       $scope.toggleModal = function() {
         console.log("hello world");
-        var $modal = angular.element(document.getElementById('modalContainer'));
+        var $modal = angular.element(document.getElementById('modalBackground'));
         if(!$modal.css('visibility') || $modal.css('visibility') === 'hidden') {
           $modal.css({visibility: 'visible'});
         } else {

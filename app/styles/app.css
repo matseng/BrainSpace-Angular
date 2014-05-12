@@ -132,42 +132,29 @@ h1 {
 /*
 * Modal window
 */
-#modalContainer {
+
+#modalBackground {
   position: fixed;
   visibility: hidden;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
+  background-color: rgba(0,0,0,0.8);
 }
 
-.modalBackground {
+#modalBackground .modal {
   position: fixed;
-  /*z-index: -10;*/
-  /*visibility: visible;*/
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: black;
-  opacity: 0.8;
-}
-
-.modal {
-  position: fixed;
-  /*visibility: visible;*/
-  opacity: 1;
   top: 50%;
   left: 50%;
   margin-left: -100;
   margin-top: -100;
   width: 200px;
   height: 200px;
-  /*line-height: 200px;*/
+  border: 2;
   background-color: black;
   text-align: center;
   display: table;
-  /*vertical-align: middle;*/
 }
 
 .modal span {

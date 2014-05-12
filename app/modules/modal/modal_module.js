@@ -12,12 +12,12 @@ angular.module('modal_module')
     });
 
     var modalVisible = function() {
-      var $modal = angular.element(document.getElementById('modalContainer'));
+      var $modal = angular.element(document.getElementById('modalBackground'));
       $modal.css({visibility: 'visible'});
     };
 
     var toggleModal = function() {
-      var $modal = angular.element(document.getElementById('modalContainer'));
+      var $modal = angular.element(document.getElementById('modalBackground'));
       if(!$modal.css('visibility') || $modal.css('visibility') === 'hidden') {
         $modal.css({visibility: 'visible'});
       } else {
