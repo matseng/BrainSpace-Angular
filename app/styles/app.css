@@ -155,12 +155,32 @@ h1 {
   display: table;
 }
 
-.modal span {
+#modalBackground .modal .tableCell {
   display: table-cell;
   vertical-align: middle;
   color: white;
   font-size: 24;
   font-family: sans-serif;
+  /*border-style: solid;*/
+  /*border-color: red;*/
+  z-index: 1;
+}
+
+#modalBackground .modal .tableCell .textBox {
+  /*border-style: solid;*/
+  /*border-color: gray;*/
+  background-color: black;
+  padding: 0.5em;
+
+}
+
+#modalBackground .modal .verticalLine {
+  position: absolute;
+  height: 200px;
+  left: 50%;
+  width: 2px;
+  background-color: gray;
+  z-index: -1;
 }
 
 
