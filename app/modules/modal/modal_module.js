@@ -26,3 +26,32 @@ angular.module('modal_module')
     };
 
   }]);
+
+  angular.module('modal_module')
+  .directive('modalDirective', [function() {
+    return {
+      restrict: 'A',
+      // controller: myController,
+      // templateURL: myTemplateURLFilename,
+      link: link
+      // controller: function($scope, $element){}
+    };
+
+    function link($scope, $element, attrs) {
+      $element.on('click', function(event) {
+        if(event.srcElement.classList.contains('modalBackground')) {
+          if(!$element.css('visibility') || $element.css('visibility') === 'hidden') {
+            $element.css({visibility: 'visible'});
+          } else {
+            $element.css({visibility: 'hidden'});
+          }
+        }
+      });
+    }
+  }]);
+
+  // angular.module('modal_module')
+  // .service('modal_service', [function() {
+  //   var $modal = 
+
+  // }]);
