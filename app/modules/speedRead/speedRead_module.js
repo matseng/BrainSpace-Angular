@@ -25,18 +25,20 @@ angular.module('speedRead_module')
       //open modal
       //start playing words from a group or a note
       var words = getWordsFromSelectedScope();
-      console.log(words);
-      var length = words.length;
-      var i = 0;
-      var recur = function() {
-        $rootScope.$broadcast('modal:update', 'speedRead_service', words[i]);
-        console.log(words[i]);
-        i += 1;
-        if(i < length) {
-          setTimeout(recur, 166);
+      if(words) {
+        console.log(words);
+        var length = words.length;
+        var i = 0;
+        var recur = function() {
+          $rootScope.$broadcast('modal:update', 'speedRead_service', words[i]);
+          console.log(words[i]);
+          i += 1;
+          if(i < length) {
+            setTimeout(recur, 166);
+          }
         }
+        recur();
       }
-      recur();
     };
 
     var getWordsFromSelectedScope = function() {
