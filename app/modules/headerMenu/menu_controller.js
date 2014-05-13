@@ -37,13 +37,6 @@ angular.module('headerMenu_module')
 
       $scope.toggleModal = function() {
         modal_service.toggle();
-        // console.log("hello world");
-        // var $modal = angular.element(document.getElementById('modalBackground'));
-        // if(!$modal.css('visibility') || $modal.css('visibility') === 'hidden') {
-        //   $modal.css({visibility: 'visible'});
-        // } else {
-        //   $modal.css({visibility: 'hidden'});
-        // }
       };
     }
   ]);

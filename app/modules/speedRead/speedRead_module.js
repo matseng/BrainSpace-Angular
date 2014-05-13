@@ -6,7 +6,7 @@ angular.module('speedRead_module')
     return {
       restrict: 'A',
       controller: function($scope, $element) {
-        $scope.speedRead = function() {
+        $scope.speedReadClicked = function() {
           speedRead_service.displayAndPlay();
         };
       }
@@ -15,15 +15,13 @@ angular.module('speedRead_module')
 
 angular.module('speedRead_module')
   // .service('speedRead_service', ['headerMenu_service', '$rootScope', function(headerMenu_service, $rootScope, nest_service) {
-  .service('speedRead_service', ['data_service', 'headerMenu_service', '$rootScope', 'nest_service', function(data_service, headerMenu_service, $rootScope, nest_service) {
+  .service('speedRead_service', ['data_service', 'headerMenu_service', '$rootScope', 'nest_service', 'modal_service', function(data_service, headerMenu_service, $rootScope, nest_service, modal_service) {
     var selectedScope;
     var noteKeys;
     var words;
     var notes = data_service.getNotes();
 
     this.displayAndPlay = function() {
-      //open modal
-      //start playing words from a group or a note
       var words = getWordsFromSelectedScope();
       words = words || ['ooo', '00000'];
       if(words) {
@@ -32,6 +30,7 @@ angular.module('speedRead_module')
         var i = 0;
         var recur = function() {
           $rootScope.$broadcast('modal:update', 'speedRead_service', words[i], leftOfCenterOffset(words[i]));
+          // modal_service will replace $broadcast
           i += 1;
           if(i < length) {
             setTimeout(recur, 300);
@@ -97,6 +96,33 @@ angular.module('speedRead_module')
       $modalContent.append($word);
       width = $word[0].getBoundingClientRect().width;
       return width;
+    };
+
+    var makeModalDiv = function() {
+      var $div = angular.element(
+        "<div class='modal'>  \
+          <div class='verticalLine'></div>  \
+          <div class='tableCell' id='modalContent'>  \
+            <span id='modalSpan' class='textBox'>{{text}}</span>  \
+          </div>  \
+        </div>");
+    };
+
+    var insertWord = function(word) {
+      var $modalSpan = angular.element(document.getElementById('modalSpan'));
+      var $wordDiv = makeWordDiv(word, leftOfCenterIndex(word));
+      $modalSpan.html($wordDiv);
+    };
+
+    var makeWordDiv = function(word, targetIndex) {
+      var $div = angular.element("<div class='focusWord'></div>");
+      for(var i = 0; i < word.length; i++) {
+        if(i === targetIndex) {
+          $div.append("<span class='focusChar'>" + word[i] + "</span>");
+        } else {
+          $div.append("<span>" + word[i] + "</span>");
+        }
+      }
     };
 
     var leftOfCenterOffset = function(word) {

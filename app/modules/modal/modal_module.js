@@ -55,6 +55,8 @@ angular.module('modal_module')
         $modalSpan.css({left: offset});
       };
 
-      // this.ren
+      this.insert = function($modalContent) {
+        $modal.append($modalContent);
+      };
 
   }]);
