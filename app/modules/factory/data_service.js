@@ -71,5 +71,10 @@ angular.module('notes_factory_module')
           console.log("Error");
         }
       };
+
+      this.delete = function(key) {
+        delete notesCollection[key];
+        delete groupsCollection[key];
+      };
     }
   ]);

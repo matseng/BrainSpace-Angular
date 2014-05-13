@@ -1,8 +1,8 @@
 //headerMenu_controller.js
 
 angular.module('headerMenu_module')
-  .controller('menu_controller', ['$rootScope', '$scope', 'notesFactory', 'headerMenu_service', 'hashtagService', 'autocomplete_service', 'modal_service', 'speedRead_service',
-    function($rootScope, $scope, notesFactory, headerMenu_service, hashtagService, autocomplete_service, modal_service, speedRead_service) {
+  .controller('menu_controller', ['$rootScope', '$scope', 'notesFactory', 'headerMenu_service', 'hashtagService', 'autocomplete_service', 'modal_service', 'speedRead_service', 'data_service',
+    function($rootScope, $scope, notesFactory, headerMenu_service, hashtagService, autocomplete_service, modal_service, speedRead_service, data_service) {
       $scope.buttonSelected = null;
       $scope.menuState = 'explore'; //explore, newNote, drawGroup
       $rootScope.menuState = $scope.menuState;
@@ -29,6 +29,7 @@ angular.module('headerMenu_module')
           if(confirm("Confirm delete?")) {
             headerMenu_service.getElement().remove();
             notesFactory.deleteObject(headerMenu_service.getScope());
+            data_service.delete(headerMenu_service.getScope().key);
           }
         } else {
           console.log("Select a note prior to clicking delete.");
