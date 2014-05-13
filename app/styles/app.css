@@ -162,17 +162,17 @@ h1 {
   color: white;
   font-size: 24;
   font-family: sans-serif;
-  border-style: solid;
-  border-color: red;
+  /*border-style: solid;*/
+  /*border-color: red;*/
   z-index: 1;
 }
 
 #modalBackground .modal .tableCell .textBox {
   position: relative;
-  border-style: solid;
-  border-color: red;
-  /*background-color: black;*/
-  padding: 0.5em;
+  /*border-style: solid;*/
+  /*border-color: red;*/
+  background-color: black;
+  padding: 0.25em;
 
 }
 
@@ -181,6 +181,7 @@ h1 {
   height: 200px;
   left: 50%;
   width: 2px;
+  margin: -1px;
   background-color: gray;
   z-index: -1;
 }
