@@ -26,7 +26,7 @@
       <label class="btn btn-primary">
         <input type="radio" ng-model="menuState" value="drawGroup"> Draw Group
       </label>
-      <button ng-click='toggleModal()'>Toggle Modal</button>
+      <!-- <button ng-click='toggleModal()'>Toggle Modal</button> -->
       <button speed_read ng-click='speedReadClicked()'>Speed Read</button>
     </div>
     <note_menu_directive>
@@ -51,20 +51,9 @@
   </div>
   <div navigation_directive id="allNotesContainerBackground">
     <div add_note_directive add_group_directive id='allNotesContainer' ng-controller='allNotes_controller'>
-      <!-- <note_model_directive ng-repeat="(key, note) in notes2"></note_model_directive> -->
-      <!-- <div draggable_directive resizable_div_directive nest_children_directive class='group' ng-controller='group_controller' ng-repeat="(key, group) in groups2"  ng-style="{left: group.style.left, top: group.style.top, width: group.style.width, height: group.style.height}" data-type="group" ng-mousedown='groupMousedown($event)'> -->
-        <!-- Does NOT do 2-way data binding with: ng-style={{group}} -->
-      <!-- <div class='triangle'></div>
-      </div> -->
     </div>
   </div>
   <div modal_directive ng-controller='modal_controller' id='modalBackground'> 
-    <div class='modal'>
-      <div class='verticalLine'></div>
-      <div class='tableCell' id='modalContent'>
-        <span id='modalSpan' class='textBox'>{{text}}</span>
-      </div>
-    </div>
   </div>
 
   <script type="text/javascript" src="./bower_components/angular/angular.js"></script>

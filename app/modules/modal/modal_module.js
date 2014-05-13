@@ -55,8 +55,10 @@ angular.module('modal_module')
         $modalSpan.css({left: offset});
       };
 
-      this.insert = function($modalContent) {
-        $modal.append($modalContent);
+      this.setTemplate = function($modalTemplate) {
+        $modal.children().remove();
+        $modal.append($modalTemplate);
+        this.visible();
       };
 
   }]);

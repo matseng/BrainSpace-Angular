@@ -22,18 +22,19 @@ angular.module('speedRead_module')
     var notes = data_service.getNotes();
 
     this.displayAndPlay = function() {
+      modal_service.setTemplate(makeSpeedReadDiv());
       var words = getWordsFromSelectedScope();
-      words = words || ['ooo', '00000'];
+      words = words || 'Click a note or a group to begin speed reading...'.split(/\s/);
       if(words) {
         console.log(words);
         var length = words.length;
         var i = 0;
         var recur = function() {
-          $rootScope.$broadcast('modal:update', 'speedRead_service', words[i], leftOfCenterOffset(words[i]));
-          // modal_service will replace $broadcast
+          // $rootScope.$broadcast('modal:update', 'speedRead_service', words[i], leftOfCenterOffset(words[i]));
+          insertWord(words[i]);
           i += 1;
           if(i < length) {
-            setTimeout(recur, 300);
+            setTimeout(recur, 166);
           }
         }
         recur();
@@ -98,20 +99,22 @@ angular.module('speedRead_module')
       return width;
     };
 
-    var makeModalDiv = function() {
+    var makeSpeedReadDiv = function() {
       var $div = angular.element(
         "<div class='modal'>  \
           <div class='verticalLine'></div>  \
-          <div class='tableCell' id='modalContent'>  \
-            <span id='modalSpan' class='textBox'>{{text}}</span>  \
-          </div>  \
+          <div class='tableCell' id='modalContent'></div>  \
         </div>");
+      return $div;
     };
 
     var insertWord = function(word) {
-      var $modalSpan = angular.element(document.getElementById('modalSpan'));
+      var $modalContent = angular.element(document.getElementById('modalContent'));
+      $modalContent.children().remove();
       var $wordDiv = makeWordDiv(word, leftOfCenterIndex(word));
-      $modalSpan.html($wordDiv);
+      var offset = leftOfCenterOffset(word);
+      $wordDiv.css({position: 'relative', left: offset});
+      $modalContent.append($wordDiv);
     };
 
     var makeWordDiv = function(word, targetIndex) {
@@ -123,6 +126,7 @@ angular.module('speedRead_module')
           $div.append("<span>" + word[i] + "</span>");
         }
       }
+      return $div;
     };
 
     var leftOfCenterOffset = function(word) {

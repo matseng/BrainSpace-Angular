@@ -160,7 +160,7 @@ h1 {
   width: 100%;
   vertical-align: middle;
   color: white;
-  font-size: 24;
+  font-size: 32;
   font-family: sans-serif;
   /*border-style: solid;*/
   /*border-color: red;*/
@@ -186,7 +186,15 @@ h1 {
   z-index: -1;
 }
 
+#modalBackground .focusWord {
+  display: inline;
+  background-color: black;
+  padding: 0.25em;
+}
 
+#modalBackground .focusChar {
+  color: #5890ff;
+}
 /*
 * 
 */
