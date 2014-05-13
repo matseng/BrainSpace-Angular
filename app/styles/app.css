@@ -149,7 +149,7 @@ h1 {
   margin-top: -100;
   width: 100%;
   height: 200px;
-  border: 2;
+  /*border: 2;*/
   background-color: black;
   text-align: center;
   display: table;
@@ -157,19 +157,21 @@ h1 {
 
 #modalBackground .modal .tableCell {
   display: table-cell;
+  width: 100%;
   vertical-align: middle;
   color: white;
   font-size: 24;
   font-family: sans-serif;
-  /*border-style: solid;*/
-  /*border-color: red;*/
+  border-style: solid;
+  border-color: red;
   z-index: 1;
 }
 
 #modalBackground .modal .tableCell .textBox {
-  /*border-style: solid;*/
-  /*border-color: gray;*/
-  background-color: black;
+  position: relative;
+  border-style: solid;
+  border-color: red;
+  /*background-color: black;*/
   padding: 0.5em;
 
 }

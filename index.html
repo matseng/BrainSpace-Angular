@@ -61,7 +61,9 @@
   <div modal_directive ng-controller='modal_controller' id='modalBackground'> 
     <div class='modal'>
       <div class='verticalLine'></div>
-      <div class='tableCell'><span class='textBox'>{{text}}</span></div>
+      <div class='tableCell' id='modalContent'>
+        <span id='modalSpan' class='textBox'>{{text}}</span>
+      </div>
     </div>
   </div>
 

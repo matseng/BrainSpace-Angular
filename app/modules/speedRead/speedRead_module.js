@@ -25,13 +25,13 @@ angular.module('speedRead_module')
       //open modal
       //start playing words from a group or a note
       var words = getWordsFromSelectedScope();
+      words = words || ['ooo', '55555'];
       if(words) {
         console.log(words);
         var length = words.length;
         var i = 0;
         var recur = function() {
-          $rootScope.$broadcast('modal:update', 'speedRead_service', words[i]);
-          console.log(words[i]);
+          $rootScope.$broadcast('modal:update', 'speedRead_service', words[i], leftOfCenterOffset(words[i]));
           i += 1;
           if(i < length) {
             setTimeout(recur, 166);
@@ -76,6 +76,39 @@ angular.module('speedRead_module')
       return allWords;
     };
 
+    var leftOfCenterIndex = function(word) {
+      var targetIndex;
+      if(word.length % 2 === 0) {
+        targetIndex = word.length / 2 - 1;
+      } else if (word.length === 3) {
+        targetIndex = 1;
+      } else {
+        targetIndex = Math.floor(word.length / 2) - 1;
+      }
+      return targetIndex;
+    };
 
+    var getWidth = function(word) {
+      var width;
+      var $modalContent = angular.element(document.getElementById('modalContent'));
+      angular.element(document.getElementById('currentWord')).remove();
+      var $word = angular.element("<div id='currentWord'>" + word + "</div>");
+      // $word.css({position: 'absolute', visibility: 'hidden'});
+      $word.css({position: 'absolute'});
+      $modalContent.append($word);
+      width = $word[0].getBoundingClientRect().width;
+      console.log(word, width);
+      return width;
+    };
+
+    var leftOfCenterOffset = function(word) {
+      var offset;
+      var targetIndex = leftOfCenterIndex(word);
+      var wordWidth, subStringWidth;
+      var wordCenter = getWidth(word) / 2;
+      var targetPosition = (getWidth(word.substring(0, targetIndex)) + getWidth(word.substring(0, targetIndex + 1))) / 2; 
+      offset = wordCenter - targetPosition;
+      return offset;
+    }
 
   }]);
