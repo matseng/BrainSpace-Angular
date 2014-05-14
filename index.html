@@ -17,7 +17,7 @@
         <option selected="selected" value='Select #...'>Select #...</option>
         <option value="{{key}}" ng-repeat='(key, hashTag) in hashTags'>{{key}}</option>
       </select>
-      <label class="btn btn-primary" ng-click='buttonClicked(event)'>
+      <label class="btn btn-primary icon ion-home" ng-click='buttonClicked(event)'>
         <input type="radio" ng-model="menuState" value="explore" checked> Explore
       </label>
       <label class="btn btn-primary">
@@ -91,5 +91,7 @@
   <script type="text/javascript" src="./app/modules/speedRead/speedRead_module.js"></script>
 
   <link rel="stylesheet" type="text/css" href="./app/styles/app.css">
+  <link rel="stylesheet" type="text/css" href="./app/styles/ionicons.css">
+
 </body>
 </html>
