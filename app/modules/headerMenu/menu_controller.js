@@ -1,8 +1,8 @@
 //headerMenu_controller.js
 
 angular.module('headerMenu_module')
-  .controller('menu_controller', ['$rootScope', '$scope', 'notesFactory', 'headerMenu_service', 'hashtagService', 'autocomplete_service', 'modal_service', 'speedRead_service', 'data_service',
-    function($rootScope, $scope, notesFactory, headerMenu_service, hashtagService, autocomplete_service, modal_service, speedRead_service, data_service) {
+  .controller('menu_controller', ['$rootScope', '$scope', 'notesFactory', 'headerMenu_service', 'hashtagService', 'autocomplete_service', 'modal_service', 'speedRead_service', 'data_service', 'note_service',
+    function($rootScope, $scope, notesFactory, headerMenu_service, hashtagService, autocomplete_service, modal_service, speedRead_service, data_service, note_service) {
       $scope.buttonSelected = null;
       $scope.menuState = 'explore'; //explore, newNote, drawGroup
       $rootScope.menuState = $scope.menuState;
@@ -57,6 +57,7 @@ angular.module('headerMenu_module')
           reader.onloadend = function(e) {
             var filePayload = e.target.result;
             console.log('will add image to note here');
+            note_service.addImage(filePayload);
           };
           reader.readAsDataURL(blob)
         }
