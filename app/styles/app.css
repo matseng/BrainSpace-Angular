@@ -1,4 +1,4 @@
-/*styles.css*/
+
 #menuContainer {
   position: relative;
   z-index: 1;
@@ -6,12 +6,6 @@
   border-style: solid;
   text-align: center;
   background-color: rgba(255, 255, 255, 0.9);
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 
 h1 {
@@ -63,12 +57,6 @@ h1 {
   display: inline-block;
   position: absolute;
   /*height: auto;*/
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 /*.note {
   display:block;
