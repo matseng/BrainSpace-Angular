@@ -39,5 +39,56 @@ angular.module('headerMenu_module')
       $scope.toggleModal = function() {
         modal_service.toggle();
       };
+
+      window.addEventListener("paste", pasteHandler)  //paste is a special event (i.e. Command-v)
+      function pasteHandler(e) {
+        var blob;
+        var clipboardData = event.clipboardData  ||  event.originalEvent.clipboardData
+        for(var i = 0; i < clipboardData.items.length; i++) {
+          if(clipboardData.items[i].type.match(/image/)) {
+            blob = clipboardData.items[i].getAsFile();
+            console.log(clipboardData.items[i].type);
+            break;
+          }
+        }
+
+        if(blob) {
+          var reader = new FileReader();
+          reader.onloadend = function(e) {
+            var filePayload = e.target.result;
+            console.log('will add image to note here');
+          };
+          reader.readAsDataURL(blob)
+        }
+      };
+    
     }
   ]);
+
+/* 
+    pasteImage: (event) ->
+      that = @
+      clipboardData = event.clipboardData  ||  event.originalEvent.clipboardData
+      items = clipboardData.items;
+      i = 0
+      while i < items.length
+        console.log(i)
+        if items[i].type.indexOf("image") == 0 
+          blob = items[i].getAsFile()
+          i = items.length
+        i++
+
+      # load image if there is a pasted image:      
+      if (blob != null)
+        reader = new FileReader();
+        reader.onloadend = (e) -> 
+          filePayload = e.target.result
+          node = new App.Models.Node({
+            text: "Title goes here"
+            username: 'me of course'
+            imageData: filePayload
+          })
+          node.setAbsCoordinates($('body').width() / 2, $('body').height() / 2)
+          that.collection.add(node)
+        reader.readAsDataURL(blob)
+*/
