@@ -29,7 +29,7 @@ angular.module('canvas.module', [])
           noteScope.set('width', updatedProperty.dimensions.width);
           noteScope.set('height', updatedProperty.dimensions.height);
         }
-        data_service.saveKey(noteScope.key);
+        data_service.saveKey(noteScope.key);  //TODO: only save changed attribute (not all the attributes)
       });
 
       $scope.$on('addGroup', function(event, emitterFile, groupObject) {
