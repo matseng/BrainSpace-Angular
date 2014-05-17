@@ -1,7 +1,7 @@
 angular.module('note_module', []);
 
 angular.module('note_module')
-  .service('note_service', ['data_service', function(data_service) {
+  .service('note_service', ['data_service', 'navigationService', function(data_service, navigationService) {
 
     var Note = function() {
       this.data = {
@@ -14,8 +14,8 @@ angular.module('note_module')
       this.style = {
         left: 0,
         top: 0,
-        width: 192,
-        height: 50,
+        width: 'inherit',
+        height: 'inherit',
         'font-size': '10pt'
       };
     };
@@ -31,9 +31,15 @@ angular.module('note_module')
     note.data.image = filePayload;
   };
 
+  var setPosition = function(note) {
+    note.data.x = -navigationService.getTx();  //get global center x,y
+    note.data.y = -navigationService.getTy();
+  }
+
     this.addImage = function(filePayload) {
       var note = new Note();
       setImage(note, filePayload);
+      // setPosition(note);
       console.log(note);
       data_service.addNote(note);
       //add note via data_service

@@ -26,6 +26,7 @@ angular.module("note_module")
 
             // initialElementX = element.prop('offsetLeft');
             // initialElementY = element.prop('offsetTop');
+            $event.preventDefault();
             initialElementX = $scope[element[0].dataset.type].data.x || 0;
             initialElementY = $scope[element[0].dataset.type].data.y || 0;
             initialMouseX = $event.clientX;
