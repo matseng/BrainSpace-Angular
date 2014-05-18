@@ -32,18 +32,16 @@ angular.module('note_module')
   };
 
   var setPosition = function(note) {
-    note.data.x = -navigationService.getTx();  //get global center x,y
-    note.data.y = -navigationService.getTy();
+    note.data.x = navigationService.getX();  //gets the global coordinates of the center of the window
+    note.data.y = navigationService.getY();
   }
 
     this.addImage = function(filePayload) {
       var note = new Note();
       setImage(note, filePayload);
-      // setPosition(note);
+      setPosition(note);
       console.log(note);
       data_service.addNote(note);
-      //add note via data_service
-        //then work on data_service --> noteModel_directive --> note_template to render the image by replacing the textarea with an image
       //give image left, right the coordinate of the mouse
     };
 

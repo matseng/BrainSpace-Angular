@@ -4,6 +4,9 @@ angular.module('navigation_module')
 
     var scale = 1;
     var t = {'tx': 0, 'ty': 0};
+    var initialCenterX, initialCenterY;
+    var mouseWindowX;
+    var mouseWindowY;
     
     this.setScale = function(newScale){
       scale = newScale;
@@ -32,16 +35,44 @@ angular.module('navigation_module')
       return str;
     };
 
-    this.getGlobalCoordinates = function(windowX, windowY) {
+    /*
+    * Converts window coordinates into global coordinates
+    * If not window coordinate is provided, defaults to center of the window
+    */
+    this.getX = function(windowX) {
       var w = window,
       d = document,
       e = d.documentElement,
       g = d.getElementsByTagName('body')[0],
-      windowX = windowX || w.innerWidth || e.clientWidth || g.clientWidth,
-      windowY = windowY || w.innerHeight|| e.clientHeight|| g.clientHeight;
-      var globalX = (windowX / 2 - t.tx) * (1 / scale);
-      var globalY = (windowY / 2 - t.ty) * (1 / scale);
-      //TODO...
+      windowX = windowX || mouseWindowX || w.innerWidth / 2 || e.clientWidth / 2 || g.clientWidth / 2;
+      var globalX = (windowX - (initialCenterX + t.tx)) / scale + initialCenterX;
+      return globalX;
+    };
+
+    this.getY = function(windowY) {
+      var w = window,
+      d = document,
+      e = d.documentElement,
+      g = d.getElementsByTagName('body')[0],
+      windowY = windowY || mouseWindowY || w.innerHeight / 2 || e.clientHeight / 2 || g.clientHeight / 2;
+      var globalY = (windowY - (initialCenterY + t.ty)) / scale + initialCenterY;
+      return globalY;
+    };
+
+    var addMouseListener = (function() {
+      var w = window,
+      d = document,
+      e = d.documentElement,
+      g = d.getElementsByTagName('body')[0];
+      initialCenterX = w.innerWidth / 2 || e.clientWidth / 2 || g.clientWidth / 2;
+      initialCenterY = w.innerHeight / 2 || e.clientHeight / 2 || g.clientHeight / 2;
+      var target = w || d || e || g;
+      target.addEventListener('mousemove', setMouseWindowCoordinates);
+    })();
+
+    function setMouseWindowCoordinates(mouse) {
+      mouseWindowX = mouse.clientX;
+      mouseWindowY = mouse.clientY;
     };
 
   }]);
